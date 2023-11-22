@@ -1,0 +1,48 @@
+# Module: AWS API GATEWAY
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.4 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.63 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.63 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_api_gateway_integration.integrations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
+| [aws_api_gateway_method.methods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) | resource |
+| [aws_api_gateway_resource.resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_resource) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_api_id"></a> [api\_id](#input\_api\_id) | API Gateway ID | `string` | `""` | no |
+| <a name="input_api_root_resource_id"></a> [api\_root\_resource\_id](#input\_api\_root\_resource\_id) | API Gateway root resource id | `string` | `""` | no |
+| <a name="input_authorizer_id"></a> [authorizer\_id](#input\_authorizer\_id) | API Gateway Authorizer ID | `string` | `null` | no |
+| <a name="input_current_awsaccount_id"></a> [current\_awsaccount\_id](#input\_current\_awsaccount\_id) | The current AWS Account ID | `string` | `""` | no |
+| <a name="input_current_region"></a> [current\_region](#input\_current\_region) | The current region | `string` | `""` | no |
+| <a name="input_parameters"></a> [parameters](#input\_parameters) | API Gateway Resource parameters to be passed to the module | `any` | <pre>{<br>  "api_name": "default",<br>  "name": "/",<br>  "resource_details": {<br>    "authorizer": null,<br>    "authorizer_id": null,<br>    "http_method": [<br>      "ANY"<br>    ],<br>    "lambda_name": ""<br>  }<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "terraform": null<br>}</pre> | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_integrations"></a> [integrations](#output\_integrations) | API Gateway integrations |
+| <a name="output_integrations_id"></a> [integrations\_id](#output\_integrations\_id) | Concatenated list of API Gateway Integration IDs |
+| <a name="output_methods"></a> [methods](#output\_methods) | API Gateway methods |
+| <a name="output_methods_id"></a> [methods\_id](#output\_methods\_id) | Concatenated list of API Gateway Methods IDs |
+| <a name="output_resource"></a> [resource](#output\_resource) | API Gateway resource |
