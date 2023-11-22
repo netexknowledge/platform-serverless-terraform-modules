@@ -1,0 +1,11 @@
+.terraform*
+*.tfstate*
+.vscode
+
+.nx/installation
+.nx/cache
+
+# Node modules
+**/node_modules
+tmp
+
