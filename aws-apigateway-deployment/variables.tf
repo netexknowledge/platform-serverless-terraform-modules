@@ -1,0 +1,54 @@
+variable "api_id" {
+  description = "API Gateway ID"
+  type        = string
+  default     = ""
+}
+
+variable "triggers" {
+  description = "Object of triggers of API Gateway deployment"
+  type        = any
+  default     = {}
+}
+
+variable "cloudwatch_log_group_arn" {
+  description = "ARN of CloudWatch log group"
+  type        = string
+  nullable    = true
+  default     = null
+}
+
+variable "stage_name" {
+  description = "Name of API Gateway deployment stage"
+  type        = string
+  nullable    = true
+  default     = "default"
+}
+
+variable "current_region" {
+  description = "The current region"
+  type        = string
+  default     = ""
+}
+
+variable "current_awsaccount_id" {
+  description = "The current AWS Account ID"
+  type        = string
+  default     = ""
+}
+
+variable "tags" {
+  description = "Default tags of resources to add"
+  type = object({
+    project     = string
+    product     = string
+    terraform   = string
+    environment = string
+  })
+
+  default = {
+    project     = null
+    product     = null
+    terraform   = null
+    environment = null
+  }
+}
