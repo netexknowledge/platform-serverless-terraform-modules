@@ -80,7 +80,7 @@ resource "aws_appautoscaling_target" "dynamodb_table_write_target" {
 resource "aws_appautoscaling_policy" "dynamodb_table_write_policy" {
   count = lookup(var.autoscaling, "write", null) != null ? 1 : 0
 
-  name               = "DynamoDBReadCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_write_target[0].resource_id}"
+  name               = "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.dynamodb_table_write_target[0].resource_id}"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.dynamodb_table_write_target[0].resource_id
   scalable_dimension = aws_appautoscaling_target.dynamodb_table_write_target[0].scalable_dimension
@@ -88,7 +88,7 @@ resource "aws_appautoscaling_policy" "dynamodb_table_write_policy" {
 
   target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
-      predefined_metric_type = "DynamoDBReadCapacityUtilization"
+      predefined_metric_type = "DynamoDBWriteCapacityUtilization"
     }
 
     target_value = lookup(var.autoscaling.write, "target_utilization", 70)
