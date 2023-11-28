@@ -15,8 +15,6 @@ resource "aws_api_gateway_method" "methods" {
   resource_id   = aws_api_gateway_resource.resource.id
   http_method   = each.key
   authorization = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
-  # authorizer_id = lookup(var.parameters, "authorizer_id", null) != null ? var.parameters.authorizer_id : var.authorizer_id
-  # authorizer_id = var.authorizer_id
   authorizer_id = var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id
 }
 
@@ -29,6 +27,5 @@ resource "aws_api_gateway_integration" "integrations" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   content_handling        = "CONVERT_TO_TEXT"
-  # uri                     = "arn:aws:apigateway:${var.current_region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.current_region}:${var.current_awsaccount_id}:function:${var.parameters.lambda_name}/invocations" #var.references.lambda_functions_arn[each.value.lambda_name]
   uri                     = var.lambda_function_invoke_arn
 }

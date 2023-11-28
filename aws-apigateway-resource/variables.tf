@@ -55,18 +55,6 @@ variable "lambda_function_invoke_arn" {
   default     = null
 }
 
-variable "current_region" {
-  description = "The current region"
-  type        = string
-  default     = ""
-}
-
-variable "current_awsaccount_id" {
-  description = "The current AWS Account ID"
-  type        = string
-  default     = ""
-}
-
 locals {
   name        = try(var.parameters.name, "default")
   stage       = try(var.parameters.stage, "default")
