@@ -32,9 +32,11 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_id"></a> [api\_id](#input\_api\_id) | API Gateway ID | `string` | `""` | no |
-| <a name="input_current_awsaccount_id"></a> [current\_awsaccount\_id](#input\_current\_awsaccount\_id) | The current AWS Account ID | `string` | `""` | no |
-| <a name="input_current_region"></a> [current\_region](#input\_current\_region) | The current region | `string` | `""` | no |
-| <a name="input_parameters"></a> [parameters](#input\_parameters) | API Gateway Authorizer parameters to be passed to the module | `any` | <pre>{<br>  "api_name": "default",<br>  "authorizer_details": {<br>    "authorizer_result_ttl_in_seconds": 0,<br>    "identity_source": "method.request.header.Authorization",<br>    "lambda_name": "authorizer"<br>  },<br>  "name": "authorizer"<br>}</pre> | no |
+| <a name="input_api_name"></a> [api\_name](#input\_api\_name) | API Gateway name | `string` | `""` | no |
+| <a name="input_lambda_function_arn"></a> [lambda\_function\_arn](#input\_lambda\_function\_arn) | Lambda function arn | `string` | `null` | no |
+| <a name="input_lambda_function_invoke_arn"></a> [lambda\_function\_invoke\_arn](#input\_lambda\_function\_invoke\_arn) | Lambda function invoke arn | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of API Gateway Authorizer | `string` | `"authorizer"` | no |
+| <a name="input_parameters"></a> [parameters](#input\_parameters) | API Gateway Authorizer parameters to be passed to the module | `any` | <pre>{<br>  "authorizer_result_ttl_in_seconds": 0,<br>  "identity_source": "method.request.header.Authorization",<br>  "lambda_name": "authorizer"<br>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "terraform": null<br>}</pre> | no |
 
 ## Outputs
