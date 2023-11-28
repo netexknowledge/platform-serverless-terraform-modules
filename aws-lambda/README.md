@@ -25,7 +25,10 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_lambda_params"></a> [lambda\_params](#input\_lambda\_params) | Lamba parameters to be passed to the module | `any` | <pre>{<br>  "allowed_triggers": {},<br>  "build_in_docker": false,<br>  "create_sam_metadata": false,<br>  "docker_image": "",<br>  "function_name": "",<br>  "handler": "",<br>  "publish": false,<br>  "runtime": "",<br>  "source_path": null,<br>  "timeout": 3<br>}</pre> | no |
+| <a name="input_allowed_triggers"></a> [allowed\_triggers](#input\_allowed\_triggers) | Allowed triggers to add the lambda | `any` | `{}` | no |
+| <a name="input_lambdas_permissions"></a> [lambdas\_permissions](#input\_lambdas\_permissions) | Permissions to add to the lambda | `any` | `{}` | no |
+| <a name="input_parameters"></a> [parameters](#input\_parameters) | Lamba parameters to be passed to the module | `any` | <pre>{<br>  "allowed_triggers": {},<br>  "build_in_docker": false,<br>  "create_sam_metadata": false,<br>  "docker_image": "",<br>  "function_name": "",<br>  "handler": "",<br>  "publish": false,<br>  "runtime": "",<br>  "source_path": null,<br>  "timeout": 3<br>}</pre> | no |
+| <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | Policies statetements with permissions to add to the lambda function role | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "terraform": null<br>}</pre> | no |
 
 ## Outputs

@@ -62,6 +62,12 @@ variable "allowed_triggers" {
   default     = {}
 }
 
+variable "lambdas_permissions" {
+  description = "Permissions to add to the lambda"
+  type        = any
+  default     = {}
+}
+
 locals {
   function_name       = try(var.parameters.function_name, "")
   handler             = try(var.parameters.handler, "")
@@ -90,4 +96,10 @@ variable "tags" {
     terraform   = null
     environment = null
   }
+}
+
+variable "policy_statements" {
+  description = "Policies statetements with permissions to add to the lambda function role"
+  type        = any
+  default     = {}
 }

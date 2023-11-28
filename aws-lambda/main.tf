@@ -25,6 +25,9 @@ module "lambda_function" {
     }
   }
 
+  attach_policy_statements = (var.policy_statements != {}) ? true : false
+  policy_statements        = var.policy_statements
+
   tags                 = var.tags
   role_tags            = var.tags
   s3_object_tags       = var.tags
