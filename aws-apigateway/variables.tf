@@ -4,18 +4,6 @@ variable "name" {
   default     = "default"
 }
 
-variable "current_region" {
-  description = "The current region"
-  type        = string
-  default     = ""
-}
-
-variable "current_awsaccount_id" {
-  description = "The current AWS Account ID"
-  type        = string
-  default     = ""
-}
-
 variable "tags" {
   description = "Default tags of resources to add"
   type = object({
@@ -31,4 +19,16 @@ variable "tags" {
     terraform   = null
     environment = null
   }
+}
+
+variable "enable_cloudwatch_role" {
+  description = "Enable CloudWatch role in API Gateway setings account"
+  type        = bool
+  default     = false
+}
+
+variable "custom_cloudwatch_role_arn" {
+  description = "Custom CloudWatch role ARN"
+  type        = string
+  default     = null
 }
