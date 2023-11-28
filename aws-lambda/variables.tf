@@ -69,16 +69,17 @@ variable "lambdas_permissions" {
 }
 
 locals {
-  function_name       = try(var.parameters.function_name, "")
-  handler             = try(var.parameters.handler, "")
-  runtime             = try(var.parameters.runtime, "")
-  timeout             = try(var.parameters.timeout, 3)
-  source_path         = try(var.parameters.source_path, null)
-  build_in_docker     = try(var.parameters.build_in_docker, false)
-  docker_image        = try(var.parameters.docker_image, "")
-  publish             = try(var.parameters.publish, false)
-  allowed_triggers    = try(var.parameters.allowed_triggers, {})
-  create_sam_metadata = try(var.parameters.create_sam_metadata, false)
+  function_name         = try(var.parameters.function_name, "")
+  handler               = try(var.parameters.handler, "")
+  runtime               = try(var.parameters.runtime, "")
+  timeout               = try(var.parameters.timeout, 3)
+  source_path           = try(var.parameters.source_path, null)
+  build_in_docker       = try(var.parameters.build_in_docker, false)
+  docker_image          = try(var.parameters.docker_image, "")
+  publish               = try(var.parameters.publish, false)
+  environment_variables = try(var.parameters.environment_variables, {})
+  allowed_triggers      = try(var.parameters.allowed_triggers, {})
+  create_sam_metadata   = try(var.parameters.create_sam_metadata, false)
 }
 
 variable "tags" {

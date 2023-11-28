@@ -2,15 +2,16 @@ module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "6.0.1"
 
-  timeout             = local.timeout
-  source_path         = local.source_path
-  build_in_docker     = local.build_in_docker
-  docker_image        = local.docker_image
-  function_name       = local.function_name
-  handler             = local.handler
-  runtime             = local.runtime
-  create_sam_metadata = local.create_sam_metadata
-  publish             = local.publish
+  timeout               = local.timeout
+  source_path           = local.source_path
+  build_in_docker       = local.build_in_docker
+  docker_image          = local.docker_image
+  function_name         = local.function_name
+  handler               = local.handler
+  runtime               = local.runtime
+  create_sam_metadata   = local.create_sam_metadata
+  publish               = local.publish
+  environment_variables = local.environment_variables
   allowed_triggers = {
     for trigger_name, trigger_config in var.allowed_triggers :
     trigger_name => {
