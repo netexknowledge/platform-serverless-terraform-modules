@@ -24,16 +24,10 @@ variable "stage_name" {
   default     = "default"
 }
 
-variable "current_region" {
-  description = "The current region"
-  type        = string
-  default     = ""
-}
-
-variable "current_awsaccount_id" {
-  description = "The current AWS Account ID"
-  type        = string
-  default     = ""
+variable "enable_cloudwatch_role" {
+  description = "Enable CloudWatch role in API Gateway setings account"
+  type        = bool
+  default     = false
 }
 
 variable "tags" {

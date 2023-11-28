@@ -30,8 +30,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_id"></a> [api\_id](#input\_api\_id) | API Gateway ID | `string` | `""` | no |
 | <a name="input_cloudwatch_log_group_arn"></a> [cloudwatch\_log\_group\_arn](#input\_cloudwatch\_log\_group\_arn) | ARN of CloudWatch log group | `string` | `null` | no |
-| <a name="input_current_awsaccount_id"></a> [current\_awsaccount\_id](#input\_current\_awsaccount\_id) | The current AWS Account ID | `string` | `""` | no |
-| <a name="input_current_region"></a> [current\_region](#input\_current\_region) | The current region | `string` | `""` | no |
+| <a name="input_enable_cloudwatch_role"></a> [enable\_cloudwatch\_role](#input\_enable\_cloudwatch\_role) | Enable CloudWatch role in API Gateway setings account | `bool` | `false` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | Name of API Gateway deployment stage | `string` | `"default"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "terraform": null<br>}</pre> | no |
 | <a name="input_triggers"></a> [triggers](#input\_triggers) | Object of triggers of API Gateway deployment | `any` | `{}` | no |
