@@ -37,7 +37,7 @@ No modules.
 | <a name="input_custom_cloudwatch_role_arn"></a> [custom\_cloudwatch\_role\_arn](#input\_custom\_cloudwatch\_role\_arn) | Custom CloudWatch role ARN | `string` | `null` | no |
 | <a name="input_enable_cloudwatch_role"></a> [enable\_cloudwatch\_role](#input\_enable\_cloudwatch\_role) | Enable CloudWatch role in API Gateway setings account | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | API Gateway name | `string` | `"default"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "terraform": null<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 
 ## Outputs
 
