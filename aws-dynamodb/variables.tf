@@ -11,6 +11,7 @@ variable "tags" {
     product     = string
     terraform   = string
     environment = string
+    samtemplate = string
   })
 
   default = {
@@ -18,6 +19,7 @@ variable "tags" {
     product     = null
     terraform   = null
     environment = null
+    samtemplate = null
   }
 }
 
