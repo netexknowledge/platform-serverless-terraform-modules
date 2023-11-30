@@ -1,44 +1,3 @@
-# locals {
-#   build_in_docker      = try(var.lambda_params.build_in_docker, false)
-#   docker_image         = try(var.lambda_params.docker_image, "")
-#   publish              = try(var.lambda_params.publish, false)
-#   allowed_triggers     = try(var.lambda_params.allowed_triggers, {})
-#   create_sam_metadata  = try(var.lambda_params.create_sam_metadata, false)
-# }
-# build_in_docker = try(var.lambda_params.build_in_docker, false),
-# docker_image = try(var.lambda_params.docker_image, "")
-# publish = try(var.lambda_params.publish, false),
-# allowed_triggers = try(var.lambda_params.allowed_triggers, {})
-# create_sam_metadata = try(var.lambda_params.create_sam_metadata, false)
-
-# variable "lambda_params" {
-#   description = "Lamba parameters to be passed to the module"
-#   type = object({ 
-#     function_name = string,
-#     handler = string,
-#     runtime = string,
-#     timeout = number,
-#     source_path = string,
-#     build_in_docker = bool,
-#     docker_image = string,
-#     publish = bool,
-#     allowed_triggers = map(any),
-#     create_sam_metadata = bool,
-#   })
-#   default = {
-#     function_name = "",
-#     handler = "",
-#     runtime = "",
-#     timeout = 3,
-#     source_path = null,
-#     build_in_docker = false,
-#     docker_image = "",
-#     publish = false,
-#     allowed_triggers = {},
-#     create_sam_metadata = false
-#   }
-# }
-
 variable "parameters" {
   description = "Lamba parameters to be passed to the module"
   type        = any
@@ -89,6 +48,7 @@ variable "tags" {
     product     = string
     terraform   = string
     environment = string
+    samtemplate = string
   })
 
   default = {
@@ -96,6 +56,7 @@ variable "tags" {
     product     = null
     terraform   = null
     environment = null
+    samtemplate = null
   }
 }
 
