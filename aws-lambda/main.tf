@@ -29,8 +29,38 @@ module "lambda_function" {
   attach_policy_statements = (var.policy_statements != {}) ? true : false
   policy_statements        = var.policy_statements
 
+  # merge layers and layers_custom
+  layers = concat(
+    local.layers,
+    [for layer_name, layer_config in module.lambda_layers :
+      layer_config.lambda_layer_arn
+    ]
+  )
+
   tags                 = var.tags
   role_tags            = var.tags
   s3_object_tags       = var.tags
   cloudwatch_logs_tags = var.tags
+}
+
+module "lambda_layers" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "6.0.1"
+
+  for_each = local.layers_custom
+
+  create_function     = false
+  create_layer        = true
+  layer_name          = lookup(each.value, "layer_name", format("%s-%s", local.function_name, each.key))
+  compatible_runtimes = lookup(each.value, "compatible_runtimes", [lookup(each.value, "runtime", local.runtime)])
+
+  create_package         = lookup(each.value, "create_package", lookup(each.value, "local_existing_package_path", null) == null ? true : false)
+  local_existing_package = lookup(each.value, "local_existing_package_path", null)
+
+  source_path     = lookup(each.value, "source_path", null)
+  build_in_docker = lookup(each.value, "build_in_docker", false)
+  docker_image    = lookup(each.value, "docker_image", null)
+  runtime         = lookup(each.value, "runtime", local.runtime)
+
+  tags = var.tags
 }

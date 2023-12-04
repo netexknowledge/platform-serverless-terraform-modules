@@ -39,6 +39,8 @@ locals {
   environment_variables = try(var.parameters.environment_variables, {})
   allowed_triggers      = try(var.parameters.allowed_triggers, {})
   create_sam_metadata   = try(var.parameters.create_sam_metadata, false)
+  layers                = try(var.parameters.layers, [])
+  layers_custom         = try(var.parameters.layers_custom, {})
 }
 
 variable "tags" {

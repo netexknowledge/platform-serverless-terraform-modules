@@ -16,6 +16,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_lambda_function"></a> [lambda\_function](#module\_lambda\_function) | terraform-aws-modules/lambda/aws | 6.0.1 |
+| <a name="module_lambda_layers"></a> [lambda\_layers](#module\_lambda\_layers) | terraform-aws-modules/lambda/aws | 6.0.1 |
 
 ## Resources
 
