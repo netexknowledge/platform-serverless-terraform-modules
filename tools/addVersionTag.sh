@@ -17,7 +17,7 @@ then
     if git rev-parse "$path@*" >/dev/null 2>&1
     then
         # Get the latest tag for the path
-        latestTag=$(git tag -l "$path@*" | sort -V | tail -n 1)
+        latestTag=$(git tag -l "$path@*" | grep -v latest | sort -V | tail -n 1)
         # Get the version number from the tag name
         version=${latestTag##*@}
         # Split the version number into major, minor, and patch
