@@ -24,6 +24,9 @@ No modules.
 | [aws_api_gateway_integration.integrations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
 | [aws_api_gateway_method.methods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) | resource |
 | [aws_api_gateway_resource.resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_resource) | resource |
+| [aws_apigatewayv2_integration.integrations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_integration) | resource |
+| [aws_apigatewayv2_route.methods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_route) | resource |
+| [aws_apigatewayv2_route_response.responses](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_route_response) | resource |
 
 ## Inputs
 
@@ -38,6 +41,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | Name of API Gateway Resource | `string` | `"authorizer"` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | API Gateway Resource parameters to be passed to the module | `any` | <pre>{<br>  "authorizer": null,<br>  "authorizer_id": null,<br>  "http_method": [<br>    "ANY"<br>  ],<br>  "lambda_name": ""<br>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
+| <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
 
 ## Outputs
 

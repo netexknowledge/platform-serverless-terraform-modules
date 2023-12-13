@@ -22,6 +22,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_api_gateway_authorizer.authorizer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_authorizer) | resource |
+| [aws_apigatewayv2_authorizer.authorizer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_authorizer) | resource |
 | [aws_iam_role.invocation_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.invocation_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_iam_policy_document.invocation_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -38,6 +39,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | Name of API Gateway Authorizer | `string` | `"authorizer"` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | API Gateway Authorizer parameters to be passed to the module | `any` | <pre>{<br>  "authorizer_result_ttl_in_seconds": 0,<br>  "identity_source": "method.request.header.Authorization",<br>  "lambda_name": "authorizer"<br>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
+| <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
 
 ## Outputs
 
