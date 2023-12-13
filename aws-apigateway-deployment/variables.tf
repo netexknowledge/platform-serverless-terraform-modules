@@ -21,7 +21,7 @@ variable "stage_name" {
   description = "Name of API Gateway deployment stage"
   type        = string
   nullable    = true
-  default     = "default"
+  default     = "$default"
 }
 
 variable "enable_cloudwatch_role" {
@@ -47,4 +47,10 @@ variable "tags" {
     environment = null
     samtemplate = null
   }
+}
+
+variable "type" {
+  description = "API Gateway type"
+  type        = string
+  default     = "REST"
 }
