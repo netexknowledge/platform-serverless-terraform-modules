@@ -1,6 +1,8 @@
 output "resource" {
   description = "API Gateway resource"
-  value       = var.type == "REST" ? aws_api_gateway_resource.resource[0] : {id: "n/a"}
+  value = var.type == "REST" ? aws_api_gateway_resource.resource[0] : (var.type == "WEBSOCKET") ? {
+    id : length(aws_apigatewayv2_route_response.responses) > 0 ? format("%s%s", aws_apigatewayv2_integration.integrations["default"].id, aws_apigatewayv2_route_response.responses["default"].id) : aws_apigatewayv2_integration.integrations["default"].id
+  } : { "id" : "n/a" }
 }
 
 output "methods" {

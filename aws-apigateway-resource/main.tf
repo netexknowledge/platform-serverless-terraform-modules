@@ -52,11 +52,21 @@ resource "aws_apigatewayv2_route" "methods" {
   api_id    = var.api_id
   route_key = var.type == "HTTP" ? format("%s %s", each.key, var.name) : substr(var.name, 0, 1) == "/" ? substr(var.name, 1, length(var.name) - 1) : var.name
 
+  route_response_selection_expression = contains(local.websocket_response_methods, each.key) ? "$default" : null
+
   target = "integrations/${aws_apigatewayv2_integration.integrations[each.key].id}"
 }
 
+# resource "aws_apigatewayv2_integration_response" "example" {
+#   for_each = toset(local.websocket_response_methods)
+
+#   api_id                   = var.api_id
+#   integration_id           = aws_apigatewayv2_route.methods[each.key].id
+#   integration_response_key = "$default"
+# }
+
 resource "aws_apigatewayv2_route_response" "responses" {
-  for_each = toset(local.websocket_methods)
+  for_each = toset(local.websocket_response_methods)
 
   api_id             = var.api_id
   route_id           = aws_apigatewayv2_route.methods[each.key].id

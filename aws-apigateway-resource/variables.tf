@@ -56,9 +56,10 @@ variable "lambda_function_invoke_arn" {
 }
 
 locals {
-  rest_http_methods = var.type == "REST" ? lookup(var.parameters, "http_method", []) : []
-  norest_http_methods = var.type != "REST" ? lookup(var.parameters, "http_method", []) : []
-  websocket_methods = var.type == "WEBSOCKET" ? lookup(var.parameters, "http_method", ["default"]) : []
+  rest_http_methods          = var.type == "REST" ? lookup(var.parameters, "http_method", []) : []
+  norest_http_methods        = var.type != "REST" ? lookup(var.parameters, "http_method", []) : []
+  websocket_methods          = var.type == "WEBSOCKET" ? ["default"] : []
+  websocket_response_methods = var.type == "WEBSOCKET" ? (lookup(var.parameters, "response", false) ? ["default"] : []) : []
 }
 
 variable "tags" {
