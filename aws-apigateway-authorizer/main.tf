@@ -1,4 +1,6 @@
 resource "aws_api_gateway_authorizer" "authorizer" {
+  count = var.type == "REST" ? 1 : 0
+
   name        = var.name
   rest_api_id = var.api_id
   # authorizer_uri                   = "arn:aws:apigateway:${var.current_region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.current_region}:${var.current_awsaccount_id}:function:${var.parameters.lambda_name}/invocations"
@@ -7,6 +9,17 @@ resource "aws_api_gateway_authorizer" "authorizer" {
   identity_source                  = try(var.parameters.identity_source, "method.request.header.Authorization")
   authorizer_result_ttl_in_seconds = try(var.parameters.authorizer_result_ttl_in_seconds, 0)
   identity_validation_expression   = "^[0-9]+$"
+}
+
+resource "aws_apigatewayv2_authorizer" "authorizer" {
+  count = var.type == "REST" ? 0 : 1
+
+  name          = var.name
+  api_id        = var.api_id
+  authorizer_type = "REQUEST"
+  authorizer_uri = var.lambda_function_invoke_arn
+  identity_sources = [try(var.parameters.identity_source, "$request.header.Authorization")]
+  authorizer_result_ttl_in_seconds = try(var.parameters.authorizer_result_ttl_in_seconds, 0)
 }
 
 data "aws_iam_policy_document" "invocation_assume_role" {

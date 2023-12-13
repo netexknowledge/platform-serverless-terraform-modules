@@ -58,3 +58,9 @@ variable "tags" {
     samtemplate = null
   }
 }
+
+variable "type" {
+  description = "API Gateway type"
+  type        = string
+  default     = "REST"
+}
