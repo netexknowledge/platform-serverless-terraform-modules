@@ -34,3 +34,15 @@ variable "custom_cloudwatch_role_arn" {
   type        = string
   default     = null
 }
+
+variable "type" {
+  description = "API Gateway type"
+  type        = string
+  default     = "REST"
+}
+
+variable "route_selection_expression" {
+  description = "API Gateway route selection expression"
+  type        = string
+  default     = null
+}

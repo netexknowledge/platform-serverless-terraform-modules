@@ -1,7 +1,18 @@
 resource "aws_api_gateway_rest_api" "api" {
+  count = var.type == "REST" ? 1 : 0
+
   name = var.name
 
   tags = var.tags
+}
+
+resource "aws_apigatewayv2_api" "api" {
+  count = var.type != "REST" ? 1 : 0
+
+  name                       = var.name
+  protocol_type              = var.type
+
+  route_selection_expression = var.route_selection_expression != null ? var.route_selection_expression : (var.type == "HTTP" ? "$request.method $request.path" : "$request.body.action")
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
