@@ -56,10 +56,9 @@ variable "lambda_function_invoke_arn" {
 }
 
 locals {
-  name        = try(var.parameters.name, "default")
-  stage       = try(var.parameters.stage, "default")
-  resources   = try(var.parameters.resources, {})
-  authorizers = try(var.parameters.authorizers, {})
+  rest_http_methods = var.type == "REST" ? lookup(var.parameters, "http_method", []) : []
+  norest_http_methods = var.type != "REST" ? lookup(var.parameters, "http_method", []) : []
+  websocket_methods = var.type == "WEBSOCKET" ? lookup(var.parameters, "http_method", ["default"]) : []
 }
 
 variable "tags" {
@@ -79,4 +78,10 @@ variable "tags" {
     environment = null
     samtemplate = null
   }
+}
+
+variable "type" {
+  description = "API Gateway type"
+  type        = string
+  default     = "REST"
 }

@@ -1,25 +1,24 @@
 output "resource" {
   description = "API Gateway resource"
-  value       = aws_api_gateway_resource.resource
+  value       = var.type == "REST" ? aws_api_gateway_resource.resource[0] : {id: "n/a"}
 }
 
 output "methods" {
   description = "API Gateway methods"
-  value       = aws_api_gateway_method.methods
-
+  value       = var.type == "REST" ? aws_api_gateway_method.methods : aws_apigatewayv2_route.methods
 }
 
 output "methods_id" {
   description = "Concatenated list of API Gateway Methods IDs"
-  value       = join(",", [for value in aws_api_gateway_method.methods : value.id])
+  value       = var.type == "REST" ? join(",", [for value in aws_api_gateway_method.methods : value.id]) : join(",", [for value in aws_apigatewayv2_route.methods : value.id])
 }
 
 output "integrations" {
   description = "API Gateway integrations"
-  value       = aws_api_gateway_integration.integrations
+  value       = var.type == "REST" ? aws_api_gateway_integration.integrations : aws_apigatewayv2_integration.integrations
 }
 
 output "integrations_id" {
   description = "Concatenated list of API Gateway Integration IDs"
-  value       = join(",", [for value in aws_api_gateway_integration.integrations : value.id])
+  value       = var.type == "REST" ? join(",", [for value in aws_api_gateway_integration.integrations : value.id]) : join(",", [for value in aws_apigatewayv2_integration.integrations : value.id])
 }
