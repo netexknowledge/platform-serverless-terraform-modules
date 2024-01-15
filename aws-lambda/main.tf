@@ -1,17 +1,25 @@
 module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "6.0.1"
+  version = "6.7.1"
 
-  timeout               = local.timeout
-  source_path           = local.source_path
-  build_in_docker       = local.build_in_docker
-  docker_image          = local.docker_image
-  function_name         = local.function_name
-  handler               = local.handler
-  runtime               = local.runtime
-  create_sam_metadata   = local.create_sam_metadata
-  publish               = local.publish
-  environment_variables = local.environment_variables
+  timeout                   = local.timeout
+  source_path               = local.source_path
+  build_in_docker           = local.build_in_docker
+  docker_image              = local.docker_image
+  function_name             = local.function_name
+  handler                   = local.handler
+  runtime                   = local.runtime
+  create_sam_metadata       = local.create_sam_metadata
+  publish                   = local.publish
+  environment_variables     = local.environment_variables
+  store_on_s3               = local.store_on_s3
+  s3_acl                    = local.s3_acl
+  s3_bucket                 = local.store_on_s3 ? local.s3_create_bucket ? aws_s3_bucket.source_lambda[0].id : local.s3_bucket : local.s3_bucket
+  s3_existing_package       = local.s3_existing_package
+  s3_prefix                 = local.s3_prefix
+  s3_kms_key_id             = local.s3_kms_key_id
+  s3_server_side_encryption = local.s3_server_side_encryption
+  s3_object_storage_class   = local.s3_object_storage_class
   allowed_triggers = {
     for trigger_name, trigger_config in var.allowed_triggers :
     trigger_name => {
@@ -45,7 +53,7 @@ module "lambda_function" {
 
 module "lambda_layers" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "6.0.1"
+  version = "6.7.1"
 
   for_each = local.layers_custom
 
