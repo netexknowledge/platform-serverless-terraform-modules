@@ -10,10 +10,10 @@ resource "random_string" "bucket_suffix" {
 resource "aws_s3_bucket" "source_lambda" {
   count = local.store_on_s3 ? local.s3_create_bucket ? 1 : 0 : 0
 
-  bucket = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix)
+  bucket = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result)
 
   tags = merge(
-    { Name = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix) },
+    { Name = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result) },
     var.tags
   )
 }
