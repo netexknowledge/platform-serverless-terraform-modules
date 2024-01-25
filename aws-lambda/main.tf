@@ -2,13 +2,15 @@ module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "6.7.1"
 
-  timeout                   = local.timeout
   source_path               = local.source_path
   build_in_docker           = local.build_in_docker
   docker_image              = local.docker_image
   function_name             = local.function_name
   handler                   = local.handler
   runtime                   = local.runtime
+  timeout                   = local.timeout
+  memory_size               = local.memory_size
+  ephemeral_storage_size    = local.ephemeral_storage_size
   create_sam_metadata       = local.create_sam_metadata
   publish                   = local.publish
   environment_variables     = local.environment_variables
@@ -44,6 +46,8 @@ module "lambda_function" {
       layer_config.lambda_layer_arn
     ]
   )
+
+  role_name = format("%s-%s-lambda-role", local.product_name, local.function_name)
 
   tags                 = var.tags
   role_tags            = var.tags

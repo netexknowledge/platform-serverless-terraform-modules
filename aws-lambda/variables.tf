@@ -32,6 +32,8 @@ locals {
   handler                   = try(var.parameters.handler, "")
   runtime                   = try(var.parameters.runtime, "")
   timeout                   = try(var.parameters.timeout, 3)
+  memory_size               = try(var.parameters.memory_size, 128)
+  ephemeral_storage_size    = try(var.parameters.ephemeral_storage_size, 512)
   source_path               = try(var.parameters.source_path, null)
   build_in_docker           = try(var.parameters.build_in_docker, false)
   docker_image              = try(var.parameters.docker_image, "")
