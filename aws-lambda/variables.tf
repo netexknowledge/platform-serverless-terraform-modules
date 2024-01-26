@@ -78,3 +78,15 @@ variable "policy_statements" {
   type        = any
   default     = {}
 }
+
+variable "add_secrets_layer" {
+  description = "Enable AWS secrets layer"
+  type        = bool
+  default     = false
+}
+
+variable "add_datadog_layer" {
+  description = "Enable Datadog layer"
+  type        = bool
+  default     = false
+}

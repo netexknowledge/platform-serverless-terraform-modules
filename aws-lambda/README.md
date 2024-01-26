@@ -32,11 +32,14 @@
 | [aws_s3_bucket_policy.source_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.source_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [random_string.bucket_suffix](https://registry.terraform.io/providers/random/latest/docs/resources/string) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_add_datadog_layer"></a> [add\_datadog\_layer](#input\_add\_datadog\_layer) | Enable Datadog layer | `bool` | `false` | no |
+| <a name="input_add_secrets_layer"></a> [add\_secrets\_layer](#input\_add\_secrets\_layer) | Enable AWS secrets layer | `bool` | `false` | no |
 | <a name="input_allowed_triggers"></a> [allowed\_triggers](#input\_allowed\_triggers) | Allowed triggers to add the lambda | `any` | `{}` | no |
 | <a name="input_lambdas_permissions"></a> [lambdas\_permissions](#input\_lambdas\_permissions) | Permissions to add to the lambda | `any` | `{}` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | Lamba parameters to be passed to the module | `any` | <pre>{<br>  "allowed_triggers": {},<br>  "build_in_docker": false,<br>  "create_sam_metadata": false,<br>  "docker_image": "",<br>  "function_name": "",<br>  "handler": "",<br>  "publish": false,<br>  "runtime": "",<br>  "source_path": null,<br>  "timeout": 3<br>}</pre> | no |
