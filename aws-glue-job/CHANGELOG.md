@@ -1,0 +1,7 @@
+# Changelog of aws-glue-job 
+
+
+## [0.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.2...aws-glue-job@0.0.3) (2024-02-20)
+
+
+* **aws-glue-job:** add nx config and update providers version ([1419e2b](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/1419e2be0271b29034d29a8a3a3e228a1bf122f9))
