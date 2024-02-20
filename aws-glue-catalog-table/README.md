@@ -5,14 +5,14 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.33.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.6 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.37 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.6 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.33.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.37 |
 
 ## Modules
 

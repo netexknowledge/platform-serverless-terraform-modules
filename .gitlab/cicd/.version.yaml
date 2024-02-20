@@ -1,0 +1,37 @@
+variables:
+  CICD_FULL_AUTHOR: "sa-gitlab-plat <sa-gitlab-plat@netexlearning.net>"
+version:
+  rules:
+    - if: $CI_COMMIT_REF_NAME =~ /master/ && $CI_COMMIT_AUTHOR != $CICD_FULL_AUTHOR && $CI_COMMIT_MESSAGE !~ /^deploy\(.*/
+      changes:
+        - "*/*.tf"
+        - "*/*.sh"
+  stage: version
+  allow_failure: false
+  resource_group: lockpipeline
+  image: node:16.13.2
+  before_script:
+    - git config --global user.email "$CICD_EMAIL"
+    - git config --global user.name "$CICD_USER"
+    - CICD_USERID=`echo "$CICD_EMAIL" | cut -d @ -f 1`
+    - git remote rm origin && git remote add origin "https://$CICD_USERID:$CICD_PAT@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+  script:
+    - echo "Commit before $CI_COMMIT_BEFORE_SHA"
+    - npm install --frozen-lockfile
+    - projects_affected=$(npx nx print-affected --type=app --select=projects --base=$CI_COMMIT_BEFORE_SHA --head=$CI_COMMIT_SHA)
+    - echo "List projects affected $projects_affected"
+    - npx nx affected --parallel=1 --base=$CI_COMMIT_BEFORE_SHA --target version --verbose
+    # - git push origin HEAD:$CI_COMMIT_REF_NAME --tags #-o ci.skip
+    # ALTERNETIVE TO LIMITATION OF ONLY THREE TAG EVENTS AT SAME TIME!!! Issue open: https://gitlab.com/gitlab-org/gitlab/-/issues/20891
+    - git push origin HEAD:$CI_COMMIT_REF_NAME
+    - >
+      for crt_tag in $(echo $projects_affected | sed "s/,/ /g"); do
+        git push origin $crt_tag@$(cd $crt_tag && npm pkg get version| sed 's/"//g')
+        sleep 2
+        git tag -d $crt_tag@latest || true
+        git push origin :refs/tags/$crt_tag@latest || true
+        sleep 1
+        git tag $crt_tag@latest
+        git push origin $crt_tag@latest
+        sleep 2
+      done
