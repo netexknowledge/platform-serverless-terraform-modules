@@ -1,0 +1,26 @@
+variables:
+  CICD_FULL_AUTHOR: "sa-gitlab-plat <sa-gitlab-plat@netexlearning.net>"
+
+lint:commit:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+  stage: lint
+  allow_failure: false
+  image: node:16.13.2
+  before_script:
+    - git config --global user.email "$CICD_EMAIL"
+    - git config --global user.name "$CICD_USER"
+    - CICD_USERID=`echo "$CICD_EMAIL" | cut -d @ -f 1`
+  script:
+    - echo "Commit diff base $CI_MERGE_REQUEST_DIFF_BASE_SHA"
+    - npm install @commitlint/cli --save-dev
+    - npm install @commitlint/config-conventional --save-dev
+    - npx commitlint --config=commitlint.config.ts --from=$CI_MERGE_REQUEST_DIFF_BASE_SHA --verbose
+    - echo "$CI_MERGE_REQUEST_TITLE" | npx commitlint --config=commitlint.config.ts
+    # - projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=b77f61389b47e73456e26ecb76da40917d4881a8)
+    # - >
+    #   for project in $(echo $projects_affected | sed "s/,/ /g"); do
+    #     npx nx lint $project
+    #   done
+
+  interruptible: true

@@ -1,0 +1,22 @@
+echo """
+{
+    \"name\": \"$1\",
+    \"version\": \"0.0.6\",
+    \"description\": \"CHANGEME\",
+    \"main\": \"index.js\",
+    \"scripts\": {},
+    \"repository\": {
+        \"type\": \"git\",
+        \"url\": \"git+https://git.netexlearning.com/exposed/serverless-terraform-modules.git\"
+    },
+    \"author\": \"\",
+    \"license\": \"ISC\",
+    \"devDependencies\": {
+        \"@nrwl/devkit\": \"15.6.3\",
+        \"@jscutlery/semver\": \"~2.30.0\",
+        \"nx\": \"15.6.3\"
+    }
+}
+
+
+"""

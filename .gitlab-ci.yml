@@ -1,0 +1,8 @@
+include: 
+  - '/.gitlab/cicd/.mr-verify.yaml'
+  - '/.gitlab/cicd/.version.yaml'
+
+stages:
+  - lint
+  - version
+

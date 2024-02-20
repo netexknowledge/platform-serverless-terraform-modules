@@ -1,0 +1,46 @@
+echo """
+{
+  \"name\": \"$1\",
+  \"\$schema\": \"../node_modules/nx/schemas/project-schema.json\",
+  \"projectType\": \"application\",
+  \"sourceRoot\": \"$1\",
+  \"prefix\": \"serverless-terraform-modules\",
+  \"targets\": {
+    \"version\": {
+      \"executor\": \"@jscutlery/semver:version\",
+      \"options\": {
+          \"baseBranch\": \"master\",
+          \"tagPrefix\": \"\${projectName}@\",
+          \"trackDeps\": true,
+          \"syncVersions\": false,
+          \"skipRootChangelog\": true,
+          \"skipProjectChangelog\": false,
+          \"skipCommit\": false,
+          \"skipCommitTypes\": [\"docs\",\"ci\",\"deploy\"],
+          \"changelogHeader\": \"# Changelog of $1 \n\n\",
+          \"preset\": {
+              \"name\": \"conventionalcommits\",
+              \"header\": \"# Changelog of $1 \n\n\",
+              \"types\": [
+                  {\"type\": \"feat\", \"section\": \"Features\"},
+                  {\"type\": \"fix\", \"section\": \"Bug Fixes\"},
+                  {\"type\": \"chore\", \"hidden\": false},
+                  {\"type\": \"docs\", \"hidden\": false},
+                  {\"type\": \"style\", \"hidden\": false},
+                  {\"type\": \"refactor\", \"hidden\": false},
+                  {\"type\": \"perf\", \"hidden\": false},
+                  {\"type\": \"test\", \"hidden\": false},
+                  {\"type\": \"deploy\", \"hidden\": true}
+              ],
+              \"commitUrlFormat\": \"{{host}}/{{owner}}/{{repository}}/commit/{{hash}}\",
+              \"compareUrlFormat\": \"{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}\",
+              \"issueUrlFormat\": \"{{host}}/{{owner}}/{{repository}}/issues/{{id}}\"
+          },
+          \"postTargets\": []
+      }
+  }
+  },
+  \"implicitDependencies\": []
+}
+
+"""
