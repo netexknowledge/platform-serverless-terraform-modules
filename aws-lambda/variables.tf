@@ -37,6 +37,7 @@ locals {
   source_path               = try(var.parameters.source_path, null)
   build_in_docker           = try(var.parameters.build_in_docker, false)
   docker_image              = try(var.parameters.docker_image, "")
+  docker_additional_options = try(var.parameters.docker_additional_options, [])
   publish                   = try(var.parameters.publish, false)
   environment_variables     = try(var.parameters.environment_variables, {})
   allowed_triggers          = try(var.parameters.allowed_triggers, {})
