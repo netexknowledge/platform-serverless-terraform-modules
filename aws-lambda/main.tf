@@ -49,6 +49,7 @@ module "lambda_function" {
   source_path               = local.source_path
   build_in_docker           = local.build_in_docker
   docker_image              = local.docker_image
+  docker_additional_options = local.docker_additional_options
   function_name             = local.function_name
   handler                   = local.handler
   runtime                   = local.runtime
