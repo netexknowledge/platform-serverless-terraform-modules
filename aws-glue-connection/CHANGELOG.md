@@ -1,6 +1,11 @@
 # Changelog of aws-glue-connection 
 
 
+## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.3...aws-glue-connection@0.0.4) (2024-03-08)
+
+
+* **aws-glue-connection:** fix create s3 bucket driver name ([e98220e](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/e98220e965a639200c1e44356148bae479ce88ba))
+
 ## [0.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.2...aws-glue-connection@0.0.3) (2024-02-20)
 
 
