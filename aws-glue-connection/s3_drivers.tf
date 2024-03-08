@@ -10,10 +10,10 @@ resource "random_string" "bucket_suffix" {
 resource "aws_s3_bucket" "glue_drivers" {
   count = var.s3_create_bucket_drivers ? 1 : 0
 
-  bucket = var.s3_bucket_drivers_name != null ? format("netex-%s-%s-%s-%s", var.tags.project, var.tags.environment, var.tags.product, var.s3_bucket_drivers_name) : format("netex-%s-%s-%s-glue-drivers-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix)
+  bucket = var.s3_bucket_drivers_name != null ? format("netex-%s-%s-%s-%s", var.tags.project, var.tags.environment, var.tags.product, var.s3_bucket_drivers_name) : format("netex-%s-%s-%s-glue-drivers-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result)
 
   tags = merge(
-    { Name = var.s3_bucket_drivers_name != null ? format("netex-%s-%s-%s-%s", var.tags.project, var.tags.environment, var.tags.product, var.s3_bucket_drivers_name) : format("netex-%s-%s-%s-glue-drivers-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix) },
+    { Name = var.s3_bucket_drivers_name != null ? format("netex-%s-%s-%s-%s", var.tags.project, var.tags.environment, var.tags.product, var.s3_bucket_drivers_name) : format("netex-%s-%s-%s-glue-drivers-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result) },
     var.tags
   )
 }
