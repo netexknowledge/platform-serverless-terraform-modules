@@ -37,7 +37,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_custom_cloudwatch_role_arn"></a> [custom\_cloudwatch\_role\_arn](#input\_custom\_cloudwatch\_role\_arn) | Custom CloudWatch role ARN | `string` | `null` | no |
 | <a name="input_enable_cloudwatch_role"></a> [enable\_cloudwatch\_role](#input\_enable\_cloudwatch\_role) | Enable CloudWatch role in API Gateway setings account | `bool` | `false` | no |
-| <a name="input_name"></a> [name](#input\_name) | API Gateway name | `string` | `"default"` | no |
+| <a name="input_name"></a> [name](#input\_name) | API Gateway name, this should be converted to <tags.product>-<tags.environment>-<tags.project>-<this\_value> | `string` | `"default"` | no |
 | <a name="input_route_selection_expression"></a> [route\_selection\_expression](#input\_route\_selection\_expression) | API Gateway route selection expression | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 | <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
@@ -53,5 +53,6 @@ No modules.
 | <a name="output_created_date"></a> [created\_date](#output\_created\_date) | Attributie created date of the API Gateway |
 | <a name="output_execution_arn"></a> [execution\_arn](#output\_execution\_arn) | Attributie execution ARN of the API Gateway |
 | <a name="output_id"></a> [id](#output\_id) | Attributie identifier of the API Gateway |
+| <a name="output_name"></a> [name](#output\_name) | Attributie name of the API Gateway |
 | <a name="output_root_resource_id"></a> [root\_resource\_id](#output\_root\_resource\_id) | Attributie root resource id of the API Gateway |
 | <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the API Gateway, including those inherited from the provider default\_tags configuration block |

@@ -1,5 +1,5 @@
 variable "name" {
-  description = "API Gateway name"
+  description = "API Gateway name, this should be converted to <tags.product>-<tags.environment>-<tags.project>-<this_value>"
   type        = string
   default     = "default"
 }

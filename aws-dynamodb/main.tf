@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "dynamodb_table" {
-  name = format("%s-%s", local.product_name, var.suffix)
+  name = local.resource_name
 
   billing_mode   = var.billing_mode
   read_capacity  = var.read_capacity

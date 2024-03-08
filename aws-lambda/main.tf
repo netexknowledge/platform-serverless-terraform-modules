@@ -50,7 +50,7 @@ module "lambda_function" {
   build_in_docker           = local.build_in_docker
   docker_image              = local.docker_image
   docker_additional_options = local.docker_additional_options
-  function_name             = local.function_name
+  function_name             = local.resource_name
   handler                   = local.handler
   runtime                   = local.runtime
   timeout                   = local.timeout
@@ -94,7 +94,7 @@ module "lambda_function" {
     ]
   )
 
-  role_name = format("%s-%s-lambda-role", local.product_name, local.function_name)
+  role_name = "${local.resource_name}-role"
 
   tags                 = var.tags
   role_tags            = var.tags
@@ -110,7 +110,7 @@ module "lambda_layers" {
 
   create_function     = false
   create_layer        = true
-  layer_name          = lookup(each.value, "layer_name", format("%s-%s", local.function_name, each.key))
+  layer_name          = lookup(each.value, "layer_name", format("%s-%s", local.resource_name, each.key))
   compatible_runtimes = lookup(each.value, "compatible_runtimes", [lookup(each.value, "runtime", local.runtime)])
 
   create_package         = lookup(each.value, "create_package", lookup(each.value, "local_existing_package_path", null) == null ? true : false)
