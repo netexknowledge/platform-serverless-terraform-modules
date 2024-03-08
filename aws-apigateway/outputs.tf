@@ -3,6 +3,11 @@ output "arn" {
   value       = var.type == "REST" ? aws_api_gateway_rest_api.api[0].arn : aws_apigatewayv2_api.api[0].arn
 }
 
+output "name" {
+  description = "Attributie name of the API Gateway"
+  value       = local.resource_name
+}
+
 output "created_date" {
   description = "Attributie created date of the API Gateway"
   value       = var.type == "REST" ? aws_api_gateway_rest_api.api[0].created_date : null

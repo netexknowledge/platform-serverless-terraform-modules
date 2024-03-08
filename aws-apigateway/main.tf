@@ -1,7 +1,7 @@
 resource "aws_api_gateway_rest_api" "api" {
   count = var.type == "REST" ? 1 : 0
 
-  name = var.name
+  name = local.resource_name
 
   tags = var.tags
 }
@@ -9,14 +9,14 @@ resource "aws_api_gateway_rest_api" "api" {
 resource "aws_apigatewayv2_api" "api" {
   count = var.type != "REST" ? 1 : 0
 
-  name                       = var.name
-  protocol_type              = var.type
+  name          = local.resource_name
+  protocol_type = var.type
 
   route_selection_expression = var.route_selection_expression != null ? var.route_selection_expression : (var.type == "HTTP" ? "$request.method $request.path" : "$request.body.action")
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
-  name = "/netex/apigateway/${var.name}"
+  name = "/netex/apigateway/${local.resource_name}"
 }
 
 resource "aws_api_gateway_account" "api_account_cloudwatch" {
@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "api_account_cloudwatch_assume_role" {
 resource "aws_iam_role" "api_account_cloudwatch" {
   count = var.enable_cloudwatch_role ? 1 : 0
 
-  name               = "api_gateway_cloudwatch_global"
+  name               = "${local.resource_name}_api_gateway_cloudwatch_global"
   assume_role_policy = data.aws_iam_policy_document.api_account_cloudwatch_assume_role[0].json
 }
 
@@ -76,7 +76,7 @@ data "aws_iam_policy_document" "api_account_cloudwatch" {
 resource "aws_iam_role_policy" "api_account_cloudwatch" {
   count = var.enable_cloudwatch_role ? 1 : 0
 
-  name   = "apiAccountCloudwatchPolicy"
+  name   = "${local.resource_name}_apiAccountCloudwatchPolicy"
   role   = aws_iam_role.api_account_cloudwatch[0].id
   policy = data.aws_iam_policy_document.api_account_cloudwatch[0].json
 }
