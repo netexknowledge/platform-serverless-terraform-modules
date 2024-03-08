@@ -1,6 +1,11 @@
 # Changelog of aws-lambda 
 
 
+## [0.0.9](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.8...aws-lambda@0.0.9) (2024-03-08)
+
+
+* **aws-lambda:** improved resources names with terraform tags info ([897f7d1](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/897f7d1b52e95ec99a8d31c23e41cde18382f82a))
+
 ## [0.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.7...aws-lambda@0.0.8) (2024-02-21)
 
 
