@@ -1,5 +1,5 @@
 variable "parameters" {
-  description = "Lamba parameters to be passed to the module"
+  description = "Lamba parameters to be passed to the module. The function_name should be converted to <tags.product>-<tags.environment>-<tags.project>-<value_of_function_name>"
   type        = any
   default = {
     function_name       = "",
