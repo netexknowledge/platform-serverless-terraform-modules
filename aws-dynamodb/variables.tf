@@ -1,5 +1,5 @@
-variable "suffix" {
-  description = "Suffix to add to the DynamoDB table name"
+variable "name" {
+  description = "Name to add to the DynamoDB table name, this should be converted to <tags.product>-<tags.environment>-<tags.project>-<this_value>"
   type        = string
   default     = "table"
 }
