@@ -1,6 +1,11 @@
 # Changelog of aws-lambda 
 
 
+## [0.0.11](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.10...aws-lambda@0.0.11) (2024-03-13)
+
+
+* **aws-lambda:** support  suffix in datadob env var version ([068eca5](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/068eca56e5d88f5ace09664e20399ba4210cf943))
+
 ## [0.0.10](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.9...aws-lambda@0.0.10) (2024-03-13)
 
 
