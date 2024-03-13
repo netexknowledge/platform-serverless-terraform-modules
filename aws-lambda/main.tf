@@ -46,7 +46,7 @@ locals {
     "DD_API_KEY"                = "${data.aws_ssm_parameter.datadog_apikey[0].value}"
     "DD_SERVICE"                = "${local.resource_name}"
     "DD_LAMBDA_HANDLER"         = "${local.handler}"
-    "DD_VERSION"                = "${var.version_lambda}"
+    "DD_VERSION"                = "${var.version_lambda}${var.version_lambda_suffix}"
     "DD_CAPTURE_LAMBDA_PAYLOAD" = "true"
     "DD_MERGE_XRAY_TRACES"      = "false"
     "DD_SITE"                   = "datadoghq.eu"

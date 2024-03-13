@@ -48,6 +48,7 @@
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | Policies statetements with permissions to add to the lambda function role | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 | <a name="input_version_lambda"></a> [version\_lambda](#input\_version\_lambda) | Version of lambada function | `string` | `"0.0.1"` | no |
+| <a name="input_version_lambda_suffix"></a> [version\_lambda\_suffix](#input\_version\_lambda\_suffix) | Suffix to add in version of lambada function | `string` | `""` | no |
 
 ## Outputs
 
