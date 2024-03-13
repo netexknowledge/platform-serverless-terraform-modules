@@ -40,6 +40,19 @@ locals {
       "nodejs20.x" = ["arn:aws:lambda:eu-west-1:464622532012:layer:Datadog-Node20-x:104", "arn:aws:lambda:eu-west-1:464622532012:layer:Datadog-Extension:53"]
     }
   }
+
+  datadog_environment_variables = var.add_datadog_layer ? {
+    "DD_ENV"                    = "${var.tags["environment"]}"
+    "DD_API_KEY"                = "${data.aws_ssm_parameter.datadog_apikey[0].value}"
+    "DD_SERVICE"                = "${local.resource_name}"
+    "DD_LAMBDA_HANDLER"         = "${local.handler}"
+    "DD_VERSION"                = "${var.version_lambda}"
+    "DD_CAPTURE_LAMBDA_PAYLOAD" = "true"
+    "DD_MERGE_XRAY_TRACES"      = "false"
+    "DD_SITE"                   = "datadoghq.eu"
+    "DD_TRACE_ENABLED"          = "true"
+    "DD_TAGS"                   = "team:${var.tags["product"]} env:${var.tags["environment"]} product:${var.tags["product"]} service:${local.resource_name} slot:default platform:lambda datacenter:aws aws_account_name:netex_${var.tags["environment"]}"
+  } : {}
 }
 
 module "lambda_function" {
@@ -58,7 +71,7 @@ module "lambda_function" {
   ephemeral_storage_size    = local.ephemeral_storage_size
   create_sam_metadata       = local.create_sam_metadata
   publish                   = local.publish
-  environment_variables     = local.environment_variables
+  environment_variables     = merge(local.environment_variables, local.datadog_environment_variables)
   store_on_s3               = local.store_on_s3
   s3_acl                    = local.s3_acl
   s3_bucket                 = local.store_on_s3 ? local.s3_create_bucket ? aws_s3_bucket.source_lambda[0].id : local.s3_bucket : local.s3_bucket
