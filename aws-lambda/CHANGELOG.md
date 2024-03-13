@@ -1,6 +1,11 @@
 # Changelog of aws-lambda 
 
 
+## [0.0.10](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.9...aws-lambda@0.0.10) (2024-03-13)
+
+
+* **aws-lambda:** add datadog en vars to observability support ([bdc9ed2](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/bdc9ed27cd1af3d51be452d58de6a1778df90a0c))
+
 ## [0.0.9](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.8...aws-lambda@0.0.9) (2024-03-08)
 
 
