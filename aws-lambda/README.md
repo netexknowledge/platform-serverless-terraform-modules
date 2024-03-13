@@ -32,7 +32,9 @@
 | [aws_s3_bucket_policy.source_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.source_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [random_string.bucket_suffix](https://registry.terraform.io/providers/random/latest/docs/resources/string) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_ssm_parameter.datadog_apikey](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -45,6 +47,7 @@
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | Lamba parameters to be passed to the module. The function\_name should be converted to <tags.product>-<tags.environment>-<tags.project>-<value\_of\_function\_name> | `any` | <pre>{<br>  "allowed_triggers": {},<br>  "build_in_docker": false,<br>  "create_sam_metadata": false,<br>  "docker_image": "",<br>  "function_name": "",<br>  "handler": "",<br>  "publish": false,<br>  "runtime": "",<br>  "source_path": null,<br>  "timeout": 3<br>}</pre> | no |
 | <a name="input_policy_statements"></a> [policy\_statements](#input\_policy\_statements) | Policies statetements with permissions to add to the lambda function role | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
+| <a name="input_version_lambda"></a> [version\_lambda](#input\_version\_lambda) | Version of lambada function | `string` | `"0.0.1"` | no |
 
 ## Outputs
 
