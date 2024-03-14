@@ -40,4 +40,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_arn"></a> [arn](#output\_arn) | ARN of the API Gateway |
+| <a name="output_invoke_url"></a> [invoke\_url](#output\_invoke\_url) | Attributie invoke URL of the API Gateway |
