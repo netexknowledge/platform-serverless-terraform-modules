@@ -1,6 +1,11 @@
 # Changelog of aws-lambda 
 
 
+## [0.0.12](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.11...aws-lambda@0.0.12) (2024-03-14)
+
+
+* **aws-lambda:** set default prefix in S3 bucket source code ([25276cc](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/25276cc8930286ddcebd78b7a21fd9c044999611))
+
 ## [0.0.11](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.10...aws-lambda@0.0.11) (2024-03-13)
 
 
