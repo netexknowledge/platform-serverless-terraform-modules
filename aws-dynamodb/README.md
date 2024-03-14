@@ -48,3 +48,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | ARN of the created DynamoDB table |
+| <a name="output_table_id"></a> [table\_id](#output\_table\_id) | ID of the created DynamoDB table |
