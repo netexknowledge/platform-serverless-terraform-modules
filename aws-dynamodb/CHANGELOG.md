@@ -1,6 +1,11 @@
 # Changelog of aws-dynamodb 
 
 
+## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@0.0.4...aws-dynamodb@0.0.5) (2024-03-14)
+
+
+* **aws-dynamodb:** add output info about resources ([5230e38](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/5230e381ef2fa5c04a6f26c22a8ad1a85816547c))
+
 ## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@0.0.3...aws-dynamodb@0.0.4) (2024-03-08)
 
 
