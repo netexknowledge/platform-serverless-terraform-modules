@@ -61,7 +61,7 @@ locals {
   s3_acl                    = try(var.parameters.s3_acl, "private")
   s3_bucket                 = try(var.parameters.s3_bucket, null)
   s3_existing_package       = try(var.parameters.s3_existing_package, null)
-  s3_prefix                 = try(var.parameters.s3_prefix, null)
+  s3_prefix                 = try(var.parameters.s3_prefix, "${local.resource_name}/")
   s3_kms_key_id             = try(var.parameters.s3_kms_key_id, null)
   s3_server_side_encryption = try(var.parameters.s3_server_side_encryption, null)
   s3_object_storage_class   = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
