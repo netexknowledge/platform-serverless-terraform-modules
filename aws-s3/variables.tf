@@ -57,3 +57,9 @@ variable "notifications" {
   type        = any
   default     = {}
 }
+
+variable "lifecycle_rules" {
+  description = "values for bucket lifecycle rules"
+  type        = any
+  default     = []
+}

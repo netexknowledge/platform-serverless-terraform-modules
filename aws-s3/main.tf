@@ -1,6 +1,6 @@
 # AWS S3
 resource "aws_s3_bucket" "bucket" {
-  bucket = format("%s-%s", local.product_name, var.bucket)
+  bucket = format("netex-%s", local.resource_name)
 
   # TODO: this not support: https://github.com/hashicorp/terraform/issues/22544
   # lifecycle {
@@ -17,7 +17,7 @@ resource "aws_s3_bucket" "bucket" {
   # }
 
   tags = merge(
-    { Name = format("netex-%s", var.bucket) },
+    { Name = format("netex-%s", local.resource_name) },
     var.tags
   )
 }
@@ -95,6 +95,75 @@ resource "aws_s3_bucket_notification" "bucket_event" {
       events              = lookup(lambda_function.value, events, ["s3:ObjectCreated:*"])
       filter_prefix       = lookup(lambda_function.value, filter_prefix, null)
       filter_suffix       = lookup(lambda_function.value, filter_suffix, null)
+    }
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
+  count = (var.lifecycle_rules != []) ? 1 : 0
+
+  bucket = aws_s3_bucket.bucket.id
+
+  dynamic "rule" {
+    for_each = { for i, rule in var.lifecycle_rules : tostring(i) => rule }
+    content {
+      id     = lookup(rule.value, "id", "rule-${rule.key}")
+      status = lookup(rule.value, "status", "Enabled")
+
+      dynamic "filter" {
+        for_each = lookup(rule.value, "filter", {}) != {} ? [1] : []
+        content {
+          prefix = lookup(rule.value.filter, "prefix", "")
+          dynamic "tag" {
+            for_each = lookup(rule.value.filter, "tag", {}) != {} ? [1] : []
+            content {
+              key   = rule.value.filter.tag.key
+              value = rule.value.filter.tag.value
+            }
+          }
+        }
+      }
+
+      dynamic "expiration" {
+        for_each = lookup(rule.value, "expiration", {}) != {} ? [1] : []
+        content {
+          days                         = lookup(rule.value.expiration, "days", null)
+          date                         = lookup(rule.value.expiration, "date", null)
+          expired_object_delete_marker = lookup(rule.value.expiration, "expired_object_delete_marker", null)
+        }
+      }
+
+      dynamic "noncurrent_version_expiration" {
+        for_each = lookup(rule.value, "noncurrent_version_expiration", {})
+        content {
+          noncurrent_days           = lookup(noncurrent_version_expiration, "noncurrent_days", null)
+          newer_noncurrent_versions = lookup(noncurrent_version_expiration, "newer_noncurrent_versions", null)
+        }
+      }
+
+      dynamic "abort_incomplete_multipart_upload" {
+        for_each = lookup(rule.value, "abort_incomplete_multipart_upload", {})
+        content {
+          days_after_initiation = lookup(abort_incomplete_multipart_upload, "days_after_initiation", null)
+        }
+      }
+
+      dynamic "transition" {
+        for_each = lookup(rule.value, "transition", {})
+        content {
+          days          = lookup(transition, "days", null)
+          storage_class = lookup(transition, "storage_class", null)
+        }
+      }
+
+      dynamic "noncurrent_version_transition" {
+        for_each = lookup(rule.value, "noncurrent_version_transition", {})
+        content {
+          noncurrent_days           = lookup(noncurrent_version_transition, "noncurrent_days", null)
+          newer_noncurrent_versions = lookup(noncurrent_version_transition, "newer_noncurrent_versions", null)
+          storage_class             = lookup(noncurrent_version_transition, "storage_class", null)
+        }
+      }
     }
   }
 }
