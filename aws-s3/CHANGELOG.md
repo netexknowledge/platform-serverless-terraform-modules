@@ -1,6 +1,11 @@
 # Changelog of aws-s3 
 
 
+## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.3...aws-s3@0.0.4) (2024-03-21)
+
+
+* **aws-s3:** add support of lifecycle and correct the bucket name ([0956b88](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/0956b886342a538205fd2cb019aef40bc0d42442))
+
 ## [0.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.2...aws-s3@0.0.3) (2024-02-20)
 
 
