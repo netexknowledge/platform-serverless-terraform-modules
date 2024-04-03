@@ -63,3 +63,9 @@ variable "lifecycle_rules" {
   type        = any
   default     = []
 }
+
+variable "cors_rules" {
+  description = "values for bucket cors rules"
+  type        = any
+  default     = []
+}
