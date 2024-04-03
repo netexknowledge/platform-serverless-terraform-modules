@@ -1,6 +1,11 @@
 # Changelog of aws-s3 
 
 
+## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.4...aws-s3@0.0.5) (2024-04-03)
+
+
+* **aws-s3:** add support of cors rules ([b04da82](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/b04da82036792192843ab47269169c4b6f79cd2d))
+
 ## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.3...aws-s3@0.0.4) (2024-03-21)
 
 
