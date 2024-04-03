@@ -167,3 +167,21 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
     }
   }
 }
+
+resource "aws_s3_bucket_cors_configuration" "bucket-config" {
+  count = (var.cors_rules != []) ? 1 : 0
+
+  bucket = aws_s3_bucket.bucket.id
+
+  dynamic "cors_rule" {
+    for_each = { for i, rule in var.cors_rules : tostring(i) => rule }
+    content {
+      id              = lookup(cors_rule.value, "id", "rule-${cors_rule.key}")
+      allowed_headers = lookup(cors_rule.value, "allowed_headers", null)
+      allowed_methods = lookup(cors_rule.value, "allowed_methods", ["GET", "PUT", "HEAD", "POST", "DELETE"])
+      allowed_origins = lookup(cors_rule.value, "allowed_origins", ["https://learningcloud.me"])
+      expose_headers  = lookup(cors_rule.value, "expose_headers", null)
+      max_age_seconds = lookup(cors_rule.value, "max_age_seconds", null)
+    }
+  }
+}
