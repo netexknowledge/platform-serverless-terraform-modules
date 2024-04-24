@@ -77,7 +77,7 @@ resource "aws_s3_object" "glue_bucket_path" {
   count = var.script_file_path != null ? 1 : 0
 
   bucket = var.s3_create_bucket_glue ? aws_s3_bucket.glue_bucket[0].id : var.s3_bucket_glue_name
-  key    = "scripts/${basename(var.script_file_path)}"
+  key    = "scripts/${local.resource_name}/${basename(var.script_file_path)}"
   source = var.script_file_path
 
   # The filemd5() function is available in Terraform 0.11.12 and later

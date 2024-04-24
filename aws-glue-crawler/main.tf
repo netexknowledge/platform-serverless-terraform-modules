@@ -1,5 +1,5 @@
 resource "aws_glue_crawler" "crawler" {
-  name = var.name
+  name = local.resource_name
 
   database_name = var.database_name
 
