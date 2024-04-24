@@ -26,7 +26,7 @@ locals {
 }
 
 resource "aws_glue_connection" "connection" {
-  name        = var.name
+  name        = local.resource_name
   description = var.description
 
   catalog_id = var.catalog_id
