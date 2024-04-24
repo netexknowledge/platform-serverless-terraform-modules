@@ -1,5 +1,5 @@
 resource "aws_glue_trigger" "trigger" {
-  name        = var.name
+  name        = local.resource_name
   description = var.description
   type        = "SCHEDULED"
   enabled     = var.enabled
