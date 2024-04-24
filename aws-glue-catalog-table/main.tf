@@ -50,7 +50,7 @@ locals {
 }
 
 resource "aws_glue_catalog_table" "catalog_table" {
-  name        = var.name
+  name        = local.resource_name
   description = var.description
 
   database_name = var.database_name
@@ -68,7 +68,7 @@ resource "aws_glue_catalog_table" "catalog_table" {
     output_format = lookup(local.storage_descriptor_output_format, var.data_format, null)
 
     ser_de_info {
-      name                  = var.name
+      name                  = local.resource_name
       serialization_library = lookup(local.serialization_libraries, var.data_format, null)
       parameters            = local.serde_parameters
     }
