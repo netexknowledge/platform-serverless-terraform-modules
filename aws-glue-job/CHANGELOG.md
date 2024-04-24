@@ -1,6 +1,11 @@
 # Changelog of aws-glue-job 
 
 
+## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.3...aws-glue-job@0.0.4) (2024-04-24)
+
+
+* **aws-glue-job:** add prefix and suffix names in resources ([5b53769](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/5b53769d1290cd0629f08bd467b5d53541be3622))
+
 ## [0.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.2...aws-glue-job@0.0.3) (2024-02-20)
 
 
