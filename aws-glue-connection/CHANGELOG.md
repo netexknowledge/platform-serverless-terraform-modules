@@ -1,6 +1,11 @@
 # Changelog of aws-glue-connection 
 
 
+## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.4...aws-glue-connection@0.0.5) (2024-04-24)
+
+
+* **aws-glue-connection:** add prefix and suffix names in resources ([014fda1](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/014fda17e20f28736443754d7c1fe39c0301106c))
+
 ## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.3...aws-glue-connection@0.0.4) (2024-03-08)
 
 
