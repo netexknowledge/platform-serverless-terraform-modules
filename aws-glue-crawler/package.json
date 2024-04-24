@@ -1,6 +1,6 @@
 {
   "name": "aws-glue-crawler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Module for create AWS Glue Crawler",
   "main": "index.js",
   "scripts": {},
