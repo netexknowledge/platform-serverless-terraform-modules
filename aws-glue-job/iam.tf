@@ -43,7 +43,7 @@ resource "aws_iam_policy" "glue_s3_bucket_created_policy" {
 }
 
 resource "aws_iam_policy" "glue_s3_bucket_policy" {
-  count = var.s3_create_bucket_glue == false ? var.s3_bucket_glue_name != "" ? 1 : 0 : 0
+  count = var.s3_create_bucket_glue == false ? 1 : 0
 
   name        = "${local.resource_name}-glue-bucketS3-policy"
   description = "IAM policy for glue job to access s3 bucket"
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy_attachment" "glue_policy_attachment" {
 }
 
 resource "aws_iam_role_policy_attachment" "glue_s3_bucket_policy_attachment" {
-  count = var.s3_create_bucket_glue == false ? var.s3_bucket_glue_name != "" ? 1 : 0 : 0
+  count = var.s3_create_bucket_glue == false ? 1 : 0
 
   role       = aws_iam_role.glue_role.name
   policy_arn = aws_iam_policy.glue_s3_bucket_policy[0].arn
