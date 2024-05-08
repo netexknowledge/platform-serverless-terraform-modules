@@ -1,6 +1,11 @@
 # Changelog of aws-glue-job 
 
 
+## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.4...aws-glue-job@0.0.5) (2024-05-08)
+
+
+* **aws-glue-job:** add support of bucket s3 reference ([32e33b3](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/32e33b38900f82b4f7087c269743b8e263af2eb2))
+
 ## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.3...aws-glue-job@0.0.4) (2024-04-24)
 
 
