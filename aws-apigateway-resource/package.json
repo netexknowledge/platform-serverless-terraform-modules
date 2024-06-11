@@ -1,6 +1,6 @@
 {
   "name": "aws-apigateway-resource",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Module for create AWS ApiGateway Resource",
   "main": "index.js",
   "scripts": {},
