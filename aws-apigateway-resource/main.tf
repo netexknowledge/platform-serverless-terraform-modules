@@ -29,7 +29,7 @@ resource "aws_api_gateway_integration" "integrations" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   content_handling        = "CONVERT_TO_TEXT"
-  uri                     = var.lambda_function_invoke_arn
+  uri                     = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : var.lambda_function_invoke_arns_by_method[each.key]
 }
 
 resource "aws_apigatewayv2_integration" "integrations" {
@@ -41,7 +41,7 @@ resource "aws_apigatewayv2_integration" "integrations" {
   connection_type           = "INTERNET"
   content_handling_strategy = var.type == "WEBSOCKET" ? "CONVERT_TO_TEXT" : null
   integration_method        = "POST"
-  integration_uri           = var.lambda_function_invoke_arn
+  integration_uri           = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : var.lambda_function_invoke_arns_by_method[each.key]
   passthrough_behavior      = var.type == "WEBSOCKET" ? "WHEN_NO_MATCH" : null
   timeout_milliseconds      = lookup(var.parameters, "timeout_milliseconds", null)
 }

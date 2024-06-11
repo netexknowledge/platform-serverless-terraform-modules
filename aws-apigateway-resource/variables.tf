@@ -8,7 +8,6 @@ variable "parameters" {
   description = "API Gateway Resource parameters to be passed to the module"
   type        = any
   default = {
-    lambda_name   = "",
     http_method   = ["ANY"],
     authorizer    = null
     authorizer_id = null
@@ -51,6 +50,13 @@ variable "authorizer_id" {
 variable "lambda_function_invoke_arn" {
   description = "Lambda function invoke arn"
   type        = string
+  nullable    = true
+  default     = null
+}
+
+variable "lambda_function_invoke_arns_by_method" {
+  description = "List of Lambda function invoke arn by method"
+  type        = any
   nullable    = true
   default     = null
 }
