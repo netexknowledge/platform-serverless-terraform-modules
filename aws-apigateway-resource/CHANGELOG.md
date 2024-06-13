@@ -1,6 +1,11 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.0.6...aws-apigateway-resource@0.0.7) (2024-06-13)
+
+
+* **aws-apigateway-resource:** add support of path params ([384a640](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/384a6401a63e8cfa372917d5ba84fb345b376469))
+
 ## [0.0.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.0.5...aws-apigateway-resource@0.0.6) (2024-06-11)
 
 
