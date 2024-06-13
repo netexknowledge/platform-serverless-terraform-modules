@@ -2,12 +2,20 @@
 ## Resources endpoints               ##
 #######################################
 
+resource "aws_api_gateway_resource" "resource_parent" {
+  count = var.type == "REST" ? length(regexall("/", local.name)) > 0 ? 1 : 0 : 0
+
+  rest_api_id = var.api_id
+  parent_id   = var.api_root_resource_id
+  path_part   = dirname(local.name)
+}
+
 resource "aws_api_gateway_resource" "resource" {
   count = var.type == "REST" ? 1 : 0
 
   rest_api_id = var.api_id
-  parent_id   = var.api_root_resource_id
-  path_part   = substr(var.name, 0, 1) == "/" ? substr(var.name, 1, length(var.name) - 1) : var.name
+  parent_id   = length(regexall("/", local.name)) > 0 ? aws_api_gateway_resource.resource_parent[0].id : var.api_root_resource_id
+  path_part   = length(regexall("/", local.name)) > 0 ? basename(local.name) : local.name
 }
 
 resource "aws_api_gateway_method" "methods" {
@@ -18,6 +26,10 @@ resource "aws_api_gateway_method" "methods" {
   http_method   = each.key
   authorization = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
   authorizer_id = var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id
+
+  request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
+    "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "integrations" {
@@ -30,6 +42,10 @@ resource "aws_api_gateway_integration" "integrations" {
   type                    = "AWS_PROXY"
   content_handling        = "CONVERT_TO_TEXT"
   uri                     = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : var.lambda_function_invoke_arns_by_method[each.key]
+
+  request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
+    "integration.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}"
+  }
 }
 
 resource "aws_apigatewayv2_integration" "integrations" {
@@ -50,7 +66,7 @@ resource "aws_apigatewayv2_route" "methods" {
   for_each = var.type == "HTTP" ? toset(local.norest_http_methods) : toset(local.websocket_methods)
 
   api_id    = var.api_id
-  route_key = var.type == "HTTP" ? format("%s %s", each.key, var.name) : substr(var.name, 0, 1) == "/" ? substr(var.name, 1, length(var.name) - 1) : var.name
+  route_key = var.type == "HTTP" ? format("%s %s", each.key, var.name) : local.name
 
   route_response_selection_expression = contains(local.websocket_response_methods, each.key) ? "$default" : null
 

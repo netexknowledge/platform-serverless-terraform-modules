@@ -62,6 +62,7 @@ variable "lambda_function_invoke_arns_by_method" {
 }
 
 locals {
+  name                       = substr(var.name, 0, 1) == "/" ? substr(var.name, 1, length(var.name) - 1) : var.name
   rest_http_methods          = var.type == "REST" ? lookup(var.parameters, "http_method", []) : []
   norest_http_methods        = var.type != "REST" ? lookup(var.parameters, "http_method", []) : []
   websocket_methods          = var.type == "WEBSOCKET" ? ["default"] : []
