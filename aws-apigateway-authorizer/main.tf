@@ -19,7 +19,7 @@ resource "aws_apigatewayv2_authorizer" "authorizer" {
   authorizer_type                  = "REQUEST"
   authorizer_uri                   = var.lambda_function_invoke_arn
   identity_sources                 = [try(var.parameters.identity_source, "$request.header.Authorization")]
-  authorizer_result_ttl_in_seconds = try(var.parameters.authorizer_result_ttl_in_seconds, 0)
+  authorizer_result_ttl_in_seconds = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_result_ttl_in_seconds, 0)
 }
 
 data "aws_iam_policy_document" "invocation_assume_role" {
@@ -34,7 +34,6 @@ data "aws_iam_policy_document" "invocation_assume_role" {
     actions = ["sts:AssumeRole"]
   }
 }
-
 
 resource "random_string" "role_suffix" {
   length  = 6

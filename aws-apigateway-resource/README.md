@@ -37,6 +37,7 @@ No modules.
 | <a name="input_api_id"></a> [api\_id](#input\_api\_id) | API Gateway ID | `string` | `""` | no |
 | <a name="input_api_name"></a> [api\_name](#input\_api\_name) | API Gateway name | `string` | `""` | no |
 | <a name="input_api_root_resource_id"></a> [api\_root\_resource\_id](#input\_api\_root\_resource\_id) | API Gateway root resource id | `string` | `""` | no |
+| <a name="input_authorizer_by_method"></a> [authorizer\_by\_method](#input\_authorizer\_by\_method) | List of authorizer and authorizer\_id by method | `any` | `null` | no |
 | <a name="input_authorizer_id"></a> [authorizer\_id](#input\_authorizer\_id) | API Gateway Authorizer ID pre-existing | `string` | `null` | no |
 | <a name="input_lambda_function_invoke_arn"></a> [lambda\_function\_invoke\_arn](#input\_lambda\_function\_invoke\_arn) | Lambda function invoke arn | `string` | `null` | no |
 | <a name="input_lambda_function_invoke_arns_by_method"></a> [lambda\_function\_invoke\_arns\_by\_method](#input\_lambda\_function\_invoke\_arns\_by\_method) | List of Lambda function invoke arn by method | `any` | `null` | no |

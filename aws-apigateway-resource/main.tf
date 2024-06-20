@@ -24,8 +24,8 @@ resource "aws_api_gateway_method" "methods" {
   rest_api_id   = var.api_id
   resource_id   = aws_api_gateway_resource.resource[0].id
   http_method   = each.key
-  authorization = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
-  authorizer_id = var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id
+  authorization = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : lookup(var.authorizer_by_method, each.key, null) == null ? "NONE" : lookup(var.authorizer_by_method[each.key], "authorizer", false) == true ? "CUSTOM" : "NONE"
+  authorizer_id = lookup(var.authorizer_by_method, each.key, null) != null ? lookup(var.authorizer_by_method[each.key], "authorizer_id", null) != null ? var.authorizer_by_method[each.key].authorizer_id : var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id : null
 
   request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
     "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = true
@@ -71,6 +71,9 @@ resource "aws_apigatewayv2_route" "methods" {
   route_response_selection_expression = contains(local.websocket_response_methods, each.key) ? "$default" : null
 
   target = "integrations/${aws_apigatewayv2_integration.integrations[each.key].id}"
+
+  authorization_type = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
+  authorizer_id      = var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id
 }
 
 # resource "aws_apigatewayv2_integration_response" "example" {
