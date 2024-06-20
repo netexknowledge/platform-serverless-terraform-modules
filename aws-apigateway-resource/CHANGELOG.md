@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.0.7...aws-apigateway-resource@0.1.0) (2024-06-20)
+
+
+### Features
+
+* **aws-apigateway-resource:** add support of auth in multiple methods by resource ([6b09fb8](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/6b09fb85cda4e4d766cc64719a3f91e3f00591e4))
+
 ## [0.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.0.6...aws-apigateway-resource@0.0.7) (2024-06-13)
 
 
