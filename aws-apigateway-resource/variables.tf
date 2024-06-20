@@ -61,6 +61,13 @@ variable "lambda_function_invoke_arns_by_method" {
   default     = null
 }
 
+variable "authorizer_by_method" {
+  description = "List of authorizer and authorizer_id by method"
+  type        = any
+  nullable    = true
+  default     = null
+}
+
 locals {
   name                       = substr(var.name, 0, 1) == "/" ? substr(var.name, 1, length(var.name) - 1) : var.name
   rest_http_methods          = var.type == "REST" ? lookup(var.parameters, "http_method", []) : []
