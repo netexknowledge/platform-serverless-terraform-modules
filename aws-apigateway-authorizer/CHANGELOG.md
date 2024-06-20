@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.0.5...aws-apigateway-authorizer@0.1.0) (2024-06-20)
+
+
+### Features
+
+* **aws-apigateway-authorizer:** set default value of authttl to null in websocket type ([e7d6882](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/e7d688247aff7d011b9e55d19f5e18fb81fc4449))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.0.4...aws-apigateway-authorizer@0.0.5) (2024-03-08)
 
 
