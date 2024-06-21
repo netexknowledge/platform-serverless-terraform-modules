@@ -18,7 +18,7 @@ resource "aws_apigatewayv2_authorizer" "authorizer" {
   api_id                           = var.api_id
   authorizer_type                  = "REQUEST"
   authorizer_uri                   = var.lambda_function_invoke_arn
-  identity_sources                 = [try(var.parameters.identity_source, "$request.header.Authorization")]
+  identity_sources                 = var.type == "WEBSOCKET" ? [try(var.parameters.identity_source, "route.request.header.Authorization")] : [try(var.parameters.identity_source, "$request.header.Authorization")]
   authorizer_result_ttl_in_seconds = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_result_ttl_in_seconds, 0)
 }
 
