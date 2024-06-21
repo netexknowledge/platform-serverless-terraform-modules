@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.2.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.1.0...aws-apigateway-authorizer@0.2.0) (2024-06-21)
+
+
+### Features
+
+* **aws-apigateway-authorizer:** add default identity source valid in websocket type ([88c9382](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/88c9382d5a6774929c6b36f1694d456b6241409f))
+
 ## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.0.5...aws-apigateway-authorizer@0.1.0) (2024-06-20)
 
 
