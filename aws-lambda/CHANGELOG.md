@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.12...aws-lambda@0.1.0) (2024-06-25)
+
+
+### Features
+
+* **aws-lambda:** add support of param create current version allowed triggers ([9806be5](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/9806be5eec3307146b0c4f51c14abea86dbdcd86))
+
 ## [0.0.12](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.11...aws-lambda@0.0.12) (2024-03-14)
 
 
