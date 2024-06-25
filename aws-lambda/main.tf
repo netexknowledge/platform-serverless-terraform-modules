@@ -80,6 +80,8 @@ module "lambda_function" {
   s3_kms_key_id             = local.s3_kms_key_id
   s3_server_side_encryption = local.s3_server_side_encryption
   s3_object_storage_class   = local.s3_object_storage_class
+
+  create_current_version_allowed_triggers = local.create_current_version_allowed_triggers
   allowed_triggers = {
     for trigger_name, trigger_config in var.allowed_triggers :
     trigger_name => {
