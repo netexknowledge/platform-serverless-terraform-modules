@@ -14,12 +14,13 @@ resource "aws_api_gateway_authorizer" "authorizer" {
 resource "aws_apigatewayv2_authorizer" "authorizer" {
   count = var.type == "REST" ? 0 : 1
 
-  name                             = local.resource_name
-  api_id                           = var.api_id
-  authorizer_type                  = "REQUEST"
-  authorizer_uri                   = var.lambda_function_invoke_arn
-  identity_sources                 = var.type == "WEBSOCKET" ? [try(var.parameters.identity_source, "route.request.header.Authorization")] : [try(var.parameters.identity_source, "$request.header.Authorization")]
-  authorizer_result_ttl_in_seconds = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_result_ttl_in_seconds, 0)
+  name                              = local.resource_name
+  api_id                            = var.api_id
+  authorizer_type                   = "REQUEST"
+  authorizer_uri                    = var.lambda_function_invoke_arn
+  identity_sources                  = var.type == "WEBSOCKET" ? [try(var.parameters.identity_source, "route.request.header.Authorization")] : [try(var.parameters.identity_source, "$request.header.Authorization")]
+  authorizer_result_ttl_in_seconds  = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_result_ttl_in_seconds, 0)
+  authorizer_payload_format_version = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_payload_format_version, "1.0")
 }
 
 data "aws_iam_policy_document" "invocation_assume_role" {
