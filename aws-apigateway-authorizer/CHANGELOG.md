@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.3.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.2.0...aws-apigateway-authorizer@0.3.0) (2024-06-25)
+
+
+### Features
+
+* **aws-apigateway-authorizer:** add default payload version in http type ([bbc7d96](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/bbc7d96c4369e268290f1fb16cb9bcd971c36ee9))
+
 ## [0.2.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.1.0...aws-apigateway-authorizer@0.2.0) (2024-06-21)
 
 
