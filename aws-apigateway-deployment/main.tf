@@ -2,7 +2,9 @@ resource "aws_api_gateway_deployment" "deployment" {
   count = var.type == "REST" ? 1 : 0
 
   rest_api_id = var.api_id
-  triggers    = var.triggers
+  triggers = {
+    "redeployment" = lookup(var.triggers, "redeployment", sha1(formatdate("EEEE, DD-MMM-YY hh:mm:ss ZZZ", timestamp())))
+  }
   lifecycle {
     create_before_destroy = true
   }
@@ -30,8 +32,10 @@ resource "aws_api_gateway_stage" "stage" {
 resource "aws_apigatewayv2_deployment" "deployment" {
   count = var.type == "REST" ? 0 : 1
 
-  api_id   = var.api_id
-  triggers = var.triggers
+  api_id = var.api_id
+  triggers = {
+    "redeployment" = lookup(var.triggers, "redeployment", sha1(formatdate("EEEE, DD-MMM-YY hh:mm:ss ZZZ", timestamp())))
+  }
 
   lifecycle {
     create_before_destroy = true
