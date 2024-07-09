@@ -6,9 +6,9 @@ resource "aws_api_gateway_authorizer" "authorizer" {
   # authorizer_uri                   = "arn:aws:apigateway:${var.current_region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.current_region}:${var.current_awsaccount_id}:function:${var.parameters.lambda_name}/invocations"
   authorizer_uri                   = var.lambda_function_invoke_arn
   authorizer_credentials           = aws_iam_role.invocation_role.arn
-  identity_source                  = try(var.parameters.identity_source, "method.request.header.Authorization")
-  authorizer_result_ttl_in_seconds = try(var.parameters.authorizer_result_ttl_in_seconds, 0)
-  identity_validation_expression   = "^[0-9]+$"
+  identity_source                  = lookup(var.parameters, "identity_source", "method.request.header.Authorization")
+  authorizer_result_ttl_in_seconds = lookup(var.parameters, "authorizer_result_ttl_in_seconds", 0)
+  identity_validation_expression   = lookup(var.parameters, "identity_validation_expression", "^[0-9]+$")
 }
 
 resource "aws_apigatewayv2_authorizer" "authorizer" {
@@ -18,9 +18,9 @@ resource "aws_apigatewayv2_authorizer" "authorizer" {
   api_id                            = var.api_id
   authorizer_type                   = "REQUEST"
   authorizer_uri                    = var.lambda_function_invoke_arn
-  identity_sources                  = var.type == "WEBSOCKET" ? [try(var.parameters.identity_source, "route.request.header.Authorization")] : [try(var.parameters.identity_source, "$request.header.Authorization")]
-  authorizer_result_ttl_in_seconds  = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_result_ttl_in_seconds, 0)
-  authorizer_payload_format_version = var.type == "WEBSOCKET" ? null : try(var.parameters.authorizer_payload_format_version, "1.0")
+  identity_sources                  = var.type == "WEBSOCKET" ? [lookup(var.parameters, "identity_source", "route.request.header.Authorization")] : [lookup(var.parameters, "identity_source", "$request.header.Authorization")]
+  authorizer_result_ttl_in_seconds  = var.type == "WEBSOCKET" ? null : lookup(var.parameters, "authorizer_result_ttl_in_seconds", 0)
+  authorizer_payload_format_version = var.type == "WEBSOCKET" ? null : lookup(var.parameters, "authorizer_payload_format_version", "1.0")
 }
 
 data "aws_iam_policy_document" "invocation_assume_role" {
