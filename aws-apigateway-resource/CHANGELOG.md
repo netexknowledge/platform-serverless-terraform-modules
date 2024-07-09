@@ -1,6 +1,11 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.0...aws-apigateway-resource@0.1.1) (2024-07-09)
+
+
+* **aws-apigateway-resource:** add support of proxy resources in rest api ([d6c039d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/d6c039ddd8a6e3f23f5974aa87d3c662f476af0d))
+
 ## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.0.7...aws-apigateway-resource@0.1.0) (2024-06-20)
 
 
