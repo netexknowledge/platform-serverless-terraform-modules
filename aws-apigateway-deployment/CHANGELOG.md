@@ -1,6 +1,11 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [0.0.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.5...aws-apigateway-deployment@0.0.6) (2024-07-09)
+
+
+* **aws-apigateway-deployment:** default trigger to allow renew deploy stage in always apply ([af37a6d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/af37a6d5ca83eba8ba817e0ddcbfea2348da579d))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.4...aws-apigateway-deployment@0.0.5) (2024-03-14)
 
 
