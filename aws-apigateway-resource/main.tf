@@ -28,7 +28,7 @@ resource "aws_api_gateway_method" "methods" {
   authorizer_id = lookup(var.authorizer_by_method, each.key, null) != null ? lookup(var.authorizer_by_method[each.key], "authorizer_id", null) != null ? var.authorizer_by_method[each.key].authorizer_id : var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id : null
 
   request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
-    "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = true
+    "method.request.path.${replace(trim(basename(local.name), "{}+"), ".", "_")}" = true
   }
 }
 
@@ -43,7 +43,7 @@ resource "aws_api_gateway_integration" "integrations" {
   content_handling        = "CONVERT_TO_TEXT"
   uri                     = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : var.lambda_function_invoke_arns_by_method[each.key]
 
-  request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
+  request_parameters = basename(local.name) == "{proxy+}" ? null : length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
     "integration.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}"
   }
 }
