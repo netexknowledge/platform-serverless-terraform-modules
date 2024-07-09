@@ -1,6 +1,11 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.3.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.0...aws-apigateway-authorizer@0.3.1) (2024-07-09)
+
+
+* **aws-apigateway-authorizer:** allow custom regex in identity validation expression ([dab6bae](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/dab6baeef680021449b3274d8dfcebde40a7a29d))
+
 ## [0.3.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.2.0...aws-apigateway-authorizer@0.3.0) (2024-06-25)
 
 
