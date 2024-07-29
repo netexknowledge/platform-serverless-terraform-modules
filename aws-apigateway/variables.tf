@@ -46,3 +46,9 @@ variable "route_selection_expression" {
   type        = string
   default     = null
 }
+
+variable "endpoint_configuration_types" {
+  description = "API Gateway endpoint configuration types"
+  type        = string
+  default     = "EDGE"
+}
