@@ -1,6 +1,11 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.1...aws-apigateway-resource@0.1.2) (2024-07-29)
+
+
+* **aws-apigateway-resource:** add support of endpoint type and timeout limit in REST ([ee615a8](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/ee615a8ea58d246ec6e3fc0c63ba5074890410e1))
+
 ## [0.1.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.0...aws-apigateway-resource@0.1.1) (2024-07-09)
 
 
