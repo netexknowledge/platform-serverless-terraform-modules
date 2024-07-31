@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "invocation_policy" {
 }
 
 resource "aws_iam_role_policy" "invocation_policy" {
-  name   = "${var.api_name}_${local.resource_name}_api_gateway_invocation_policy"
+  name   = "lambda_invocation"
   role   = aws_iam_role.invocation_role.id
   policy = data.aws_iam_policy_document.invocation_policy.json
 }
