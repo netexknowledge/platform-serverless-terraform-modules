@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.3.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.1...aws-apigateway-authorizer@0.3.2) (2024-07-31)
+
+
+### Bug Fixes
+
+* **aws-apigateway-authorizer:** set a fixed name in custom inline allow invoke lambda auth ([9c3526d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/9c3526d8c378357c262c599583211aed4558909a))
+
 ## [0.3.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.0...aws-apigateway-authorizer@0.3.1) (2024-07-09)
 
 
