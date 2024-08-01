@@ -45,7 +45,7 @@ resource "random_string" "role_suffix" {
 }
 
 resource "aws_iam_role" "invocation_role" {
-  name               = "${local.resource_name}_apigw_auth_${random_string.role_suffix.result}"
+  name               = "${local.resource_name}_${random_string.role_suffix.result}"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.invocation_assume_role.json
 
