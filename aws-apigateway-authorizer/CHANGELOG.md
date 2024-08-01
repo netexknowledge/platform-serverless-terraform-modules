@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [0.3.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.2...aws-apigateway-authorizer@0.3.3) (2024-08-01)
+
+
+### Bug Fixes
+
+* **aws-apigateway-authorizer:** reduce name of role invoke lambda auth ([79cfa3d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/79cfa3dbf0748268730d2f0d425a76fe36fab867))
+
 ## [0.3.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.1...aws-apigateway-authorizer@0.3.2) (2024-07-31)
 
 
