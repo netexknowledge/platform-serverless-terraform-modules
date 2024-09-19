@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.0...aws-lambda@0.1.1) (2024-09-19)
+
+
+### Bug Fixes
+
+* **aws-lambda:** add the correct lambda handler when datadog integration is enabled ([fb5ad9e](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/fb5ad9e5960ee9aa6350f0d93537527c1c924773))
+
 ## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.0.12...aws-lambda@0.1.0) (2024-06-25)
 
 
