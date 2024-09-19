@@ -41,6 +41,22 @@ locals {
     }
   }
 
+  # Datadog docs about lambda handler with dd integration:
+  # Lambda handler with python engine: https://docs.datadoghq.com/serverless/aws_lambda/installation/python/?tab=custom
+  # Lambda handler with nodejs engine: https://docs.datadoghq.com/serverless/aws_lambda/installation/nodejs/?tab=custom
+  # Lambda handler with with incompatible datadog handler: https://docs.datadoghq.com/serverless/guide/handler_wrapper
+  datadog_layers_handler = {
+    "python3.9"  = "datadog_lambda.handler.handler"
+    "python3.10" = "datadog_lambda.handler.handler"
+    "python3.11" = "datadog_lambda.handler.handler"
+    "python3.12" = "datadog_lambda.handler.handler"
+    "nodejs12.x" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+    "nodejs14.x" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+    "nodejs16.x" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+    "nodejs18.x" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+    "nodejs20.x" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+  }
+
   datadog_environment_variables = var.add_datadog_layer ? {
     "DD_ENV"                    = "${var.tags["environment"]}"
     "DD_API_KEY"                = "${data.aws_ssm_parameter.datadog_apikey[0].value}"
@@ -64,7 +80,7 @@ module "lambda_function" {
   docker_image              = local.docker_image
   docker_additional_options = local.docker_additional_options
   function_name             = local.resource_name
-  handler                   = local.handler
+  handler                   = var.add_datadog_layer ? local.datadog_layers_handler[local.runtime] : local.handler
   runtime                   = local.runtime
   timeout                   = local.timeout
   memory_size               = local.memory_size
