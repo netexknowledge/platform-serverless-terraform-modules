@@ -1,6 +1,8 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.3...aws-lambda@0.1.4) (2024-09-24)
+
 ## [0.1.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.2...aws-lambda@0.1.3) (2024-09-24)
 
 ## [0.1.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.1...aws-lambda@0.1.2) (2024-09-23)
