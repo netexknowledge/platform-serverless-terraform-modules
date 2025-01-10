@@ -1,6 +1,13 @@
 # Changelog of aws-sqs 
 
 
+## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-sqs@0.0.3...aws-sqs@0.1.0) (2025-01-10)
+
+
+### Features
+
+* **aws-sqs:** add support of sqs integration ([af91cf9](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/af91cf96dfc5974c08a90303120c3e02c667a7a2))
+
 ## [0.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-sqs@0.0.2...aws-sqs@0.0.3) (2024-02-20)
 
 
