@@ -33,6 +33,11 @@ output "tags_all" {
   value       = var.type == "REST" ? aws_api_gateway_rest_api.api[0].tags_all : aws_apigatewayv2_api.api[0].tags_all
 }
 
+output "role_arn" {
+  description = "IAM role of the API Gateway"
+  value       = aws_iam_role.api_gateway_role.arn
+}
+
 output "cloudwatch_log_group_arn" {
   description = "Attributie ARN of CloudWatch log group"
   value       = aws_cloudwatch_log_group.logs.arn

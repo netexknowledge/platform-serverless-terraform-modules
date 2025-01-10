@@ -26,7 +26,7 @@ resource "aws_cloudwatch_log_group" "logs" {
 resource "aws_api_gateway_account" "api_account_cloudwatch" {
   count = var.enable_cloudwatch_role ? (var.custom_cloudwatch_role_arn == null) ? 1 : 0 : 0
 
-  cloudwatch_role_arn = aws_iam_role.api_account_cloudwatch[0].arn
+  cloudwatch_role_arn = aws_iam_role.api_gateway_role.arn
 }
 
 resource "aws_api_gateway_account" "api_account_cloudwatch_custom" {
@@ -35,9 +35,7 @@ resource "aws_api_gateway_account" "api_account_cloudwatch_custom" {
   cloudwatch_role_arn = var.custom_cloudwatch_role_arn
 }
 
-data "aws_iam_policy_document" "api_account_cloudwatch_assume_role" {
-  count = var.enable_cloudwatch_role ? 1 : 0
-
+data "aws_iam_policy_document" "apigw_service_assume_role" {
   statement {
     effect = "Allow"
 
@@ -50,37 +48,27 @@ data "aws_iam_policy_document" "api_account_cloudwatch_assume_role" {
   }
 }
 
-resource "aws_iam_role" "api_account_cloudwatch" {
-  count = var.enable_cloudwatch_role ? 1 : 0
-
+resource "aws_iam_role" "api_gateway_role" {
   name               = "${local.resource_name}_api_gateway_cloudwatch_global"
-  assume_role_policy = data.aws_iam_policy_document.api_account_cloudwatch_assume_role[0].json
+  assume_role_policy = data.aws_iam_policy_document.apigw_service_assume_role.json
 }
 
-data "aws_iam_policy_document" "api_account_cloudwatch" {
-  count = var.enable_cloudwatch_role ? 1 : 0
+resource "aws_iam_role_policy_attachment" "api_gateway_cloudwatch" {
+  role       = aws_iam_role.api_gateway_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+}
 
+# Add SQS inline policy to API Gateway role
+data "aws_iam_policy_document" "sqs_policy" {
   statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:DescribeLogGroups",
-      "logs:DescribeLogStreams",
-      "logs:PutLogEvents",
-      "logs:GetLogEvents",
-      "logs:FilterLogEvents",
-    ]
-
+    effect    = "Allow"
+    actions   = ["sqs:SendMessage"]
     resources = ["*"]
   }
 }
 
-resource "aws_iam_role_policy" "api_account_cloudwatch" {
-  count = var.enable_cloudwatch_role ? 1 : 0
-
-  name   = "${local.resource_name}_apiAccountCloudwatchPolicy"
-  role   = aws_iam_role.api_account_cloudwatch[0].id
-  policy = data.aws_iam_policy_document.api_account_cloudwatch[0].json
+resource "aws_iam_role_policy" "sqs_policy" {
+  name   = "sqs_integration"
+  role   = aws_iam_role.api_gateway_role.id
+  policy = data.aws_iam_policy_document.sqs_policy.json
 }
