@@ -60,15 +60,18 @@ resource "aws_api_gateway_integration" "integrations" {
 
 # The following resources are only for SQS integrations. More info in https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/integrate-amazon-api-gateway-with-amazon-sqs-to-handle-asynchronous-rest-apis.html
 resource "aws_api_gateway_method_response" "response200" {
-  for_each = local.sqs_integrations
+  for_each = toset(local.rest_http_methods)
 
   rest_api_id = var.api_id
   resource_id = aws_api_gateway_resource.resource[0].id
   http_method = aws_api_gateway_method.methods[each.key].http_method
   status_code = "200"
+
+  depends_on = [aws_api_gateway_integration.integrations]
 }
+
 resource "aws_api_gateway_integration_response" "response200" {
-  for_each = local.sqs_integrations
+  for_each = toset(local.rest_http_methods)
 
   rest_api_id = var.api_id
   resource_id = aws_api_gateway_resource.resource[0].id
@@ -77,6 +80,8 @@ resource "aws_api_gateway_integration_response" "response200" {
   response_templates = {
     "application/json" : ""
   }
+
+  depends_on = [aws_api_gateway_integration.integrations]
 }
 
 resource "aws_apigatewayv2_integration" "integrations" {
