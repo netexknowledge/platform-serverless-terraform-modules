@@ -32,6 +32,13 @@ variable "api_root_resource_id" {
   default     = ""
 }
 
+variable "api_role_arn" {
+  description = "API Gateway role arn"
+  type        = string
+  nullable    = true
+  default     = null
+}
+
 variable "api_gateway_authorizer_id" {
   description = "API Gateway Authorizer ID"
   type        = string
@@ -74,6 +81,11 @@ locals {
   norest_http_methods        = var.type != "REST" ? lookup(var.parameters, "http_method", []) : []
   websocket_methods          = var.type == "WEBSOCKET" ? ["default"] : []
   websocket_response_methods = var.type == "WEBSOCKET" ? (lookup(var.parameters, "response", false) ? ["default"] : []) : []
+  sqs_integrations = var.lambda_function_invoke_arns_by_method != null ? {
+    for key, arn in var.lambda_function_invoke_arns_by_method :
+    key => arn
+    if can(regex(":sqs:", arn))
+  } : {}
 }
 
 variable "tags" {

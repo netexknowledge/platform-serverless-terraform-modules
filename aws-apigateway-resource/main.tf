@@ -39,13 +39,43 @@ resource "aws_api_gateway_integration" "integrations" {
   resource_id             = aws_api_gateway_resource.resource[0].id
   http_method             = aws_api_gateway_method.methods[each.key].http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  content_handling        = "CONVERT_TO_TEXT"
+  type                    = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? "AWS" : "AWS_PROXY"
+  content_handling        = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? null : "CONVERT_TO_TEXT"
   uri                     = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : var.lambda_function_invoke_arns_by_method[each.key]
   timeout_milliseconds    = lookup(var.parameters, "timeout_milliseconds", null)
 
-  request_parameters = basename(local.name) == "{proxy+}" ? null : length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
+  request_parameters = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? {
+    "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
+    } : basename(local.name) == "{proxy+}" ? null : length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
     "integration.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}" = "method.request.path.${replace(trim(basename(local.name), "{}"), ".", "_")}"
+  }
+  cache_key_parameters = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? ["integration.request.header.Content-Type"] : []
+
+  request_templates = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? {
+    "application/json" = "Action=SendMessage&MessageBody=$util.urlEncode($input.body)"
+  } : null
+
+  credentials = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? var.api_role_arn : null
+}
+
+# The following resources are only for SQS integrations. More info in https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/integrate-amazon-api-gateway-with-amazon-sqs-to-handle-asynchronous-rest-apis.html
+resource "aws_api_gateway_method_response" "response200" {
+  for_each = local.sqs_integrations
+
+  rest_api_id = var.api_id
+  resource_id = aws_api_gateway_resource.resource[0].id
+  http_method = aws_api_gateway_method.methods[each.key].http_method
+  status_code = "200"
+}
+resource "aws_api_gateway_integration_response" "response200" {
+  for_each = local.sqs_integrations
+
+  rest_api_id = var.api_id
+  resource_id = aws_api_gateway_resource.resource[0].id
+  http_method = aws_api_gateway_method.methods[each.key].http_method
+  status_code = aws_api_gateway_method_response.response200[each.key].status_code
+  response_templates = {
+    "application/json" : ""
   }
 }
 
