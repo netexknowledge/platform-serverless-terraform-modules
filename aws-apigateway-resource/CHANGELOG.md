@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.3...aws-apigateway-resource@0.1.4) (2025-01-10)
+
+
+### Bug Fixes
+
+* **aws-apigateway-resource:** solved colateral sqs integration problem in lambda integrations ([fca65f1](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/fca65f197a4db4055250d6536027d72c4ac51e31))
+
 ## [0.1.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.2...aws-apigateway-resource@0.1.3) (2025-01-10)
 
 
