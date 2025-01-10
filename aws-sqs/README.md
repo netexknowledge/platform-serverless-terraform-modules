@@ -45,4 +45,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_apigateway_invoke_queue_arn"></a> [apigateway\_invoke\_queue\_arn](#output\_apigateway\_invoke\_queue\_arn) | ARN uri service to use in invokes integrations of API Gateway |
 | <a name="output_queue_arn"></a> [queue\_arn](#output\_queue\_arn) | ARN of the created SQS queue |
