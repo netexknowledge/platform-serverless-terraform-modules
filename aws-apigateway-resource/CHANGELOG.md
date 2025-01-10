@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.2...aws-apigateway-resource@0.1.3) (2025-01-10)
+
+
+### Bug Fixes
+
+* **aws-apigateway-resource:** add support of sqs integration ([7a10fd4](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/7a10fd4d243906a36b4302cd59dd333f423fedfa))
+
 ## [0.1.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.1...aws-apigateway-resource@0.1.2) (2024-07-29)
 
 
