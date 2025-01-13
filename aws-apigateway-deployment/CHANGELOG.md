@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [0.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.6...aws-apigateway-deployment@0.0.7) (2025-01-13)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** add vars custom mapping for apigateway ([0544a6f](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/0544a6f4259d9cbdf57889076fd6c530ea5d1ecb))
+
 ## [0.0.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.5...aws-apigateway-deployment@0.0.6) (2024-07-09)
 
 
