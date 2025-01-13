@@ -60,3 +60,21 @@ resource "aws_apigatewayv2_stage" "stage" {
 
   tags = var.tags
 }
+
+resource "aws_api_gateway_base_path_mapping" "custom_mapping" {
+  count = (var.custom_domain == true && var.type == "REST") ? 1 : 0
+
+  api_id      = var.api_id
+  stage_name  = aws_api_gateway_stage.stage[0].stage_name
+  domain_name = var.custom_domain_name
+  base_path   = var.base_path
+}
+
+resource "aws_apigatewayv2_api_mapping" "custom_mapping" {
+  count = (var.custom_domain == true && var.type != "REST") ? 1 : 0
+
+  api_id          = var.api_id
+  stage           = aws_apigatewayv2_stage.stage[0].id
+  domain_name     = var.custom_domain_name
+  api_mapping_key = var.base_path
+}

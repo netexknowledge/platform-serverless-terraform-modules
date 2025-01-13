@@ -54,3 +54,21 @@ variable "type" {
   type        = string
   default     = "REST"
 }
+
+variable "custom_domain" {
+  type        = bool
+  description = "Indicates whether to create a custom domain for the API."
+  default     = false
+}
+
+variable "custom_domain_name" {
+  type        = string
+  description = "Name of the custom domain."
+  default     = null
+}
+
+variable "base_path" {
+  type        = string
+  description = "Name concatenated by project and api name."
+  default     = null
+}
