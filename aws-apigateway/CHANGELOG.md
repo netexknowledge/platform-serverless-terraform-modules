@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway 
 
 
+## [0.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@0.0.7...aws-apigateway@0.0.8) (2025-01-14)
+
+
+### Bug Fixes
+
+* **aws-apigateway:** change role name to short suffix ([9425066](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/942506694fe463b826ec4ef2c8276770b2c6c7a4))
+
 ## [0.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@0.0.6...aws-apigateway@0.0.7) (2025-01-10)
 
 
