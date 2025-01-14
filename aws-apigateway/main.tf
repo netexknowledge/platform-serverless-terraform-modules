@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "apigw_service_assume_role" {
 }
 
 resource "aws_iam_role" "api_gateway_role" {
-  name               = "${local.resource_name}_api_gateway_cloudwatch_global"
+  name               = "${local.resource_name}_apigw"
   assume_role_policy = data.aws_iam_policy_document.apigw_service_assume_role.json
 }
 
