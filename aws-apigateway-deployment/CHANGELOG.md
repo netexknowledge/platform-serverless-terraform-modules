@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [0.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.7...aws-apigateway-deployment@0.0.8) (2025-01-16)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** add doc ([89b41fb](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/89b41fbbab940cf544a64a56c86ae3cb59a3b075))
+
 ## [0.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.6...aws-apigateway-deployment@0.0.7) (2025-01-13)
 
 
