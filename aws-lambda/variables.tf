@@ -104,3 +104,14 @@ variable "add_datadog_layer" {
   type        = bool
   default     = false
 }
+
+variable "vpc_security_group_ids" {
+  description = "Vpc security group id for lambda functions"
+  type        = list(string)
+  default     = null
+}
+variable "vpc_subnet_ids" {
+  description = "Vpc subnet id for lambda functions"
+  type        = list(string)
+  default     = null
+}

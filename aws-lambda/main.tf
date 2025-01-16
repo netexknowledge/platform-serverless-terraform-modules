@@ -111,6 +111,10 @@ module "lambda_function" {
 
   role_name = "${local.resource_name}-role"
 
+  vpc_security_group_ids = var.vpc_security_group_ids
+  vpc_subnet_ids         = var.vpc_subnet_ids
+  attach_network_policy  = true
+
   tags                 = var.tags
   role_tags            = var.tags
   s3_object_tags       = var.tags
