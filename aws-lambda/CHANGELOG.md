@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.4...aws-lambda@0.1.5) (2025-01-16)
+
+
+### Bug Fixes
+
+* **aws-lambda:** add vpcs support for lambdas function ([bc227c2](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/bc227c2aadb9b269db5a539a31abb65351599318))
+
 ## [0.1.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.3...aws-lambda@0.1.4) (2024-09-24)
 
 ## [0.1.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.2...aws-lambda@0.1.3) (2024-09-24)
