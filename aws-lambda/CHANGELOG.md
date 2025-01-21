@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.5...aws-lambda@0.1.6) (2025-01-21)
+
+
+### Bug Fixes
+
+* **aws-lambda:** add support of event_source_mapping in lambda definition ([183f9c6](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/183f9c617d8cdb5160b260baa2ce6001f4eb311e))
+
 ## [0.1.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.4...aws-lambda@0.1.5) (2025-01-16)
 
 
