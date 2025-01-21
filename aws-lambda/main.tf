@@ -96,6 +96,14 @@ module "lambda_function" {
     }
   }
 
+  event_source_mapping = {
+    for trigger_name, trigger_config in var.allowed_triggers :
+    trigger_name => merge(lookup(trigger_config, "event_source_mapping", {}),
+      {
+        event_source_arn = lookup(trigger_config, "source_arn", null)
+    }) if length(lookup(trigger_config, "event_source_mapping", {})) > 0
+  }
+
   attach_policy_statements = (var.policy_statements != {}) ? true : false
   policy_statements        = var.policy_statements
 
