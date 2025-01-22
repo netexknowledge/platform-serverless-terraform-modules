@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.4...aws-apigateway-resource@0.1.5) (2025-01-22)
+
+
+### Bug Fixes
+
+* **aws-apigateway-resource:** add support of custom request mapping template ([37dcecb](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/37dcecbd91694a1228b53b23eb7696140f678400))
+
 ## [0.1.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.3...aws-apigateway-resource@0.1.4) (2025-01-10)
 
 
