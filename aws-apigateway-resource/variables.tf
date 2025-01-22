@@ -107,3 +107,9 @@ variable "type" {
   type        = string
   default     = "REST"
 }
+
+variable "request_mapping_template" {
+  description = "API Gateway request mapping template"
+  type        = string
+  default     = "Action=SendMessage&MessageBody=$util.urlEncode($input.body)"
+}

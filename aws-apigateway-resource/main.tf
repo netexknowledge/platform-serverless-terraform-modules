@@ -52,7 +52,7 @@ resource "aws_api_gateway_integration" "integrations" {
   cache_key_parameters = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? ["integration.request.header.Content-Type"] : []
 
   request_templates = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? {
-    "application/json" = "Action=SendMessage&MessageBody=$util.urlEncode($input.body)"
+    "application/json" = var.request_mapping_template
   } : null
 
   credentials = can(regex(":sqs:", var.lambda_function_invoke_arns_by_method[each.key])) ? var.api_role_arn : null
