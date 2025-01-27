@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.6...aws-lambda@0.1.7) (2025-01-27)
+
+
+### Bug Fixes
+
+* **aws-lambda:** fix DD_TAGS commas ([ac8cd48](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/ac8cd4869e7b0d01dc64d6a43159d670b7233ba1))
+
 ## [0.1.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.5...aws-lambda@0.1.6) (2025-01-21)
 
 
