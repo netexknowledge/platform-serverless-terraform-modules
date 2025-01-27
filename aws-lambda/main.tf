@@ -51,7 +51,7 @@ locals {
     "DD_MERGE_XRAY_TRACES"      = "false"
     "DD_SITE"                   = "datadoghq.eu"
     "DD_TRACE_ENABLED"          = "true"
-    "DD_TAGS"                   = "team:${var.tags["product"]} env:${var.tags["environment"]} product:${var.tags["product"]} service:${local.resource_name} slot:default platform:lambda datacenter:aws aws_account_name:netex_${var.tags["environment"]}"
+    "DD_TAGS"                   = "team:${var.tags["product"]},env:${var.tags["environment"]},product:${var.tags["product"]},service:${local.resource_name},slot:default,platform:lambda,datacenter:aws,aws_account_name:netex_${var.tags["environment"]}"
   } : {}
 }
 
