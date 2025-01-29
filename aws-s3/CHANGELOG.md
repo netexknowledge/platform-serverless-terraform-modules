@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [0.0.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.5...aws-s3@0.0.6) (2025-01-29)
+
+
+### Bug Fixes
+
+* **aws-s3:** set correct parent key in dynamic rule blocks ([ff73671](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/ff73671096bc0984c33dc80c8e10eaa88b2e23b5))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.4...aws-s3@0.0.5) (2024-04-03)
 
 
