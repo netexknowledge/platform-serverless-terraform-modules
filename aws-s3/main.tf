@@ -136,32 +136,32 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
       dynamic "noncurrent_version_expiration" {
         for_each = lookup(rule.value, "noncurrent_version_expiration", {})
         content {
-          noncurrent_days           = lookup(noncurrent_version_expiration, "noncurrent_days", null)
-          newer_noncurrent_versions = lookup(noncurrent_version_expiration, "newer_noncurrent_versions", null)
+          noncurrent_days           = lookup(rule.value.noncurrent_version_expiration, "noncurrent_days", null)
+          newer_noncurrent_versions = lookup(rule.value.noncurrent_version_expiration, "newer_noncurrent_versions", null)
         }
       }
 
       dynamic "abort_incomplete_multipart_upload" {
         for_each = lookup(rule.value, "abort_incomplete_multipart_upload", {})
         content {
-          days_after_initiation = lookup(abort_incomplete_multipart_upload, "days_after_initiation", null)
+          days_after_initiation = lookup(rule.value.abort_incomplete_multipart_upload, "days_after_initiation", null)
         }
       }
 
       dynamic "transition" {
         for_each = lookup(rule.value, "transition", {})
         content {
-          days          = lookup(transition, "days", null)
-          storage_class = lookup(transition, "storage_class", null)
+          days          = lookup(rule.value.transition, "days", null)
+          storage_class = lookup(rule.value.transition, "storage_class", null)
         }
       }
 
       dynamic "noncurrent_version_transition" {
         for_each = lookup(rule.value, "noncurrent_version_transition", {})
         content {
-          noncurrent_days           = lookup(noncurrent_version_transition, "noncurrent_days", null)
-          newer_noncurrent_versions = lookup(noncurrent_version_transition, "newer_noncurrent_versions", null)
-          storage_class             = lookup(noncurrent_version_transition, "storage_class", null)
+          noncurrent_days           = lookup(rule.value.noncurrent_version_transition, "noncurrent_days", null)
+          newer_noncurrent_versions = lookup(rule.value.noncurrent_version_transition, "newer_noncurrent_versions", null)
+          storage_class             = lookup(rule.value.noncurrent_version_transition, "storage_class", null)
         }
       }
     }
