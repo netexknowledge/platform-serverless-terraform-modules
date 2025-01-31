@@ -1,6 +1,11 @@
 # Changelog of aws-lambda 
 
 
+## [0.1.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.7...aws-lambda@0.1.8) (2025-01-31)
+
+
+* **aws-lambda:** update aws ssm scm extension to last version ([b37abb1](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/b37abb1148dcd7e6d8ad6efb3da91a03a38989c4))
+
 ## [0.1.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.6...aws-lambda@0.1.7) (2025-01-27)
 
 
