@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [0.1.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.5...aws-apigateway-resource@0.1.6) (2025-02-19)
+
+
+### Bug Fixes
+
+* **aws-apigateway-resource:** apigw method definition problem in array mode ([a8496ba](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/a8496ba653323933c370d0fac04b78f190e05f49))
+
 ## [0.1.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.4...aws-apigateway-resource@0.1.5) (2025-01-22)
 
 
