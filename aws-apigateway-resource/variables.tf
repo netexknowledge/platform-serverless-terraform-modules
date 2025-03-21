@@ -21,7 +21,7 @@ variable "api_id" {
 }
 
 variable "api_name" {
-  description = "API Gateway name"
+  description = "API Gateway Name"
   type        = string
   default     = ""
 }

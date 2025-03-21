@@ -37,7 +37,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_gateway_authorizer_id"></a> [api\_gateway\_authorizer\_id](#input\_api\_gateway\_authorizer\_id) | API Gateway Authorizer ID | `string` | `null` | no |
 | <a name="input_api_id"></a> [api\_id](#input\_api\_id) | API Gateway ID | `string` | `""` | no |
-| <a name="input_api_name"></a> [api\_name](#input\_api\_name) | API Gateway name | `string` | `""` | no |
+| <a name="input_api_name"></a> [api\_name](#input\_api\_name) | API Gateway Name | `string` | `""` | no |
 | <a name="input_api_role_arn"></a> [api\_role\_arn](#input\_api\_role\_arn) | API Gateway role arn | `string` | `null` | no |
 | <a name="input_api_root_resource_id"></a> [api\_root\_resource\_id](#input\_api\_root\_resource\_id) | API Gateway root resource id | `string` | `""` | no |
 | <a name="input_authorizer_by_method"></a> [authorizer\_by\_method](#input\_authorizer\_by\_method) | List of authorizer and authorizer\_id by method | `any` | `null` | no |
