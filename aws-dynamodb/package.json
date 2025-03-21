@@ -1,6 +1,6 @@
 {
   "name": "aws-dynamodb",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Module for create AWS Dynamodb",
   "main": "index.js",
   "scripts": {},

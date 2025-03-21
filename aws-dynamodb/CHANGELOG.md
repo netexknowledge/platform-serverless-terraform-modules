@@ -1,6 +1,17 @@
 # Changelog of aws-dynamodb 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@0.0.5...aws-dynamodb@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-dynamodb:** standardize the nomenclature
+
+### Features
+
+* **aws-dynamodb:** standardize the nomenclature ([99d0f50](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/99d0f5078be4dac6f83cd76b1c4aa88d0c36e09b))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@0.0.4...aws-dynamodb@0.0.5) (2024-03-14)
 
 
