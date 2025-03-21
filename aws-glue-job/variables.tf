@@ -35,7 +35,7 @@ variable "s3_bucket_glue_name" {
 }
 
 variable "s3_acl" {
-  description = "S3 bucket storage for Glue job ACL"
+  description = "S3 bucket storage for Glue Job ACL"
   type        = string
   default     = "private"
 }
