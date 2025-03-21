@@ -1,6 +1,17 @@
 # Changelog of aws-glue-job 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.5...aws-glue-job@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-glue-job:** standardize the nomenclature
+
+### Features
+
+* **aws-glue-job:** standardize the nomenclature ([3cceeac](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/3cceeac26ef7fa71633d8bef7d12e1f029b07bab))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-job@0.0.4...aws-glue-job@0.0.5) (2024-05-08)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "aws-glue-job",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Module for create AWS Glue Job",
   "main": "index.js",
   "scripts": {},
