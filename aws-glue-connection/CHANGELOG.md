@@ -1,6 +1,17 @@
 # Changelog of aws-glue-connection 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.5...aws-glue-connection@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-glue-connection:** standardize the nomenclature
+
+### Features
+
+* **aws-glue-connection:** standardize the nomenclature ([c8cb253](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/c8cb2534603f27d921c8a896ff4cb6de6477e214))
+
 ## [0.0.5](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.4...aws-glue-connection@0.0.5) (2024-04-24)
 
 
