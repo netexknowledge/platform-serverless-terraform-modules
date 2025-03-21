@@ -1,6 +1,17 @@
 # Changelog of aws-sqs 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-sqs@0.1.0...aws-sqs@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-sqs:** standardize the nomenclature
+
+### Features
+
+* **aws-sqs:** standardize the nomenclature ([fcfc88d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/fcfc88d41511aa425d76a1bfc4375dc074cd82af))
+
 ## [0.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-sqs@0.0.3...aws-sqs@0.1.0) (2025-01-10)
 
 
