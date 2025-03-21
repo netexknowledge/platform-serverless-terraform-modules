@@ -1,6 +1,6 @@
 {
   "name": "aws-sns",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Module for create AWS SNS",
   "main": "index.js",
   "scripts": {},
