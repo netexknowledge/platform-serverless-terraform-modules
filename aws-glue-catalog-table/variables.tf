@@ -18,18 +18,18 @@ variable "tags" {
 }
 
 variable "name" {
-  description = "Glue Catalog database name"
+  description = "Glue Catalog Database name"
   type        = string
 }
 
 variable "description" {
-  description = "Glue Catalog database description"
+  description = "Glue Catalog Database description"
   type        = string
   default     = ""
 }
 
 variable "database_name" {
-  description = "Glue Catalog database name"
+  description = "Glue Catalog Database name"
   type        = string
 }
 
@@ -46,19 +46,19 @@ variable "table_type" {
 }
 
 variable "owner" {
-  description = "Glue Catalog database owner"
+  description = "Glue Catalog Database owner"
   type        = string
   default     = null
 }
 
 variable "retention" {
-  description = "Glue Catalog database retention"
+  description = "Glue Catalog Database retention"
   type        = number
   default     = null
 }
 
 variable "target_table" {
-  description = "Glue Catalog database target table"
+  description = "Glue Catalog Database target table"
   type = object({
     catalog_id    = string
     database_name = string
