@@ -1,6 +1,17 @@
 # Changelog of aws-glue-catalog-table 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-catalog-table@0.0.4...aws-glue-catalog-table@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-glue-catalog-table:** standardize the nomenclature
+
+### Features
+
+* **aws-glue-catalog-table:** standardize the nomenclature ([d9f4b87](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/d9f4b87fabd6ebe1ac7f9f54f6fb2659784b3658))
+
 ## [0.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-catalog-table@0.0.3...aws-glue-catalog-table@0.0.4) (2024-04-24)
 
 
