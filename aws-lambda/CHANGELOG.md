@@ -1,6 +1,17 @@
 # Changelog of aws-lambda 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.8...aws-lambda@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-lambda:** standardize the nomenclature
+
+### Features
+
+* **aws-lambda:** standardize the nomenclature ([18a6ed1](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/18a6ed19a2d149b12d4b3bdfb694ebc58a2dd4f3))
+
 ## [0.1.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@0.1.7...aws-lambda@0.1.8) (2025-01-31)
 
 
