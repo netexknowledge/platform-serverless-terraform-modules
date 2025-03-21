@@ -1,6 +1,17 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.3...aws-apigateway-authorizer@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-apigateway-authorizer:** standardize the nomenclature
+
+### Features
+
+* **aws-apigateway-authorizer:** standardize the nomenclature ([8f6449d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/8f6449d656754647030021aa839181c16ef946bc))
+
 ## [0.3.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.2...aws-apigateway-authorizer@0.3.3) (2024-08-01)
 
 
