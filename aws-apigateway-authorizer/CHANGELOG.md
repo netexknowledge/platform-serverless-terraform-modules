@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@1.0.2...aws-apigateway-authorizer@1.0.3) (2025-03-21)
+
+
+### Bug Fixes
+
+* **aws-apigateway-authorizer:** add needed lambda auth invoke arn ([5e408d6](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/5e408d63205a634eb6b6a110ed2670a07aab746f))
+
 ## [1.0.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@1.0.1...aws-apigateway-authorizer@1.0.2) (2025-03-21)
 
 
