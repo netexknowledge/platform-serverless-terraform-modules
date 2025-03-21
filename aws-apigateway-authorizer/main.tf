@@ -1,5 +1,5 @@
 data "aws_lambda_function" "authorizer" {
-  count         = var.lambda_function_arn == null ? 1 : 0
+  for_each      = var.lambda_function_arn == null ? { "default" = true } : {}
   function_name = lookup(var.parameters, "lambda_authorizer_name", "cloud-authorizer-authorizer")
 }
 
@@ -8,7 +8,7 @@ resource "aws_api_gateway_authorizer" "authorizer" {
 
   name                             = local.resource_name
   rest_api_id                      = var.api_id
-  authorizer_uri                   = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : data.aws_lambda_function.authorizer[0].invoke_arn
+  authorizer_uri                   = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : data.aws_lambda_function.authorizer["default"].invoke_arn
   authorizer_credentials           = aws_iam_role.invocation_role.arn
   identity_source                  = lookup(var.parameters, "identity_source", "method.request.header.Authorization")
   authorizer_result_ttl_in_seconds = lookup(var.parameters, "authorizer_result_ttl_in_seconds", 0)
@@ -21,7 +21,7 @@ resource "aws_apigatewayv2_authorizer" "authorizer" {
   name                              = local.resource_name
   api_id                            = var.api_id
   authorizer_type                   = "REQUEST"
-  authorizer_uri                    = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : data.aws_lambda_function.authorizer[0].invoke_arn
+  authorizer_uri                    = var.lambda_function_invoke_arn != null ? var.lambda_function_invoke_arn : data.aws_lambda_function.authorizer["default"].invoke_arn
   identity_sources                  = var.type == "WEBSOCKET" ? [lookup(var.parameters, "identity_source", "route.request.header.Authorization")] : [lookup(var.parameters, "identity_source", "$request.header.Authorization")]
   authorizer_result_ttl_in_seconds  = var.type == "WEBSOCKET" ? null : lookup(var.parameters, "authorizer_result_ttl_in_seconds", 0)
   authorizer_payload_format_version = var.type == "WEBSOCKET" ? null : lookup(var.parameters, "authorizer_payload_format_version", "1.0")
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "invocation_policy" {
   statement {
     effect    = "Allow"
     actions   = ["lambda:InvokeFunction"]
-    resources = [var.lambda_function_arn != null ? var.lambda_function_arn : data.aws_lambda_function.authorizer[0].arn]
+    resources = [var.lambda_function_arn != null ? var.lambda_function_arn : data.aws_lambda_function.authorizer["default"].arn]
   }
 }
 
