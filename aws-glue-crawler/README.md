@@ -30,7 +30,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_classifiers"></a> [classifiers](#input\_classifiers) | Glue Crawler classifiers | `list(string)` | `[]` | no |
 | <a name="input_connection_name"></a> [connection\_name](#input\_connection\_name) | Glue Crawler connection name | `string` | `null` | no |
-| <a name="input_database_name"></a> [database\_name](#input\_database\_name) | Catalog database name or id | `string` | n/a | yes |
+| <a name="input_database_name"></a> [database\_name](#input\_database\_name) | Catalog Database name or id | `string` | n/a | yes |
 | <a name="input_database_name_target"></a> [database\_name\_target](#input\_database\_name\_target) | Glue Crawler data catalog database name. Only use with type is catalog | `string` | `null` | no |
 | <a name="input_description"></a> [description](#input\_description) | Glue Crawler description | `string` | `""` | no |
 | <a name="input_enable_additional_metadata"></a> [enable\_additional\_metadata](#input\_enable\_additional\_metadata) | Specify a value of RAWTYPES or COMMENTS to enable additional metadata intable responses. RAWTYPES provides the native-level datatype. COMMENTS provides comments associated with a column or table in the database. Only used when type is jdbc | `list(string)` | `[]` | no |
