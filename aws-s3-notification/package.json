@@ -1,6 +1,6 @@
 {
   "name": "aws-s3-notification",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Module for create AWS S3 bucket notification",
   "main": "index.js",
   "scripts": {},
