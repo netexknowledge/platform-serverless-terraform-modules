@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@1.0.0...aws-apigateway-authorizer@1.0.1) (2025-03-21)
+
+
+### Bug Fixes
+
+* **aws-apigateway-authorizer:** avoid problem with resources until apply ([a7e7861](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/a7e7861e21ce6a5af78e9484908addddd0f4b94b))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@0.3.3...aws-apigateway-authorizer@1.0.0) (2025-03-21)
 
 
