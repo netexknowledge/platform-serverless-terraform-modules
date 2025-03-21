@@ -1,6 +1,17 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.8...aws-apigateway-deployment@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-apigateway-deployment:** standardize the nomenclature
+
+### Features
+
+* **aws-apigateway-deployment:** standardize the nomenclature ([602a086](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/602a0864a50476e26ffd08c6105c0d5844a0a773))
+
 ## [0.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.7...aws-apigateway-deployment@0.0.8) (2025-01-16)
 
 
