@@ -18,7 +18,7 @@ variable "tags" {
 }
 
 variable "bucket" {
-  description = "S3 bucket id"
+  description = "S3 Bucket ID"
   type        = string
 }
 
