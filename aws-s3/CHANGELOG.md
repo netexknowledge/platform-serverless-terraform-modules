@@ -1,6 +1,17 @@
 # Changelog of aws-s3 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.6...aws-s3@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-s3:** standardize the nomenclature
+
+### Features
+
+* **aws-s3:** standardize the nomenclature ([9db2a6f](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/9db2a6f326745a626ad74f536d2d3631e8eaac25))
+
 ## [0.0.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.5...aws-s3@0.0.6) (2025-01-29)
 
 
