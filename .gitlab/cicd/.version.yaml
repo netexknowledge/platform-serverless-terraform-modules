@@ -26,12 +26,22 @@ version:
     - git push origin HEAD:$CI_COMMIT_REF_NAME
     - >
       for crt_tag in $(echo $projects_affected | sed "s/,/ /g"); do
-        git push origin $crt_tag@$(cd $crt_tag && npm pkg get version| sed 's/"//g')
+        echo "Tagging $crt_tag"
+        tag_version=$(cd $crt_tag && npm pkg get version| sed 's/"//g')
+        git push origin $crt_tag@$tag_version
         sleep 2
-        git tag -d $crt_tag@latest || true
-        git push origin :refs/tags/$crt_tag@latest || true
+        major_version=$(echo $tag_version | cut -d . -f 1)
+        git tag -d $crt_tag@$major_version || true
+        git push origin :refs/tags/$crt_tag@$major_version || true
         sleep 1
-        git tag $crt_tag@latest
-        git push origin $crt_tag@latest
+        git tag $crt_tag@$major_version
+        git push origin $crt_tag@$major_version
         sleep 2
+        # sleep 2
+        # git tag -d $crt_tag@latest || true
+        # git push origin :refs/tags/$crt_tag@latest || true
+        # sleep 1
+        # git tag $crt_tag@latest
+        # git push origin $crt_tag@latest
+        # sleep 2
       done
