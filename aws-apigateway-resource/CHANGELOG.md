@@ -1,6 +1,17 @@
 # Changelog of aws-apigateway-resource 
 
 
+## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.6...aws-apigateway-resource@1.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-apigateway-resource:** standardize the nomenclature
+
+### Features
+
+* **aws-apigateway-resource:** standardize the nomenclature ([93fbf2d](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/93fbf2d02aea4544837da6d8c2d083d3209ad816))
+
 ## [0.1.6](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-resource@0.1.5...aws-apigateway-resource@0.1.6) (2025-02-19)
 
 
