@@ -37,7 +37,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_catalog_id"></a> [catalog\_id](#input\_catalog\_id) | Glue catalog ID | `string` | `null` | no |
+| <a name="input_catalog_id"></a> [catalog\_id](#input\_catalog\_id) | Glue Catalog ID | `string` | `null` | no |
 | <a name="input_connection_type"></a> [connection\_type](#input\_connection\_type) | Glue Connection type, default is JDBC. Valid values are JDBC, SFTP, MONGODB, KAFKA, NETWORK, MARKETPLACE, CUSTOM | `string` | `"JDBC"` | no |
 | <a name="input_connection_url"></a> [connection\_url](#input\_connection\_url) | Glue Connection connection URL not JDBC | `string` | `""` | no |
 | <a name="input_connector_class_name"></a> [connector\_class\_name](#input\_connector\_class\_name) | Glue Connection connector driver class name | `string` | `""` | no |

@@ -28,7 +28,7 @@ variable "description" {
 }
 
 variable "catalog_id" {
-  description = "Glue catalog ID"
+  description = "Glue Catalog ID"
   type        = string
   default     = null
 }

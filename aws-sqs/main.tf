@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "queue" {
-  name = format("%s-%s", local.product_name, var.name)
+  name = local.resource_name
 
   delay_seconds              = var.delay_seconds
   max_message_size           = var.max_message_size
@@ -22,7 +22,7 @@ resource "aws_sqs_queue" "queue" {
 resource "aws_sqs_queue" "deadletter" {
   count = (var.redrive_max_receive_count != null) ? 1 : 0
 
-  name = format("%s-%s-deadletter", local.product_name, var.name)
+  name = format("%s-deadletter", local.resource_name)
 
   tags = var.tags
 }

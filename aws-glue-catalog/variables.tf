@@ -18,18 +18,18 @@ variable "tags" {
 }
 
 variable "name" {
-  description = "Glue Catalog database name"
+  description = "Glue Catalog Database name"
   type        = string
 }
 
 variable "description" {
-  description = "Glue Catalog database description"
+  description = "Glue Catalog Database description"
   type        = string
   default     = ""
 }
 
 variable "location_uri" {
-  description = "Glue Catalog database location URI"
+  description = "Glue Catalog Database location URI"
   type        = string
   default     = null
 }

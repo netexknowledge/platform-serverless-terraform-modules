@@ -49,3 +49,4 @@ No modules.
 |------|-------------|
 | <a name="output_table_arn"></a> [table\_arn](#output\_table\_arn) | ARN of the created DynamoDB table |
 | <a name="output_table_id"></a> [table\_id](#output\_table\_id) | ID of the created DynamoDB table |
+| <a name="output_table_stream_arn"></a> [table\_stream\_arn](#output\_table\_stream\_arn) | ARN of the created DynamoDB table stream |

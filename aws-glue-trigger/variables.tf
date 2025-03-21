@@ -35,7 +35,7 @@ variable "enabled" {
 }
 
 variable "schedule" {
-  description = "Glue Crawler schedule"
+  description = "Glue Crawler Schedule"
   type        = string
   default     = null
 }

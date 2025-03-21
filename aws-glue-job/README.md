@@ -63,7 +63,7 @@ No modules.
 | <a name="input_max_retries"></a> [max\_retries](#input\_max\_retries) | Glue job max retries. Default is 0 | `number` | `0` | no |
 | <a name="input_name"></a> [name](#input\_name) | Glue Job name | `string` | n/a | yes |
 | <a name="input_number_of_workers"></a> [number\_of\_workers](#input\_number\_of\_workers) | Glue job number of workers. Default is 2 | `number` | `2` | no |
-| <a name="input_s3_acl"></a> [s3\_acl](#input\_s3\_acl) | S3 bucket storage for Glue job ACL | `string` | `"private"` | no |
+| <a name="input_s3_acl"></a> [s3\_acl](#input\_s3\_acl) | S3 bucket storage for Glue Job ACL | `string` | `"private"` | no |
 | <a name="input_s3_bucket_glue_name"></a> [s3\_bucket\_glue\_name](#input\_s3\_bucket\_glue\_name) | S3 bucket storage name for Glue job | `string` | `null` | no |
 | <a name="input_s3_create_bucket_glue"></a> [s3\_create\_bucket\_glue](#input\_s3\_create\_bucket\_glue) | Create S3 bucket storage for Glue job | `bool` | `false` | no |
 | <a name="input_script_file_path"></a> [script\_file\_path](#input\_script\_file\_path) | S3 bucket storage for Glue job script file path | `string` | `null` | no |

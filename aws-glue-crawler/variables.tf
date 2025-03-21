@@ -28,7 +28,7 @@ variable "type" {
 }
 
 variable "database_name" {
-  description = "Catalog database name or id"
+  description = "Catalog Database name or id"
   type        = string
 }
 

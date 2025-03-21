@@ -27,7 +27,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bucket"></a> [bucket](#input\_bucket) | S3 bucket id | `string` | n/a | yes |
+| <a name="input_bucket"></a> [bucket](#input\_bucket) | S3 Bucket ID | `string` | n/a | yes |
 | <a name="input_lambda_notifications"></a> [lambda\_notifications](#input\_lambda\_notifications) | values for bucket notifications | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 

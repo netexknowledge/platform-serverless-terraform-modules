@@ -33,7 +33,7 @@ No modules.
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Glue Trigger | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Glue Trigger name | `string` | n/a | yes |
 | <a name="input_predicate"></a> [predicate](#input\_predicate) | Glue Trigger predicate of job state | `any` | <pre>{<br>  "job_name": null,<br>  "logical_operator": null,<br>  "state": null<br>}</pre> | no |
-| <a name="input_schedule"></a> [schedule](#input\_schedule) | Glue Crawler schedule | `string` | `null` | no |
+| <a name="input_schedule"></a> [schedule](#input\_schedule) | Glue Crawler Schedule | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 
 ## Outputs
