@@ -17,4 +17,9 @@ locals {
   lambda_authorizer_arn = format("arn:aws:lambda:%s:%s:function:%s", data.aws_region.current.name, data.aws_caller_identity.current.account_id,
     lookup(var.parameters, "lambda_authorizer_name", "cloud-authorizer-authorizer")
   )
+  lambda_authorizer_invoke_arn = format(
+    "arn:aws:apigateway:%s:lambda:path/2015-03-31/functions/%s/invocations",
+    data.aws_region.current.name,
+    local.lambda_authorizer_arn
+  )
 }
