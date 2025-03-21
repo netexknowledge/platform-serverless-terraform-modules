@@ -36,7 +36,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_acl"></a> [acl](#input\_acl) | bucket acl | `string` | `"private"` | no |
+| <a name="input_acl"></a> [acl](#input\_acl) | bucket ACL | `string` | `"private"` | no |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | Name of the S3 bucket | `string` | n/a | yes |
 | <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | values for bucket cors rules | `any` | `[]` | no |
 | <a name="input_lifecycle_rules"></a> [lifecycle\_rules](#input\_lifecycle\_rules) | values for bucket lifecycle rules | `any` | `[]` | no |

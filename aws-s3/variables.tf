@@ -35,7 +35,7 @@ variable "object_ownership" {
 }
 
 variable "acl" {
-  description = "bucket acl"
+  description = "bucket ACL"
   type        = string
   default     = "private"
 }
