@@ -1,6 +1,7 @@
 variable "name" {
   description = "Name of API Gateway Authorizer, this should be converted to <tags.product>-<tags.environment>-<tags.project>-<this_value>"
   type        = string
+  nullable    = false
   default     = "authorizer"
 }
 
