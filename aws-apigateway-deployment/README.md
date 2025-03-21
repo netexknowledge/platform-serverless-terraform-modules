@@ -40,7 +40,7 @@ No modules.
 | <a name="input_custom_domain_name"></a> [custom\_domain\_name](#input\_custom\_domain\_name) | Name of the custom domain. | `string` | `null` | no |
 | <a name="input_enable_cloudwatch_role"></a> [enable\_cloudwatch\_role](#input\_enable\_cloudwatch\_role) | Enable CloudWatch role in API Gateway setings account | `bool` | `false` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | Name of API Gateway deployment stage | `string` | `"$default"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br/>    project     = string<br/>    product     = string<br/>    terraform   = string<br/>    environment = string<br/>    samtemplate = string<br/>  })</pre> | <pre>{<br/>  "environment": null,<br/>  "product": null,<br/>  "project": null,<br/>  "samtemplate": null,<br/>  "terraform": null<br/>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
 | <a name="input_triggers"></a> [triggers](#input\_triggers) | Object of triggers of API Gateway deployment | `any` | `{}` | no |
 | <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
 
@@ -49,4 +49,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the API Gateway |
-| <a name="output_invoke_url"></a> [invoke\_url](#output\_invoke\_url) | Attributie invoke URL of the API Gateway |
+| <a name="output_invoke_url"></a> [invoke\_url](#output\_invoke\_url) | Attribute invoke URL of the API Gateway |
