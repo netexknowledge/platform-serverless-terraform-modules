@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-authorizer 
 
 
+## [1.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@1.0.3...aws-apigateway-authorizer@1.0.4) (2025-03-24)
+
+
+### Bug Fixes
+
+* **aws-apigateway-authorizer:** default params variable config ([3459c34](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/3459c349d3656f959c4d0a74d709171ab7b337b0))
+
 ## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-authorizer@1.0.2...aws-apigateway-authorizer@1.0.3) (2025-03-21)
 
 
