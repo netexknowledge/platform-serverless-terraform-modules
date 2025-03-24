@@ -6,13 +6,10 @@ variable "name" {
 }
 
 variable "parameters" {
-  description = "API Gateway Authorizer parameters to be passed to the module"
+  description = "API Gateway Authorizer parameters to be passed to the module. Allowed properties: lambda_name or lambda_authorizer_name, identity_source, authorizer_result_ttl_in_seconds and identity_validation_expression"
   type        = any
-  default = {
-    lambda_name                      = "authorizer",
-    identity_source                  = "method.request.header.Authorization"
-    authorizer_result_ttl_in_seconds = 0
-  }
+  nullable    = true
+  default     = {}
 }
 
 variable "api_id" {
