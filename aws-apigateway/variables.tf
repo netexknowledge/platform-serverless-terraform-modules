@@ -52,3 +52,10 @@ variable "endpoint_configuration_types" {
   type        = string
   default     = "EDGE"
 }
+
+variable "binary_media_types" {
+  description = "API Gateway binary media types"
+  type        = list(string)
+  nullable    = false
+  default     = []
+}
