@@ -7,6 +7,8 @@ resource "aws_api_gateway_rest_api" "api" {
     types = [var.endpoint_configuration_types]
   }
 
+  binary_media_types = var.binary_media_types
+
   tags = var.tags
 }
 

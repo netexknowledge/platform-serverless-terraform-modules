@@ -36,6 +36,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_binary_media_types"></a> [binary\_media\_types](#input\_binary\_media\_types) | API Gateway binary media types | `list(string)` | `[]` | no |
 | <a name="input_custom_cloudwatch_role_arn"></a> [custom\_cloudwatch\_role\_arn](#input\_custom\_cloudwatch\_role\_arn) | Custom CloudWatch role ARN | `string` | `null` | no |
 | <a name="input_enable_cloudwatch_role"></a> [enable\_cloudwatch\_role](#input\_enable\_cloudwatch\_role) | Enable CloudWatch role in API Gateway setings account | `bool` | `false` | no |
 | <a name="input_endpoint_configuration_types"></a> [endpoint\_configuration\_types](#input\_endpoint\_configuration\_types) | API Gateway endpoint configuration types | `string` | `"EDGE"` | no |
