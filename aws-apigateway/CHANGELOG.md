@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway 
 
 
+## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@1.0.0...aws-apigateway@1.0.1) (2025-04-28)
+
+
+### Bug Fixes
+
+* **aws-apigateway:** add support of binary_media_types config ([43fb681](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/43fb68101ee56a1b5f1ec9e85e4db9c49d437c9e))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@0.0.8...aws-apigateway@1.0.0) (2025-03-21)
 
 
