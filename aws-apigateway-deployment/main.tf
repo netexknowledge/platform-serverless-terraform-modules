@@ -84,7 +84,7 @@ resource "aws_apigatewayv2_stage" "stage" {
     for_each = var.type == "WEBSOCKET" ? [1] : []
 
     content {
-      route_key                = "default"
+      route_key                = "$default"
       logging_level            = "ERROR"
       detailed_metrics_enabled = false
     }
