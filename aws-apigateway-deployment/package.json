@@ -1,6 +1,6 @@
 {
   "name": "aws-apigateway-deployment",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Module for create AWS ApiGateway Deployment",
   "main": "index.js",
   "scripts": {},
