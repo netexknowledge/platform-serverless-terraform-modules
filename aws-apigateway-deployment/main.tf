@@ -39,7 +39,7 @@ resource "aws_api_gateway_method_settings" "deployment" {
   count = var.type == "REST" ? 1 : 0
 
   rest_api_id = var.api_id
-  stage_name  = aws_api_gateway_stage.stage.stage_name
+  stage_name  = aws_api_gateway_stage.stage[0].stage_name
   method_path = "*/*" # Apply to all resources and methods
 
   settings {
