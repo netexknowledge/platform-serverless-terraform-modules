@@ -42,7 +42,7 @@ No modules.
 | <a name="input_endpoint_configuration_types"></a> [endpoint\_configuration\_types](#input\_endpoint\_configuration\_types) | API Gateway endpoint configuration types | `string` | `"EDGE"` | no |
 | <a name="input_name"></a> [name](#input\_name) | API Gateway name, this should be converted to <tags.product>-<tags.environment>-<tags.project>-<this\_value> | `string` | `"default"` | no |
 | <a name="input_route_selection_expression"></a> [route\_selection\_expression](#input\_route\_selection\_expression) | API Gateway route selection expression | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br>    project     = string<br>    product     = string<br>    terraform   = string<br>    environment = string<br>    samtemplate = string<br>  })</pre> | <pre>{<br>  "environment": null,<br>  "product": null,<br>  "project": null,<br>  "samtemplate": null,<br>  "terraform": null<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br/>    project     = string<br/>    product     = string<br/>    terraform   = string<br/>    environment = string<br/>    samtemplate = string<br/>  })</pre> | <pre>{<br/>  "environment": null,<br/>  "product": null,<br/>  "project": null,<br/>  "samtemplate": null,<br/>  "terraform": null<br/>}</pre> | no |
 | <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
 
 ## Outputs
