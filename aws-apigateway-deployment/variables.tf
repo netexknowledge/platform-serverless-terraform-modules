@@ -72,3 +72,9 @@ variable "base_path" {
   description = "Name concatenated by project and api name."
   default     = null
 }
+
+variable "waf_web_acl_name" {
+  type        = string
+  description = "Name of the WAF web ACL."
+  default     = "SecurityACL"
+}

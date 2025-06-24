@@ -29,6 +29,8 @@ No modules.
 | [aws_apigatewayv2_api_mapping.custom_mapping](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_api_mapping) | resource |
 | [aws_apigatewayv2_deployment.deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_deployment) | resource |
 | [aws_apigatewayv2_stage.stage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_stage) | resource |
+| [aws_wafv2_web_acl_association.waf_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_association) | resource |
+| [aws_waf_web_acl.ApiGatewayACL](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/waf_web_acl) | data source |
 
 ## Inputs
 
@@ -44,6 +46,7 @@ No modules.
 | <a name="input_tags"></a> [tags](#input\_tags) | Default tags of resources to add | <pre>object({<br/>    project     = string<br/>    product     = string<br/>    terraform   = string<br/>    environment = string<br/>    samtemplate = string<br/>  })</pre> | <pre>{<br/>  "environment": null,<br/>  "product": null,<br/>  "project": null,<br/>  "samtemplate": null,<br/>  "terraform": null<br/>}</pre> | no |
 | <a name="input_triggers"></a> [triggers](#input\_triggers) | Object of triggers of API Gateway deployment | `any` | `{}` | no |
 | <a name="input_type"></a> [type](#input\_type) | API Gateway type | `string` | `"REST"` | no |
+| <a name="input_waf_web_acl_name"></a> [waf\_web\_acl\_name](#input\_waf\_web\_acl\_name) | Name of the WAF web ACL. | `string` | `"SecurityACL"` | no |
 
 ## Outputs
 
