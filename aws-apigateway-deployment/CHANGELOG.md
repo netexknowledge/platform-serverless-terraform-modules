@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.0...aws-apigateway-deployment@1.0.1) (2025-06-24)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** set APIGW logs config with NIST config ([e4481fd](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/e4481fd397ddde125905553751b4930fa149a0d9))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@0.0.8...aws-apigateway-deployment@1.0.0) (2025-03-21)
 
 
