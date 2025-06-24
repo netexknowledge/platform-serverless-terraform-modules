@@ -1,6 +1,13 @@
 # Changelog of aws-dynamodb 
 
 
+## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@1.0.0...aws-dynamodb@1.0.1) (2025-06-24)
+
+
+### Bug Fixes
+
+* **aws-dynamodb:** update default values to align with NIST controls ([d09548a](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/d09548af45fcbf9784bc22b0fb80b4c30904fea5))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-dynamodb@0.0.5...aws-dynamodb@1.0.0) (2025-03-21)
 
 
