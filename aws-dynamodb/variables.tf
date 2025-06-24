@@ -50,7 +50,7 @@ variable "stream_enabled" {
 variable "point_in_time_recovery" {
   description = "DynamoDB point in time recovery"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "attributes" {
@@ -76,4 +76,10 @@ variable "autoscaling" {
   description = "Enable autoscaling"
   type        = any
   default     = {}
+}
+
+variable "delete_protection" {
+  description = "Enable delete protection for the DynamoDB table"
+  type        = bool
+  default     = true
 }

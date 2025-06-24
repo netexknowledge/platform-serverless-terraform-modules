@@ -1,6 +1,8 @@
 resource "aws_dynamodb_table" "dynamodb_table" {
   name = local.resource_name
 
+  deletion_protection_enabled = var.delete_protection
+
   billing_mode   = var.billing_mode
   read_capacity  = var.read_capacity
   write_capacity = var.write_capacity
