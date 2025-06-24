@@ -81,10 +81,10 @@ resource "aws_apigatewayv2_stage" "stage" {
 
   # For WebSocket APIs
   dynamic "route_settings" {
-    for_each = var.type == "WEBSOCKET" ? [1] : []
+    for_each = var.type == "WEBSOCKET" ? toset(["$default", "$connect", "$disconnect"]) : []
 
     content {
-      route_key                = "$default"
+      route_key                = route_settings.value
       logging_level            = "ERROR"
       detailed_metrics_enabled = false
     }
