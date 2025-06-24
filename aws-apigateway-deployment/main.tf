@@ -125,3 +125,16 @@ resource "aws_apigatewayv2_api_mapping" "custom_mapping" {
   domain_name     = var.custom_domain_name
   api_mapping_key = var.base_path
 }
+
+data "aws_waf_web_acl" "ApiGatewayACL" {
+  count = (var.tags["environment"] != "tmp") ? 1 : 0
+
+  name = var.waf_web_acl_name
+}
+
+resource "aws_wafv2_web_acl_association" "waf_association" {
+  count = (var.tags["environment"] != "tmp") ? 1 : 0
+
+  resource_arn = var.type == "REST" ? aws_api_gateway_stage.stage[0].arn : aws_apigatewayv2_stage.stage[0].arn
+  web_acl_arn  = data.aws_waf_web_acl.ApiGatewayACL.arn
+}
