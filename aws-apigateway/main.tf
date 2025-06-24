@@ -22,11 +22,15 @@ resource "aws_apigatewayv2_api" "api" {
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
-  name = "/netex/apigateway/${local.resource_name}"
+  name              = "/netex/apigateway/${local.resource_name}"
+  retention_in_days = 365
+
+  tags = merge(var.tags, { "purpose" = "api-gateway-logging" })
 }
 
 resource "aws_api_gateway_account" "api_account_cloudwatch" {
-  count = var.enable_cloudwatch_role ? (var.custom_cloudwatch_role_arn == null) ? 1 : 0 : 0
+  # count = var.enable_cloudwatch_role ? (var.custom_cloudwatch_role_arn == null) ? 1 : 0 : 0
+  count = (var.custom_cloudwatch_role_arn == null) ? 1 : 0
 
   cloudwatch_role_arn = aws_iam_role.api_gateway_role.arn
 }
