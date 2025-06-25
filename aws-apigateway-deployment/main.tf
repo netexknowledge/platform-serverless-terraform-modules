@@ -127,15 +127,15 @@ resource "aws_apigatewayv2_api_mapping" "custom_mapping" {
 }
 
 data "aws_wafv2_web_acl" "ApiGatewayACL" {
-  count = (var.tags["environment"] != "tmp") ? 1 : 0
+  count = (var.tags["environment"] != "tmp") ? (var.type == "REST") ? 1 : 0 : 0
 
   name  = var.waf_web_acl_name
   scope = "REGIONAL"
 }
 
 resource "aws_wafv2_web_acl_association" "waf_association" {
-  count = (var.tags["environment"] != "tmp") ? 1 : 0
+  count = (var.tags["environment"] != "tmp") ? (var.type == "REST") ? 1 : 0 : 0
 
-  resource_arn = var.type == "REST" ? aws_api_gateway_stage.stage[0].arn : aws_apigatewayv2_stage.stage[0].arn
+  resource_arn = aws_api_gateway_stage.stage[0].arn
   web_acl_arn  = data.aws_wafv2_web_acl.ApiGatewayACL[0].arn
 }
