@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.0...aws-s3@1.0.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* **aws-s3:** set S3 bucket config about NIST compliance ([0260a93](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/0260a9339b1b92cb6a00b70b92694a44e97bdff7))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@0.0.6...aws-s3@1.0.0) (2025-03-21)
 
 
