@@ -15,3 +15,20 @@ resource "aws_s3_bucket_notification" "bucket_event" {
     }
   }
 }
+
+data "aws_sns_topic" "s3_object_events" {
+  count = (var.tags["environment"] != "tmp") ? (var.lambda_notifications == {}) ? 1 : 0 : 0
+
+  name = format("s3-object-events-%s-topic", var.tags["environment"])
+}
+
+resource "aws_s3_bucket_notification" "bucket_event_default" {
+  count = (var.tags["environment"] != "tmp") ? (var.lambda_notifications == {}) ? 1 : 0 : 0
+
+  bucket = var.bucket
+
+  topic {
+    topic_arn = data.aws_sns_topic.s3_object_events[0].arn
+    events    = ["s3:ObjectRestore:Completed"]
+  }
+}
