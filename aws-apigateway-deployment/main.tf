@@ -69,25 +69,9 @@ resource "aws_apigatewayv2_stage" "stage" {
   deployment_id = aws_apigatewayv2_deployment.deployment[0].id
   name          = var.stage_name != "$default" ? var.stage_name : (var.type == "HTTP" ? "$default" : "default")
 
-  # For HTTP APIs
-  dynamic "default_route_settings" {
-    for_each = var.type == "HTTP" ? [1] : []
-
-    content {
-      detailed_metrics_enabled = false
-      logging_level            = "ERROR"
-    }
-  }
-
-  # For WebSocket APIs
-  dynamic "route_settings" {
-    for_each = var.type == "WEBSOCKET" ? toset(["$default", "$connect", "$disconnect"]) : []
-
-    content {
-      route_key                = route_settings.value
-      logging_level            = "ERROR"
-      detailed_metrics_enabled = false
-    }
+  default_route_settings {
+    detailed_metrics_enabled = false
+    logging_level            = "ERROR"
   }
 
   dynamic "access_log_settings" {
