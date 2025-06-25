@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [1.0.9](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.8...aws-apigateway-deployment@1.0.9) (2025-06-25)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** fix APIGW WebSocket default logs ([9630f3b](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/9630f3ba5e782d2a52657134fc13650d405e57b5))
+
 ## [1.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.7...aws-apigateway-deployment@1.0.8) (2025-06-25)
 
 
