@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [1.0.8](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.7...aws-apigateway-deployment@1.0.8) (2025-06-25)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** fix WAF to APIGW REST about NIST compliance ([57d39e0](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/57d39e051cf116b60a1806d62370304a05a7ceaf))
+
 ## [1.0.7](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.6...aws-apigateway-deployment@1.0.7) (2025-06-25)
 
 
