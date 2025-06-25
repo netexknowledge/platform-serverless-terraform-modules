@@ -74,7 +74,8 @@ resource "aws_s3_bucket_policy" "bucket" {
 }
 
 resource "aws_s3_bucket_versioning" "versioning_example" {
-  count = var.versioning ? 1 : 0
+  # count = var.versioning ? 1 : 0
+  count = 1
 
   bucket = aws_s3_bucket.bucket.id
   versioning_configuration {
@@ -103,6 +104,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
   count = (var.lifecycle_rules != []) ? 1 : 0
 
   bucket = aws_s3_bucket.bucket.id
+
+  rule {
+    id     = "Expiration"
+    status = "Enabled"
+
+    filter {
+      prefix = "temp/"
+    }
+
+    expiration {
+      days = 1
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 1
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 1
+    }
+  }
 
   dynamic "rule" {
     for_each = { for i, rule in var.lifecycle_rules : tostring(i) => rule }
@@ -168,6 +190,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "bucket-config" {
+  bucket = aws_s3_bucket.bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "aws:kms"
+    }
+  }
+}
+
 resource "aws_s3_bucket_cors_configuration" "bucket-config" {
   count = (var.cors_rules != []) ? 1 : 0
 
@@ -184,4 +216,18 @@ resource "aws_s3_bucket_cors_configuration" "bucket-config" {
       max_age_seconds = lookup(cors_rule.value, "max_age_seconds", null)
     }
   }
+}
+
+data "aws_s3_bucket" "s3_access_logs" {
+  count = (var.tags["environment"] != "tmp") ? 1 : 0
+
+  bucket = format("netex-common-%s-s3-access-logs", var.tags["environment"])
+}
+
+resource "aws_s3_bucket_logging" "bucket" {
+  count = (var.tags["environment"] != "tmp") ? 1 : 0
+
+  bucket        = aws_s3_bucket.bucket.id
+  target_bucket = data.aws_s3_bucket.s3_access_logs[0].id
+  target_prefix = format("logs/netex-%s/", local.resource_name)
 }
