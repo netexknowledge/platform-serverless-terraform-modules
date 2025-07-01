@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [1.0.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@1.0.1...aws-lambda@1.0.2) (2025-07-01)
+
+
+### Bug Fixes
+
+* **aws-lambda:** add secrets layer if only config datadog observability ([2e50f8a](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/2e50f8a03885615aa0064b58d4ea43ef15910f7a))
+
 ## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@1.0.0...aws-lambda@1.0.1) (2025-07-01)
 
 
