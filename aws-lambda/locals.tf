@@ -2,10 +2,10 @@ data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
 
-data "aws_ssm_parameter" "datadog_apikey" {
+data "aws_secretsmanager_secret" "datadog_apikey" {
   count = var.add_datadog_layer ? 1 : 0
 
-  name = "/secrets/k8s/common/${var.tags["environment"]}/datadog/apikey"
+  name = "common/${var.tags["environment"]}/datadog/apikey"
 }
 
 locals {
