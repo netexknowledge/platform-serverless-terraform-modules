@@ -125,7 +125,7 @@ module "lambda_function" {
   layers = concat(
     local.layers,
     var.add_datadog_layer ? local.datadog_layers[data.aws_region.current.name][local.runtime] : [],
-    var.add_secrets_layer ? local.aws_secrets_layers[data.aws_region.current.name] : [],
+    (var.add_secrets_layer || var.add_datadog_layer) ? [local.aws_secrets_layers[data.aws_region.current.name]] : [],
     [for layer_name, layer_config in module.lambda_layers :
       layer_config.lambda_layer_arn
     ]
