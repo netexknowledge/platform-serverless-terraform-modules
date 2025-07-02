@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway 
 
 
+## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@1.0.2...aws-apigateway@1.0.3) (2025-07-02)
+
+
+### Bug Fixes
+
+* **aws-apigateway:** not config cloudwatch role account form module ([8532c4e](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/8532c4ef034b322f7b56f6e87e251ef71a608fb4))
+
 ## [1.0.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@1.0.1...aws-apigateway@1.0.2) (2025-06-24)
 
 
