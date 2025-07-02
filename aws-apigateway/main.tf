@@ -28,18 +28,19 @@ resource "aws_cloudwatch_log_group" "logs" {
   tags = merge(var.tags, { "purpose" = "api-gateway-logging" })
 }
 
-resource "aws_api_gateway_account" "api_account_cloudwatch" {
-  # count = var.enable_cloudwatch_role ? (var.custom_cloudwatch_role_arn == null) ? 1 : 0 : 0
-  count = (var.custom_cloudwatch_role_arn == null) ? 1 : 0
+# This managed from org
+#resource "aws_api_gateway_account" "api_account_cloudwatch" {
+#  count = var.enable_cloudwatch_role ? (var.custom_cloudwatch_role_arn == null) ? 1 : 0 : 0
+#
+#  cloudwatch_role_arn = aws_iam_role.api_gateway_role.arn
+#}
 
-  cloudwatch_role_arn = aws_iam_role.api_gateway_role.arn
-}
-
-resource "aws_api_gateway_account" "api_account_cloudwatch_custom" {
-  count = (var.custom_cloudwatch_role_arn != null) ? 1 : 0
-
-  cloudwatch_role_arn = var.custom_cloudwatch_role_arn
-}
+# This managed from org
+#resource "aws_api_gateway_account" "api_account_cloudwatch_custom" {
+#  count = (var.custom_cloudwatch_role_arn != null) ? 1 : 0
+#
+#  cloudwatch_role_arn = var.custom_cloudwatch_role_arn
+#}
 
 data "aws_iam_policy_document" "apigw_service_assume_role" {
   statement {
