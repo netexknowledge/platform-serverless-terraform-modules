@@ -101,7 +101,8 @@ resource "aws_s3_bucket_notification" "bucket_event" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
-  count = (var.lifecycle_rules != []) ? 1 : 0
+  # count = (var.lifecycle_rules != []) ? 1 : 0
+  count = 1
 
   bucket = aws_s3_bucket.bucket.id
 
