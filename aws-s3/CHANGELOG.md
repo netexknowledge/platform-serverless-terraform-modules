@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [1.0.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.1...aws-s3@1.0.2) (2025-07-07)
+
+
+### Bug Fixes
+
+* **aws-s3:** force lifecycle default rule allways ([6ea208b](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/6ea208b882082176eb524e9bb66b74b73f05c31a))
+
 ## [1.0.1](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.0...aws-s3@1.0.1) (2025-06-25)
 
 
