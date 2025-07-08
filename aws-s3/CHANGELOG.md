@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.2...aws-s3@1.0.3) (2025-07-08)
+
+
+### Bug Fixes
+
+* **aws-s3:** add default event in S3 bucket ([366de13](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/366de139c43c3d5f8a26682619fec3a1575703b6))
+
 ## [1.0.2](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.1...aws-s3@1.0.2) (2025-07-07)
 
 
