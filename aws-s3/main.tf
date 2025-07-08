@@ -83,10 +83,24 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
   }
 }
 
+data "aws_sns_topic" "s3_object_default_events" {
+  count = (var.tags["environment"] != "tmp") ? (var.notifications != {}) ? 1 : 0 : 0
+
+  name = format("s3-object-events-%s-topic", var.tags["environment"])
+}
+
 resource "aws_s3_bucket_notification" "bucket_event" {
   count = (var.notifications != {}) ? 1 : 0
 
   bucket = aws_s3_bucket.bucket.id
+
+  dynamic "topic" {
+    for_each = length(data.aws_sns_topic.s3_object_default_events) > 0 ? { "s3-object-default-events" : data.aws_sns_topic.s3_object_default_events[0] } : {}
+    content {
+      topic_arn = data.aws_sns_topic.s3_object_default_events[0].arn
+      events    = ["s3:ObjectRestore:Completed"]
+    }
+  }
 
   dynamic "lambda_function" {
     for_each = var.notifications
