@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [1.0.4](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.3...aws-s3@1.0.4) (2025-07-11)
+
+
+### Bug Fixes
+
+* **aws-s3:** fixed the access S3 bucket ([4bc0a47](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/4bc0a47196ae3cd8d7371fba33ce195f2806dd30))
+
 ## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-s3@1.0.2...aws-s3@1.0.3) (2025-07-08)
 
 
