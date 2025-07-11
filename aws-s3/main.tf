@@ -233,16 +233,10 @@ resource "aws_s3_bucket_cors_configuration" "bucket-config" {
   }
 }
 
-data "aws_s3_bucket" "s3_access_logs" {
-  count = (var.tags["environment"] != "tmp") ? 1 : 0
-
-  bucket = format("netex-common-%s-s3-access-logs", var.tags["environment"])
-}
-
 resource "aws_s3_bucket_logging" "bucket" {
   count = (var.tags["environment"] != "tmp") ? 1 : 0
 
   bucket        = aws_s3_bucket.bucket.id
-  target_bucket = data.aws_s3_bucket.s3_access_logs[0].id
+  target_bucket = format("netex-common-%s-s3-access-logs", var.tags["environment"])
   target_prefix = format("logs/netex-%s/", local.resource_name)
 }
