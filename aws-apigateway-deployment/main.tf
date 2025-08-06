@@ -72,6 +72,9 @@ resource "aws_apigatewayv2_stage" "stage" {
   default_route_settings {
     detailed_metrics_enabled = false
     logging_level            = "ERROR"
+    data_trace_enabled       = false
+    throttling_rate_limit    = 10000
+    throttling_burst_limit   = 5000
   }
 
   dynamic "access_log_settings" {
