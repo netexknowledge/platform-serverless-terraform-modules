@@ -1,6 +1,13 @@
 # Changelog of aws-apigateway-deployment 
 
 
+## [1.0.10](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.9...aws-apigateway-deployment@1.0.10) (2025-08-06)
+
+
+### Bug Fixes
+
+* **aws-apigateway-deployment:** fix default rate and burst of stage ([3e9abbd](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/3e9abbda78f541a19f1a14c93f988216bfbd9efe))
+
 ## [1.0.9](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway-deployment@1.0.8...aws-apigateway-deployment@1.0.9) (2025-06-25)
 
 
