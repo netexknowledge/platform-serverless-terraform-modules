@@ -63,7 +63,7 @@ locals {
 
 module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "6.7.1"
+  version = "7.21.1"
 
   source_path               = local.source_path
   build_in_docker           = local.build_in_docker
@@ -86,6 +86,9 @@ module "lambda_function" {
   s3_kms_key_id             = local.s3_kms_key_id
   s3_server_side_encryption = local.s3_server_side_encryption
   s3_object_storage_class   = local.s3_object_storage_class
+
+  cloudwatch_logs_log_group_class = local.cloudwatch_logs_log_group_class
+  cloudwatch_logs_retention_in_days = local.cloudwatch_logs_retention_in_days
 
   create_current_version_allowed_triggers = local.create_current_version_allowed_triggers
   allowed_triggers = {
@@ -145,7 +148,7 @@ module "lambda_function" {
 
 module "lambda_layers" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "6.7.1"
+  version = "7.21.1"
 
   for_each = local.layers_custom
 

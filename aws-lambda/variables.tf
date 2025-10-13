@@ -66,6 +66,8 @@ locals {
   s3_server_side_encryption               = try(var.parameters.s3_server_side_encryption, null)
   s3_object_storage_class                 = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
   create_current_version_allowed_triggers = try(var.parameters.create_current_version_allowed_triggers, true)
+  cloudwatch_logs_log_group_class         = try(var.parameters.cloudwatch_logs_log_group_class, null)
+  cloudwatch_logs_retention_in_days       = try(var.parameters.cloudwatch_logs_retention_in_days, null)
 }
 
 variable "tags" {
