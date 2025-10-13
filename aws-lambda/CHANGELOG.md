@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [1.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@1.0.3...aws-lambda@1.1.0) (2025-10-13)
+
+
+### Features
+
+* **aws-lambda:** update to last aws module with support of version 5 aws provider ([1145fe3](https://git.netexlearning.com/exposed/serverless-terraform-modules/commit/1145fe3989f07b53d228ed03183dc5e16613557a))
+
 ## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@1.0.2...aws-lambda@1.0.3) (2025-07-01)
 
 
