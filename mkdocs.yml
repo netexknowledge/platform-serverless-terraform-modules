@@ -1,0 +1,7 @@
+site_name: "Documentación"
+site_description: módulos terraform para terrasam
+plugins:
+  - techdocs-core
+nav:
+  - Introduction: README.md
+
