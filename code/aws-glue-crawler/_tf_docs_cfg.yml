@@ -1,0 +1,13 @@
+formatter: markdown
+
+output:
+  file: README.md
+  mode: replace
+  template: |-
+    # Module: AWS Glue Crawler
+
+    {{ .Content }}
+
+output-values:
+  enabled: false
+  from: ""

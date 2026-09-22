@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "serverless-terraform-modules",
+  "workspaceLayout": {
+    "appsDir": ".",
+    "libsDir": "libs"
+  },
+  "namedInputs": {
+    "default": ["{workspaceRoot}/*", "sharedGlobals"]
+  },
+  "targetDefaults": {
+    "version": {
+      "dependsOn": [
+        {
+          "target": "version",
+          "projects": "dependencies"
+        }
+      ]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": []
+      }
+    }
+  }
+}

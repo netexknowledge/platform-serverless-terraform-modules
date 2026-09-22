@@ -1,0 +1,18 @@
+{
+  "name": "aws-glue-crawler",
+  "version": "1.0.0",
+  "description": "Module for create AWS Glue Crawler",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://git.netexlearning.com/exposed/serverless-terraform-modules.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nrwl/devkit": "15.6.3",
+    "@jscutlery/semver": "~2.30.0",
+    "nx": "15.6.3"
+  }
+}
