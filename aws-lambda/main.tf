@@ -65,29 +65,34 @@ module "lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.21.1"
 
-  source_path               = local.source_path
-  build_in_docker           = local.build_in_docker
-  docker_image              = local.docker_image
-  docker_additional_options = local.docker_additional_options
-  function_name             = local.resource_name
-  handler                   = local.handler
-  runtime                   = local.runtime
-  timeout                   = local.timeout
-  memory_size               = local.memory_size
-  ephemeral_storage_size    = local.ephemeral_storage_size
-  create_sam_metadata       = local.create_sam_metadata
-  publish                   = local.publish
-  environment_variables     = merge(local.environment_variables, local.datadog_environment_variables)
-  store_on_s3               = local.store_on_s3
-  s3_acl                    = local.s3_acl
-  s3_bucket                 = local.store_on_s3 ? local.s3_create_bucket ? aws_s3_bucket.source_lambda[0].id : local.s3_bucket : local.s3_bucket
-  s3_existing_package       = local.s3_existing_package
-  s3_prefix                 = local.s3_prefix
-  s3_kms_key_id             = local.s3_kms_key_id
-  s3_server_side_encryption = local.s3_server_side_encryption
-  s3_object_storage_class   = local.s3_object_storage_class
+  source_path = local.source_path
+  # Por defecto el modulo interno recalcula el zip con un timestamp de "ahora"
+  # en cada plan/apply, cambiando el hash aunque el codigo fuente no cambie:
+  # eso fuerza un "update in-place" perpetuo de la lambda sin drift real.
+  # Con esto en false, el zip solo cambia si cambia el contenido real.
+  trigger_on_package_timestamp = false
+  build_in_docker              = local.build_in_docker
+  docker_image                 = local.docker_image
+  docker_additional_options    = local.docker_additional_options
+  function_name                = local.resource_name
+  handler                      = local.handler
+  runtime                      = local.runtime
+  timeout                      = local.timeout
+  memory_size                  = local.memory_size
+  ephemeral_storage_size       = local.ephemeral_storage_size
+  create_sam_metadata          = local.create_sam_metadata
+  publish                      = local.publish
+  environment_variables        = merge(local.environment_variables, local.datadog_environment_variables)
+  store_on_s3                  = local.store_on_s3
+  s3_acl                       = local.s3_acl
+  s3_bucket                    = local.store_on_s3 ? local.s3_create_bucket ? aws_s3_bucket.source_lambda[0].id : local.s3_bucket : local.s3_bucket
+  s3_existing_package          = local.s3_existing_package
+  s3_prefix                    = local.s3_prefix
+  s3_kms_key_id                = local.s3_kms_key_id
+  s3_server_side_encryption    = local.s3_server_side_encryption
+  s3_object_storage_class      = local.s3_object_storage_class
 
-  cloudwatch_logs_log_group_class = local.cloudwatch_logs_log_group_class
+  cloudwatch_logs_log_group_class   = local.cloudwatch_logs_log_group_class
   cloudwatch_logs_retention_in_days = local.cloudwatch_logs_retention_in_days
 
   create_current_version_allowed_triggers = local.create_current_version_allowed_triggers
