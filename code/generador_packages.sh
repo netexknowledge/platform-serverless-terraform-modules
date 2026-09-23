@@ -7,7 +7,7 @@ echo """
     \"scripts\": {},
     \"repository\": {
         \"type\": \"git\",
-        \"url\": \"git+https://git.netexlearning.com/exposed/serverless-terraform-modules.git\"
+        \"url\": \"git+https://github.com/netexknowledge/platform-serverless-terraform-modules.git\"
     },
     \"author\": \"\",
     \"license\": \"ISC\",
