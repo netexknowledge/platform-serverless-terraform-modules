@@ -67,7 +67,9 @@ locals {
   s3_object_storage_class                 = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
   create_current_version_allowed_triggers = try(var.parameters.create_current_version_allowed_triggers, true)
   cloudwatch_logs_log_group_class         = try(var.parameters.cloudwatch_logs_log_group_class, null)
-  cloudwatch_logs_retention_in_days       = try(var.parameters.cloudwatch_logs_retention_in_days, null)
+  # Retencion minima por cumplimiento NIST: 365 dias por defecto si el
+  # proyecto no la fija explicitamente (antes caia en indefinido/nunca expira).
+  cloudwatch_logs_retention_in_days = try(var.parameters.cloudwatch_logs_retention_in_days, 365)
 }
 
 variable "tags" {
