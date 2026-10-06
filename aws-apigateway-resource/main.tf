@@ -18,14 +18,28 @@ resource "aws_api_gateway_resource" "resource" {
   path_part   = length(regexall("/", local.name)) > 0 ? basename(local.name) : local.name
 }
 
+# El authorization de cada metodo se calcula aqui una sola vez para poder
+# anular authorizer_id cuando sale "NONE": AWS ignora authorizer_id en un
+# metodo que no es CUSTOM, asi que nunca lo persiste y terraform lo vuelve
+# a proponer en cada plan (diff perpetuo que no converge nunca).
+locals {
+  rest_method_authorization = {
+    for method in local.rest_http_methods : method => (
+      lookup(var.authorizer_by_method, method, null) != null
+      ? lookup(var.authorizer_by_method[method], "authorizer", false) == true ? "CUSTOM" : "NONE"
+      : ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
+    )
+  }
+}
+
 resource "aws_api_gateway_method" "methods" {
   for_each = toset(local.rest_http_methods)
 
   rest_api_id   = var.api_id
   resource_id   = aws_api_gateway_resource.resource[0].id
   http_method   = each.key
-  authorization = lookup(var.authorizer_by_method, each.key, null) != null ? lookup(var.authorizer_by_method[each.key], "authorizer", false) == true ? "CUSTOM" : "NONE" : ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
-  authorizer_id = lookup(var.authorizer_by_method, each.key, null) != null ? lookup(var.authorizer_by_method[each.key], "authorizer_id", null) != null ? var.authorizer_by_method[each.key].authorizer_id : var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id : null
+  authorization = local.rest_method_authorization[each.key]
+  authorizer_id = local.rest_method_authorization[each.key] != "CUSTOM" ? null : lookup(var.authorizer_by_method, each.key, null) != null ? lookup(var.authorizer_by_method[each.key], "authorizer_id", null) != null ? var.authorizer_by_method[each.key].authorizer_id : var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id : null
 
   request_parameters = length(regexall("^\\{.*\\}$", basename(local.name))) == 0 ? null : {
     "method.request.path.${replace(trim(basename(local.name), "{}+"), ".", "_")}" = true
@@ -108,8 +122,10 @@ resource "aws_apigatewayv2_route" "methods" {
 
   target = "integrations/${aws_apigatewayv2_integration.integrations[each.key].id}"
 
+  # Mismo motivo que en aws_api_gateway_method: con authorization_type NONE,
+  # AWS descarta el authorizer_id y el diff vuelve en cada plan.
   authorization_type = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? "CUSTOM" : "NONE"
-  authorizer_id      = var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id
+  authorizer_id      = ((lookup(var.parameters, "authorizer", false) == true) || (lookup(var.parameters, "authorizer_id", null) != null)) ? (var.authorizer_id != null ? var.authorizer_id : var.api_gateway_authorizer_id) : null
 }
 
 # resource "aws_apigatewayv2_integration_response" "example" {
