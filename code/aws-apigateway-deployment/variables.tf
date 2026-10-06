@@ -82,3 +82,9 @@ variable "waf_web_acl_name" {
   # stage al ACL que no es, y ademas genera drift perpetuo en el plan.
   default = "ApiGatewayACL"
 }
+
+variable "waf_web_acl_arn" {
+  type        = string
+  description = "ARN del WAF web ACL a asociar al stage. Si se indica, se usa directamente y no se resuelve por data source (evita el reemplazo espurio de la asociacion en cada plan con cambios pendientes)."
+  default     = null
+}
