@@ -1,15 +1,61 @@
-name: PR-VERIFY
+name: Commitlint Check
 
 on:
-    pull_request:
-        branches-ignore:
-            - 'release/**'
-
-permissions: write-all
-
-
+  pull_request:
+    branches:
+      - "*"
+permissions:
+  contents: write
 jobs:
-    code-lint:
-        name: PR-VERIFY
-        uses: netexknowledge/.github/.github/workflows/pr-verify-reusable.yml@pr-verify-reusable#v1
-        secrets: inherit
+  commitlint:
+    if: ${{ github.actor != 'sa-github-netex' && contains(github.event.pull_request.labels.*.name, 'no_pr_verify') == false }}
+    permissions:
+      contents: read
+      pull-requests: read
+    runs-on: netex-platform-ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "16"
+          package-manager-cache: false
+          # cache: 'npm'
+          # cache-dependency-path: |
+          #   package-lock.json
+          #   ~/.npm
+          #   ~/.nx
+
+      - name: Cache npm dependencies
+        id: cache-npm
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ github.workflow }}-${{ runner.os }}-npm-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
+      
+      - name: Install dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Validate PR commits with commitlint
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --config=commitlint.config.ts --from=${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+      - name: Get PR title
+        id: pr-title
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pr_title=$(gh pr view ${{ github.event.number }} --json title -q ".title")
+          echo "title=$pr_title" >> $GITHUB_OUTPUT
+      - name: Validate commit title
+        run: |
+          echo "${{ steps.pr-title.outputs.title }}" | npx commitlint --config=commitlint.config.ts

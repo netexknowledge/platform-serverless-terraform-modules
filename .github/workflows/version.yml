@@ -1,0 +1,145 @@
+name: version
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+    paths-ignore:
+      - ".github/**"
+      - "*"
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+  attestations: write
+  checks: write
+  deployments: write
+  packages: write
+  pages: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+
+jobs:
+  version:
+    runs-on: netex-platform-ubuntu-latest
+    if: github.event.pull_request.merged && github.actor != 'sa-github-netex'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "16"
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Configurar Git
+        run: |
+          git config user.name "sa-github-netex"
+          git config user.email "sa-github-netex@users.noreply.github.com"
+
+      - name: New version branch
+        run: git checkout -b version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}
+
+      # - name: Print affected projects
+      #   id: affected-projects
+      #   run: |
+      #     projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=${{ github.event.before }} --head=${{ github.event.head_commit.id }})
+      #     echo "::set-output name=projects_affected::$projects_affected"
+
+      - name: Version affected projects
+        run: npx nx affected --parallel=1 --base=${{ github.event.pull_request.base.sha }} --target version --verbose
+
+      - name: Check changes to push
+        run: |
+          LAST_COMMIT=$(git rev-parse HEAD)
+          LAST_BUILT_COMMIT=$(git rev-parse origin/main)
+          if [ "$LAST_COMMIT" != "$LAST_BUILT_COMMIT" ]; then
+            echo "NEW_COMMITS=true" >> $GITHUB_ENV
+          else
+            echo "NEW_COMMITS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Push changes
+        if: ${{ env.NEW_COMMITS == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.SA_NETEX_GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --tags
+          pr_url=$(gh pr create --title "Publish branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --body "Publish branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --base main --head version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --label "no_pr_verify")
+          echo "PR_CREATED=$pr_url" >> $GITHUB_ENV
+          echo "PR_CREATED_NUMBER=$(echo $pr_url | cut -d'/' -f7)" >> $GITHUB_ENV
+
+      # - name: Push tags for affected projects
+      #   run: |
+      #     for crt_tag in $(echo ${{steps.affected-projects.outputs.projects_affected}} | sed "s/,/ /g"); do
+      #       git push origin $crt_tag@$(cd $crt_tag && npm pkg get version| sed 's/"//g')
+      #       sleep 5
+      #     done
+
+      # - name: Print affected projects
+      #   run: |
+      #     # projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=${{ github.event.before }} --head=${{ github.event.head_commit.id }})
+      #     projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=f8cd793c3faf45a97606ebd73f0abffa3859fe82 --head=main)
+      #     echo "List projects affected $projects_affected"
+
+      - name: Auto-merge PR
+        if: ${{ env.NEW_COMMITS == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.SA_NETEX_GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ env.PR_CREATED }} --merge --admin --delete-branch --subject "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --body "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}"
+
+  notify:
+    name: notify
+    needs: [version]
+    runs-on: netex-platform-ubuntu-latest
+    if: failure()
+    steps:
+      - name: Enviar notificación a Teams
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        run: |
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          MESSAGE_PAYLOAD=$(cat <<-EOF
+          {
+            "type": "message",
+            "attachments": [
+              {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                  "type": "AdaptiveCard",
+                  "version": "1.4",
+                  "body": [
+                    {
+                      "type": "TextBlock",
+                      "text": "❌ ${{ github.repository }}: workflow version falló",
+                      "weight": "Bolder",
+                      "wrap": true,
+                      "color": "Attention"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": "Action.OpenUrl",
+                      "title": "Ver run",
+                      "url": "$RUN_URL"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl -H "Content-Type: application/json" -d "$MESSAGE_PAYLOAD" "$TEAMS_WEBHOOK_URL"
