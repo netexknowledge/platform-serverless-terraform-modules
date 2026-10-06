@@ -113,8 +113,14 @@ resource "aws_apigatewayv2_api_mapping" "custom_mapping" {
   api_mapping_key = var.base_path
 }
 
+# Solo se usa si el llamante no pasa waf_web_acl_arn. Resolver el ACL por
+# data source aqui dentro tiene un efecto colateral caro: este modulo lleva
+# un depends_on a nivel de modulo, que arrastra tambien a los data sources,
+# asi que ante CUALQUIER cambio pendiente en las lambdas Terraform difiere
+# esta lectura al apply, el arn queda "known after apply" y fuerza a
+# reemplazar la asociacion WAF aunque no cambie nada de WAF.
 data "aws_wafv2_web_acl" "ApiGatewayACL" {
-  count = (var.tags["environment"] != "tmp") ? (var.type == "REST") ? 1 : 0 : 0
+  count = var.waf_web_acl_arn == null ? ((var.tags["environment"] != "tmp") ? (var.type == "REST") ? 1 : 0 : 0) : 0
 
   name  = var.waf_web_acl_name
   scope = "REGIONAL"
@@ -124,5 +130,5 @@ resource "aws_wafv2_web_acl_association" "waf_association" {
   count = (var.tags["environment"] != "tmp") ? (var.type == "REST") ? 1 : 0 : 0
 
   resource_arn = aws_api_gateway_stage.stage[0].arn
-  web_acl_arn  = data.aws_wafv2_web_acl.ApiGatewayACL[0].arn
+  web_acl_arn  = var.waf_web_acl_arn != null ? var.waf_web_acl_arn : data.aws_wafv2_web_acl.ApiGatewayACL[0].arn
 }
