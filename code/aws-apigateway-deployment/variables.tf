@@ -76,5 +76,9 @@ variable "base_path" {
 variable "waf_web_acl_name" {
   type        = string
   description = "Name of the WAF web ACL."
-  default     = "SecurityACL"
+  # El ACL para API Gateway en cada cuenta se llama "ApiGatewayACL" (distinto
+  # de "SecurityACL", que es otro ACL generico de la cuenta): apuntar al
+  # nombre equivocado no falla la lookup (ambos existen) pero asocia el
+  # stage al ACL que no es, y ademas genera drift perpetuo en el plan.
+  default = "ApiGatewayACL"
 }
