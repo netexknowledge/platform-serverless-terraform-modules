@@ -40,31 +40,31 @@ variable "lambdas_permissions" {
 }
 
 locals {
-  function_name                           = try(var.parameters.function_name, "")
-  handler                                 = try(var.parameters.handler, "")
-  runtime                                 = try(var.parameters.runtime, "")
-  timeout                                 = try(var.parameters.timeout, 3)
-  memory_size                             = try(var.parameters.memory_size, 128)
-  ephemeral_storage_size                  = try(var.parameters.ephemeral_storage_size, 512)
-  source_path                             = try(var.parameters.source_path, null)
-  build_in_docker                         = try(var.parameters.build_in_docker, false)
-  docker_image                            = try(var.parameters.docker_image, "")
-  docker_additional_options               = try(var.parameters.docker_additional_options, [])
-  publish                                 = try(var.parameters.publish, false)
-  environment_variables                   = try(var.parameters.environment_variables, {})
-  allowed_triggers                        = try(var.parameters.allowed_triggers, {})
-  create_sam_metadata                     = try(var.parameters.create_sam_metadata, false)
-  layers                                  = try(var.parameters.layers, [])
-  layers_custom                           = try(var.parameters.layers_custom, {})
-  store_on_s3                             = try(var.parameters.store_on_s3, false)
-  s3_create_bucket                        = try(var.parameters.s3_create_bucket, false)
-  s3_acl                                  = try(var.parameters.s3_acl, "private")
-  s3_bucket                               = try(var.parameters.s3_bucket, null)
-  s3_existing_package                     = try(var.parameters.s3_existing_package, null)
-  s3_prefix                               = try(var.parameters.s3_prefix, "${local.resource_name}/")
-  s3_kms_key_id                           = try(var.parameters.s3_kms_key_id, null)
-  s3_server_side_encryption               = try(var.parameters.s3_server_side_encryption, null)
-  s3_object_storage_class                 = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
+  function_name             = try(var.parameters.function_name, "")
+  handler                   = try(var.parameters.handler, "")
+  runtime                   = try(var.parameters.runtime, "")
+  timeout                   = try(var.parameters.timeout, 3)
+  memory_size               = try(var.parameters.memory_size, 128)
+  ephemeral_storage_size    = try(var.parameters.ephemeral_storage_size, 512)
+  source_path               = try(var.parameters.source_path, null)
+  build_in_docker           = try(var.parameters.build_in_docker, false)
+  docker_image              = try(var.parameters.docker_image, "")
+  docker_additional_options = try(var.parameters.docker_additional_options, [])
+  publish                   = try(var.parameters.publish, false)
+  environment_variables     = try(var.parameters.environment_variables, {})
+  allowed_triggers          = try(var.parameters.allowed_triggers, {})
+  create_sam_metadata       = try(var.parameters.create_sam_metadata, false)
+  layers                    = try(var.parameters.layers, [])
+  layers_custom             = try(var.parameters.layers_custom, {})
+  store_on_s3               = try(var.parameters.store_on_s3, false)
+  s3_create_bucket          = try(var.parameters.s3_create_bucket, false)
+  s3_acl                    = try(var.parameters.s3_acl, "private")
+  s3_bucket                 = try(var.parameters.s3_bucket, null)
+  s3_existing_package       = try(var.parameters.s3_existing_package, null)
+  s3_prefix                 = try(var.parameters.s3_prefix, "${local.resource_name}/")
+  s3_kms_key_id             = try(var.parameters.s3_kms_key_id, null)
+  s3_server_side_encryption = try(var.parameters.s3_server_side_encryption, null)
+  s3_object_storage_class   = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
   # El modulo publico crea ADEMAS un aws_lambda_permission atado a la version
   # publicada concreta (qualifier = version numerica): como publish=true hace
   # que CUALQUIER cambio (incluida una var de entorno como DD_VERSION) publique
@@ -76,8 +76,14 @@ locals {
   # invocacion real sigue funcionando via create_unqualified_alias_allowed_triggers
   # (true por defecto en el modulo), que no se toca aqui.
   create_current_version_allowed_triggers = try(var.parameters.create_current_version_allowed_triggers, false)
-  cloudwatch_logs_log_group_class         = try(var.parameters.cloudwatch_logs_log_group_class, null)
-  cloudwatch_logs_retention_in_days       = try(var.parameters.cloudwatch_logs_retention_in_days, null)
+  # El permiso de invocacion real va contra la ARN sin cualificar, asi que no
+  # depende de la version publicada: se crea en el primer apply y no se vuelve
+  # a tocar aunque la lambda se actualice. Se fija explicitamente en vez de
+  # confiar en el default del modulo publico, para que una futura subida de
+  # version no pueda dejar a las lambdas sin permisos en silencio.
+  create_unqualified_alias_allowed_triggers = try(var.parameters.create_unqualified_alias_allowed_triggers, true)
+  cloudwatch_logs_log_group_class           = try(var.parameters.cloudwatch_logs_log_group_class, null)
+  cloudwatch_logs_retention_in_days         = try(var.parameters.cloudwatch_logs_retention_in_days, null)
 }
 
 variable "tags" {
