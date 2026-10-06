@@ -12,7 +12,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    runs-on: netex-platform-ubuntu-latest
+    # Repo publico: GitHub no asigna runners autoalojados a repos publicos,
+    # el job se quedaria encolado para siempre. Runner hospedado por GitHub.
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code

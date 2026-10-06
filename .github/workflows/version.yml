@@ -24,7 +24,9 @@ permissions:
 
 jobs:
   version:
-    runs-on: netex-platform-ubuntu-latest
+    # Repo publico: GitHub no asigna runners autoalojados a repos publicos,
+    # el job se quedaria encolado para siempre. Runner hospedado por GitHub.
+    runs-on: ubuntu-latest
     if: github.event.pull_request.merged && github.actor != 'sa-github-netex'
     steps:
       - name: Checkout code
@@ -101,7 +103,9 @@ jobs:
   notify:
     name: notify
     needs: [version]
-    runs-on: netex-platform-ubuntu-latest
+    # Repo publico: GitHub no asigna runners autoalojados a repos publicos,
+    # el job se quedaria encolado para siempre. Runner hospedado por GitHub.
+    runs-on: ubuntu-latest
     if: failure()
     steps:
       - name: Enviar notificación a Teams
