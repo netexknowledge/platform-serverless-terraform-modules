@@ -65,7 +65,17 @@ locals {
   s3_kms_key_id                           = try(var.parameters.s3_kms_key_id, null)
   s3_server_side_encryption               = try(var.parameters.s3_server_side_encryption, null)
   s3_object_storage_class                 = try(var.parameters.s3_object_storage_class, "ONEZONE_IA")
-  create_current_version_allowed_triggers = try(var.parameters.create_current_version_allowed_triggers, true)
+  # El modulo publico crea ADEMAS un aws_lambda_permission atado a la version
+  # publicada concreta (qualifier = version numerica): como publish=true hace
+  # que CUALQUIER cambio (incluida una var de entorno como DD_VERSION) publique
+  # una version nueva, ese permiso se reemplaza en cada deploy aunque nada mas
+  # cambie. Ningun sitio de este codebase invoca por ARN cualificada (API
+  # Gateway usa siempre lambda_function_invoke_arn, la version sin cualificar;
+  # SQS no necesita permiso de recurso en absoluto), asi que ese permiso
+  # "current version" no lo usa nadie - solo genera reemplazos de mas. La
+  # invocacion real sigue funcionando via create_unqualified_alias_allowed_triggers
+  # (true por defecto en el modulo), que no se toca aqui.
+  create_current_version_allowed_triggers = try(var.parameters.create_current_version_allowed_triggers, false)
   cloudwatch_logs_log_group_class         = try(var.parameters.cloudwatch_logs_log_group_class, null)
   cloudwatch_logs_retention_in_days       = try(var.parameters.cloudwatch_logs_retention_in_days, null)
 }
