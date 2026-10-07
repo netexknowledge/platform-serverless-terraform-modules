@@ -104,7 +104,8 @@ module "lambda_function" {
   cloudwatch_logs_log_group_class   = local.cloudwatch_logs_log_group_class
   cloudwatch_logs_retention_in_days = local.cloudwatch_logs_retention_in_days
 
-  create_current_version_allowed_triggers = local.create_current_version_allowed_triggers
+  create_current_version_allowed_triggers   = local.create_current_version_allowed_triggers
+  create_unqualified_alias_allowed_triggers = local.create_unqualified_alias_allowed_triggers
   allowed_triggers = {
     for trigger_name, trigger_config in var.allowed_triggers :
     trigger_name => {
