@@ -117,6 +117,12 @@ variable "add_datadog_layer" {
   default     = false
 }
 
+variable "datadog_wrapper_handler" {
+  description = "Use the Datadog handler wrapper so the tracer instruments the function"
+  type        = bool
+  default     = false
+}
+
 variable "vpc_security_group_ids" {
   description = "Vpc security group id for lambda functions"
   type        = list(string)

@@ -59,6 +59,15 @@ locals {
     "DD_TRACE_ENABLED"          = "true"
     "DD_TAGS"                   = "team:${var.tags["product"]},env:${var.tags["environment"]},product:${var.tags["product"]},service:${local.resource_name},slot:default,platform:lambda,datacenter:aws,aws_account_name:netex_${var.tags["environment"]}"
   } : {}
+
+  datadog_wrapper_handlers = {
+    "python" = "datadog_lambda.handler.handler"
+    "nodejs" = "/opt/nodejs/node_modules/datadog-lambda-js/handler.handler"
+  }
+
+  datadog_runtime_family = startswith(local.runtime, "python") ? "python" : startswith(local.runtime, "nodejs") ? "nodejs" : ""
+
+  lambda_handler = var.add_datadog_layer && var.datadog_wrapper_handler ? lookup(local.datadog_wrapper_handlers, local.datadog_runtime_family, local.handler) : local.handler
 }
 
 module "lambda_function" {
@@ -75,7 +84,7 @@ module "lambda_function" {
   docker_image                 = local.docker_image
   docker_additional_options    = local.docker_additional_options
   function_name                = local.resource_name
-  handler                      = local.handler
+  handler                      = local.lambda_handler
   runtime                      = local.runtime
   timeout                      = local.timeout
   memory_size                  = local.memory_size
