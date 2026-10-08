@@ -1,6 +1,6 @@
 {
   "name": "aws-glue-catalog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Module for create AWS Glue Catalog",
   "main": "index.js",
   "scripts": {},
@@ -9,10 +9,5 @@
     "url": "git+https://github.com/netexknowledge/platform-serverless-terraform-modules.git"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@nrwl/devkit": "15.6.3",
-    "@jscutlery/semver": "~2.30.0",
-    "nx": "15.6.3"
-  }
+  "license": "ISC"
 }

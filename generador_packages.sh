@@ -1,7 +1,11 @@
+# Genera el package.json de un modulo nuevo. Uso: ./generador_packages.sh aws-foo
+# La version arranca en 0.0.0: release-please la sube en el primer release segun
+# los commits convencionales. Hay que anadir el modulo tambien a
+# release-please-config.json y a .release-please-manifest.json.
 echo """
 {
     \"name\": \"$1\",
-    \"version\": \"0.0.6\",
+    \"version\": \"0.0.0\",
     \"description\": \"CHANGEME\",
     \"main\": \"index.js\",
     \"scripts\": {},
@@ -10,13 +14,6 @@ echo """
         \"url\": \"git+https://github.com/netexknowledge/platform-serverless-terraform-modules.git\"
     },
     \"author\": \"\",
-    \"license\": \"ISC\",
-    \"devDependencies\": {
-        \"@nrwl/devkit\": \"15.6.3\",
-        \"@jscutlery/semver\": \"~2.30.0\",
-        \"nx\": \"15.6.3\"
-    }
+    \"license\": \"ISC\"
 }
-
-
 """

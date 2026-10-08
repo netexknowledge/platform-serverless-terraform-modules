@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "include-component-in-tag": true,
+  "include-v-in-tag": false,
+  "tag-separator": "@",
+  "separate-pull-requests": false,
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "perf",
+      "section": "Performance"
+    },
+    {
+      "type": "refactor",
+      "section": "Refactor"
+    },
+    {
+      "type": "chore",
+      "section": "Chores"
+    },
+    {
+      "type": "docs",
+      "section": "Docs"
+    },
+    {
+      "type": "style",
+      "section": "Style"
+    },
+    {
+      "type": "test",
+      "section": "Tests"
+    },
+    {
+      "type": "ci",
+      "section": "CI",
+      "hidden": true
+    },
+    {
+      "type": "deploy",
+      "section": "Deploy",
+      "hidden": true
+    }
+  ],
+  "packages": {
+    "aws-apigateway-authorizer": {},
+    "aws-apigateway-deployment": {},
+    "aws-apigateway-resource": {},
+    "aws-apigateway": {},
+    "aws-dynamodb": {},
+    "aws-glue-catalog-table": {},
+    "aws-glue-catalog": {},
+    "aws-glue-connection": {},
+    "aws-glue-crawler": {},
+    "aws-glue-job": {},
+    "aws-glue-trigger": {},
+    "aws-lambda": {},
+    "aws-s3-notification": {},
+    "aws-s3": {},
+    "aws-sns": {},
+    "aws-sqs": {}
+  }
+}

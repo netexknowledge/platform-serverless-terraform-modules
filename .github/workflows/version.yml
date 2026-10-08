@@ -1,47 +1,28 @@
 name: version
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
-    paths-ignore:
-      - ".github/**"
-      - "*"
+
 permissions:
   contents: write
   pull-requests: write
-  issues: write
-  actions: write
-  attestations: write
-  checks: write
-  deployments: write
-  packages: write
-  pages: write
-  repository-projects: write
-  security-events: write
-  statuses: write
+
+concurrency:
+  group: version-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  version:
+  release:
     # Repo publico: GitHub no asigna runners autoalojados a repos publicos,
     # el job se quedaria encolado para siempre. Runner hospedado por GitHub.
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged && github.actor != 'sa-github-netex'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      # SA_NETEX_GITHUB_TOKEN venia de GitLab y nunca se creo en GitHub: el
-      # secreto no existe, GH_TOKEN llegaba vacio y toda llamada a gh moria
-      # con "set the GH_TOKEN environment variable" (exit 4). Se usa la App de
-      # la organizacion, que es el patron del resto de workflows: el prefijo
-      # del repo (platform-*) determina APP_ID_PLATFORM.
-      # Hace falta una App y no el GITHUB_TOKEN del runner porque el ruleset
-      # protect-main-branches exige pull request, y el auto-merge de abajo
-      # solo puede saltarselo un actor con bypass.
+      # El GITHUB_TOKEN del runner no puede abrir PRs contra main: el ruleset
+      # protect-main-branches exige pull request y solo lo salta un actor con
+      # bypass. Se usa la App de la organizacion, igual que el resto de
+      # workflows (el prefijo del repo, platform-*, determina APP_ID_PLATFORM).
       - name: Generar token de la App
         id: app-token
         uses: actions/create-github-app-token@v3
@@ -52,115 +33,82 @@ jobs:
           repositories: |
             platform-serverless-terraform-modules
 
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: "16"
+          node-version: "22"
           package-manager-cache: false
 
-      - name: Install dependencies
-        run: npm install --frozen-lockfile
+      - name: Tags antes de publicar
+        run: git tag | sort > "$RUNNER_TEMP/tags_before.txt"
 
-      - name: Configurar Git
+      # Se usa el CLI de release-please con npx y no googleapis/release-please-action
+      # porque la organizacion restringe que actions de terceros pueden
+      # ejecutarse: con la action, el workflow ni siquiera arranca
+      # (startup_failure, cero jobs). El motor es el mismo.
+      - name: Mantener la PR de release
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
+          npx --yes release-please@17 release-pr \
+            --token="$GH_TOKEN" \
+            --repo-url="${{ github.repository }}" \
+            --target-branch=main \
+            --config-file=release-please-config.json \
+            --manifest-file=.release-please-manifest.json
+
+      - name: Publicar las releases pendientes
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          npx --yes release-please@17 github-release \
+            --token="$GH_TOKEN" \
+            --repo-url="${{ github.repository }}" \
+            --target-branch=main \
+            --config-file=release-please-config.json \
+            --manifest-file=.release-please-manifest.json
+
+      # release-please solo crea la tag exacta (<modulo>@X.Y.Z), pero los ~20
+      # repos consumidores apuntan a la flotante de major (p.ej. aws-lambda@1),
+      # asi que hay que reapuntarla o el cambio no llega a nadie. @latest igual.
+      # Se detectan por diferencia de tags en vez de por los outputs del CLI,
+      # que no los expone.
+      - name: Mover las tags flotantes de major
+        run: |
+          set -euo pipefail
           git config user.name "sa-github-netex"
           git config user.email "sa-github-netex@users.noreply.github.com"
-
-      - name: New version branch
-        run: git checkout -b version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}
-
-      # - name: Print affected projects
-      #   id: affected-projects
-      #   run: |
-      #     projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=${{ github.event.before }} --head=${{ github.event.head_commit.id }})
-      #     echo "::set-output name=projects_affected::$projects_affected"
-
-      - name: Tags antes de versionar
-        run: git tag | sort > /tmp/tags_before.txt
-
-      - name: Version affected projects
-        run: npx nx affected --parallel=1 --base=${{ github.event.pull_request.base.sha }} --target version --verbose
-
-      - name: Mover las tags flotantes de major
-        # semver solo crea la tag exacta (<modulo>@X.Y.Z), pero los ~20 repos
-        # consumidores apuntan a la flotante de major (p.ej. aws-lambda@1), asi
-        # que hay que reapuntarla a la version recien publicada o el cambio no
-        # llega a nadie. @latest se mantiene por el mismo motivo.
-        run: |
-          git tag | sort > /tmp/tags_after.txt
-          new_tags=$(comm -13 /tmp/tags_before.txt /tmp/tags_after.txt | grep -E '@[0-9]+\.[0-9]+\.[0-9]+$' || true)
+          git fetch --tags --force --quiet
+          git tag | sort > "$RUNNER_TEMP/tags_after.txt"
+          nuevas=$(comm -13 "$RUNNER_TEMP/tags_before.txt" "$RUNNER_TEMP/tags_after.txt" \
+                   | grep -E '@[0-9]+\.[0-9]+\.[0-9]+$' || true)
+          if [ -z "$nuevas" ]; then
+            echo "No se ha publicado ninguna version en esta ejecucion."
+            exit 0
+          fi
           floating=""
-          for tag in $new_tags; do
+          for tag in $nuevas; do
             mod="${tag%@*}"
             ver="${tag##*@}"
             major="${ver%%.*}"
             echo "  $tag -> ${mod}@${major} y ${mod}@latest"
             git tag -f "${mod}@${major}" "$tag"
             git tag -f "${mod}@latest" "$tag"
-            floating="$floating ${mod}@${major} ${mod}@latest"
+            floating="$floating refs/tags/${mod}@${major} refs/tags/${mod}@latest"
           done
-          echo "FLOATING_TAGS=$floating" >> $GITHUB_ENV
-          # Las exactas van en su propio push: "git push --tags" arrastraria
-          # tambien las flotantes, que ya existen en el remoto, y el push
-          # entero se rechazaria antes de llegar al --force de abajo.
-          echo "NEW_TAGS=$(echo $new_tags | tr '\n' ' ')" >> $GITHUB_ENV
-
-      - name: Check changes to push
-        run: |
-          LAST_COMMIT=$(git rev-parse HEAD)
-          LAST_BUILT_COMMIT=$(git rev-parse origin/main)
-          if [ "$LAST_COMMIT" != "$LAST_BUILT_COMMIT" ]; then
-            echo "NEW_COMMITS=true" >> $GITHUB_ENV
-          else
-            echo "NEW_COMMITS=false" >> $GITHUB_ENV
-          fi
-
-      - name: Push changes
-        if: ${{ env.NEW_COMMITS == 'true' }}
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          git push origin HEAD:version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}
-          # Solo las tags recien creadas. Con --tags se intentarian empujar
-          # tambien las flotantes ya movidas, el remoto las rechazaria con
-          # "already exists" y el paso moriria aqui, dejando la version
-          # publicada pero sin que nadie la consuma.
-          if [ -n "${NEW_TAGS// /}" ]; then
-            git push origin $NEW_TAGS
-          fi
-          # Las flotantes ya existian, asi que necesitan --force aparte.
-          if [ -n "${FLOATING_TAGS// /}" ]; then
-            git push origin --force $FLOATING_TAGS
-          fi
-          pr_url=$(gh pr create --title "Publish branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --body "Publish branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --base main --head version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --label "no_pr_verify")
-          echo "PR_CREATED=$pr_url" >> $GITHUB_ENV
-          echo "PR_CREATED_NUMBER=$(echo $pr_url | cut -d'/' -f7)" >> $GITHUB_ENV
-
-      # - name: Push tags for affected projects
-      #   run: |
-      #     for crt_tag in $(echo ${{steps.affected-projects.outputs.projects_affected}} | sed "s/,/ /g"); do
-      #       git push origin $crt_tag@$(cd $crt_tag && npm pkg get version| sed 's/"//g')
-      #       sleep 5
-      #     done
-
-      # - name: Print affected projects
-      #   run: |
-      #     # projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=${{ github.event.before }} --head=${{ github.event.head_commit.id }})
-      #     projects_affected=$(npx nx print-affected --type=app --exclude="helm-plugin" --select=projects --base=f8cd793c3faf45a97606ebd73f0abffa3859fe82 --head=main)
-      #     echo "List projects affected $projects_affected"
-
-      - name: Auto-merge PR
-        if: ${{ env.NEW_COMMITS == 'true' }}
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          gh pr merge ${{ env.PR_CREATED }} --merge --admin --delete-branch --subject "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --body "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}"
+          # Las flotantes ya existen en el remoto, de ahi el --force.
+          git push --force origin $floating
 
   notify:
     name: notify
-    needs: [version]
-    # Repo publico: GitHub no asigna runners autoalojados a repos publicos,
-    # el job se quedaria encolado para siempre. Runner hospedado por GitHub.
+    needs: [release]
+    # Repo publico: runner hospedado por GitHub.
     runs-on: ubuntu-latest
     if: failure()
     steps:
