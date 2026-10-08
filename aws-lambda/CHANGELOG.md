@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [1.2.1](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.0...aws-lambda@1.2.1) (2026-10-08)
+
+
+### Bug Fixes
+
+* **aws-lambda:** actualizar las layers de Datadog ([477e4db](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/477e4dbcc3551762b49225b27b92bfc305a96205))
+
 ## [1.1.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-lambda@1.0.3...aws-lambda@1.1.0) (2025-10-13)
 
 
