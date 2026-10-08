@@ -13,6 +13,6 @@
   "devDependencies": {
     "@nrwl/devkit": "15.6.3",
     "@jscutlery/semver": "~2.30.0",
-    "nx": "15.6.3"
+    "nx": "22.7.10"
   }
 }
