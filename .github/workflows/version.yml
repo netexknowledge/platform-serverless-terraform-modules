@@ -105,6 +105,79 @@ jobs:
           # Las flotantes ya existen en el remoto, de ahi el --force.
           git push --force origin $floating
 
+      # Publicacion automatica de patch y minor; los major se quedan esperando
+      # a una persona. Un major es, por definicion, el que rompe a los repos
+      # consumidores: estos apuntan a la flotante <modulo>@N, que al publicar
+      # un major NO se mueve, pero los que usan @latest si se lo comen, y
+      # ademas conviene que alguien confirme el salto antes de ofrecerlo.
+      # Caso real que motiva esto (2026-10-08): aws-apigateway subio a >= 6.0
+      # el provider; publicarlo como minor habria dejado sin terraform init a
+      # los 17 repos que consumen aws-apigateway@1.
+      - name: Decidir si la release es automatica
+        id: decidir
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          pr=$(gh pr list --repo "${{ github.repository }}" \
+                 --state open --label "autorelease: pending" \
+                 --json number --jq '.[0].number // empty')
+          if [ -z "$pr" ]; then
+            echo "No hay PR de release pendiente."
+            echo "accion=ninguna" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "pr=$pr" >> "$GITHUB_OUTPUT"
+          # La comparacion se hace entre el manifest de main y el que propone
+          # la PR, no parseando el diff: asi no depende del formato del patch
+          # ni del orden de las lineas.
+          git show "origin/main:.release-please-manifest.json" > "$RUNNER_TEMP/antes.json"
+          gh pr view "$pr" --repo "${{ github.repository }}" --json headRefName \
+            --jq .headRefName > "$RUNNER_TEMP/rama.txt"
+          git fetch --quiet origin "$(cat "$RUNNER_TEMP/rama.txt")"
+          git show "FETCH_HEAD:.release-please-manifest.json" > "$RUNNER_TEMP/despues.json"
+          majors=$(python3 - "$RUNNER_TEMP/antes.json" "$RUNNER_TEMP/despues.json" <<'PY'
+          import json, sys
+          antes = json.load(open(sys.argv[1]))
+          despues = json.load(open(sys.argv[2]))
+          saltos = [
+              f"{mod} {antes[mod]}->{nueva}"
+              for mod, nueva in despues.items()
+              if mod in antes and nueva.split(".")[0] != antes[mod].split(".")[0]
+          ]
+          print("; ".join(saltos))
+          PY
+          )
+          if [ -n "${majors// /}" ]; then
+            echo "::warning::La PR de release #$pr incluye un major ($majors). No se mergea sola: requiere revision humana."
+            echo "accion=manual" >> "$GITHUB_OUTPUT"
+          else
+            echo "Solo patch/minor: se publica sola."
+            echo "accion=auto" >> "$GITHUB_OUTPUT"
+          fi
+
+      # El token es el de la App, que el ruleset protect-main-branches ya tiene
+      # declarada como bypass actor (Integration 994596). No se salta ningun
+      # control: se usa la exencion que la organizacion concedio.
+      - name: Publicar la release (solo patch y minor)
+        if: steps.decidir.outputs.accion == 'auto'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr merge "${{ steps.decidir.outputs.pr }}" \
+            --repo "${{ github.repository }}" --merge --delete-branch
+
+      - name: Avisar de que el major espera a una persona
+        if: steps.decidir.outputs.accion == 'manual'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr comment "${{ steps.decidir.outputs.pr }}" \
+            --repo "${{ github.repository }}" \
+            --body "Esta release incluye un **major**, asi que no se mergea sola: la publicacion automatica solo cubre patch y minor.
+
+          Un major cambia la tag flotante que consumen los repos \`*-terrasam-state\`. Antes de mergear, conviene comprobar que los consumidores pueden adoptarlo (pin del provider, variables nuevas, etc.) y que los que usan \`@latest\` no se lo van a comer sin querer." || true
+
   notify:
     name: notify
     needs: [release]
