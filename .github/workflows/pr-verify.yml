@@ -2,6 +2,9 @@ name: Commitlint Check
 
 on:
   pull_request:
+    # edited incluido: si no, corregir un titulo mal formado no vuelve a
+    # lanzar la validacion y el check se queda en rojo para siempre.
+    types: [opened, synchronize, reopened, edited]
     branches:
       - "*"
 
