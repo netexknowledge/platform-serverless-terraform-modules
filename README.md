@@ -42,8 +42,9 @@ release-please.
 | `fix(<modulo>): ...` | patch (1.0.0 -> 1.0.1) |
 | `feat(<modulo>): ...` | minor (1.0.0 -> 1.1.0) |
 | `feat(<modulo>)!: ...` o `BREAKING CHANGE:` | major (1.0.0 -> 2.0.0) |
-| `chore`, `docs`, `style`, `refactor`, `test` | aparecen en el CHANGELOG, no suben version |
-| `ci`, `deploy` | ocultos |
+| `perf(<modulo>): ...` | patch |
+| `revert(<modulo>): ...` | patch |
+| `chore`, `docs`, `style`, `refactor`, `test`, `build`, `ci`, `deploy` | no suben version ni salen en el CHANGELOG |
 
 Un major **no mueve** la flotante del major anterior: si se publica
 `aws-lambda@2.0.0`, `aws-lambda@1` sigue donde estaba y los consumidores no se
