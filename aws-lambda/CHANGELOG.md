@@ -1,6 +1,15 @@
 # Changelog of aws-lambda 
 
 
+## [1.2.3](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.2...aws-lambda@1.2.3) (2026-10-08)
+
+
+### Chores
+
+* **ci:** migrar el versionado a release-please y retirar nx ([90ff8c3](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/90ff8c3767def07a099424b0f02470c469536d57))
+* **ci:** migrar el versionado a release-please y retirar nx ([1132bad](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/1132bad7966c0bfb930b3a8e55d09ed631e0d506))
+* publicar aws-lambda 1.2.2 ([534d6a1](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/534d6a118b2779da802a17363975e8870ab0738d))
+
 ## [1.2.2](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.1...aws-lambda@1.2.2) (2026-10-08)
 
 

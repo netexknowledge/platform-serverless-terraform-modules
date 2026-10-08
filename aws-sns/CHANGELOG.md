@@ -1,6 +1,14 @@
 # Changelog of aws-sns 
 
 
+## [1.0.2](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-sns@1.0.1...aws-sns@1.0.2) (2026-10-08)
+
+
+### Chores
+
+* **ci:** migrar el versionado a release-please y retirar nx ([90ff8c3](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/90ff8c3767def07a099424b0f02470c469536d57))
+* **ci:** migrar el versionado a release-please y retirar nx ([1132bad](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/1132bad7966c0bfb930b3a8e55d09ed631e0d506))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-sns@0.0.3...aws-sns@1.0.0) (2025-03-21)
 
 
