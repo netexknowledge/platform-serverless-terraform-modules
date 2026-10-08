@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [1.2.2](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.1...aws-lambda@1.2.2) (2026-10-08)
+
+
+### Bug Fixes
+
+* **aws-lambda:** actualizar la layer de AWS Parameters & Secrets ([4ed103a](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/4ed103adf05e3653d1554db49fd5b2b29670197d))
+
 ## [1.2.1](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.0...aws-lambda@1.2.1) (2026-10-08)
 
 
