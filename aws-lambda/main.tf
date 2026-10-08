@@ -1,8 +1,15 @@
 locals {
+  # Esta layer la publica AWS, no Datadog, y cada region lleva su propia
+  # numeracion: no vale un numero unico para las tres. Cada version va
+  # comprobada con lambda:GetLayerVersionByArn contra su region.
+  # us-west-1 se queda en 18 a proposito: una SCP de la organizacion deniega
+  # lambda:GetLayerVersion ahi, asi que no hay forma de verificar que numero
+  # existe de verdad, y un ARN inventado haria fallar la creacion de la
+  # lambda. Esa region tampoco es utilizable desde la organizacion.
   aws_secrets_layers = {
     "us-west-1"    = ["arn:aws:lambda:us-west-1:997803712105:layer:AWS-Parameters-and-Secrets-Lambda-Extension:18"],
-    "eu-central-1" = ["arn:aws:lambda:eu-central-1:187925254637:layer:AWS-Parameters-and-Secrets-Lambda-Extension:18"],
-    "eu-west-1"    = ["arn:aws:lambda:eu-west-1:015030872274:layer:AWS-Parameters-and-Secrets-Lambda-Extension:18"]
+    "eu-central-1" = ["arn:aws:lambda:eu-central-1:187925254637:layer:AWS-Parameters-and-Secrets-Lambda-Extension:187"],
+    "eu-west-1"    = ["arn:aws:lambda:eu-west-1:015030872274:layer:AWS-Parameters-and-Secrets-Lambda-Extension:159"]
   }
 
   datadog_layers = {
