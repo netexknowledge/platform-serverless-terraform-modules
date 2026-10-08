@@ -1,6 +1,23 @@
 # Changelog of aws-apigateway 
 
 
+## [2.0.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-apigateway@1.0.4...aws-apigateway@2.0.0) (2026-10-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-apigateway:** el modulo exige el provider aws >= 6.0 desde la PR #14, y eso rompe a todos los consumidores actuales.
+
+### Features
+
+* **aws-apigateway:** enhanced TLS security policy + endpoint access mode ([6092d58](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/6092d5827507516dce8f663a0f74d74b47919fbb))
+* **aws-apigateway:** support enhanced TLS security policy and endpoint access mode ([8b1e48c](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/8b1e48ca6624e291a2e6fa426f1a0ba5f036e3ff))
+
+
+### Bug Fixes
+
+* **aws-apigateway:** publicar como major por el salto de provider ([0bfea5f](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/0bfea5fb730f953bec8589a8f6564cbd5e5822a6))
+
 ## [1.0.3](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-apigateway@1.0.2...aws-apigateway@1.0.3) (2025-07-02)
 
 
