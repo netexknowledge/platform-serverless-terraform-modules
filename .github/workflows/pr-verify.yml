@@ -14,7 +14,16 @@ permissions:
 
 jobs:
   commitlint:
-    if: ${{ github.actor != 'sa-github-netex' && contains(github.event.pull_request.labels.*.name, 'no_pr_verify') == false }}
+    # Las PR de release las genera release-please: su titulo y su commit los
+    # escribe la maquina, no una persona, asi que validarlos no aporta nada y
+    # en cambio puede dejar el ciclo de publicacion bloqueado por su propio
+    # lint. Se identifican por la etiqueta autorelease: pending.
+    # El bloque >- es necesario: la etiqueta lleva dos puntos y en un escalar
+    # plano multilinea YAML lo interpreta como un mapa y rompe el fichero.
+    if: >-
+      ${{ github.actor != 'sa-github-netex'
+      && contains(github.event.pull_request.labels.*.name, 'no_pr_verify') == false
+      && contains(github.event.pull_request.labels.*.name, 'autorelease: pending') == false }}
     permissions:
       contents: read
       pull-requests: read
