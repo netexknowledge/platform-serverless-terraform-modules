@@ -2,10 +2,16 @@ name: Commitlint Check
 
 on:
   pull_request:
+    # edited incluido: si no, corregir un titulo mal formado no vuelve a
+    # lanzar la validacion y el check se queda en rojo para siempre.
+    types: [opened, synchronize, reopened, edited]
     branches:
       - "*"
+
 permissions:
-  contents: write
+  contents: read
+  pull-requests: read
+
 jobs:
   commitlint:
     if: ${{ github.actor != 'sa-github-netex' && contains(github.event.pull_request.labels.*.name, 'no_pr_verify') == false }}
@@ -23,41 +29,32 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        id: setup-node
         uses: actions/setup-node@v5
         with:
-          node-version: "16"
+          node-version: "22"
           package-manager-cache: false
-          # cache: 'npm'
-          # cache-dependency-path: |
-          #   package-lock.json
-          #   ~/.npm
-          #   ~/.nx
 
-      - name: Cache npm dependencies
-        id: cache-npm
-        uses: actions/cache@v5
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ github.workflow }}-${{ runner.os }}-npm-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('**/package-lock.json') }}
-      
-      - name: Install dependencies
-        if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm install
+      # commitlint se instala al vuelo en vez de usar
+      # wagoid/commitlint-github-action porque la organizacion restringe que
+      # actions de terceros pueden ejecutarse: con ella el workflow ni siquiera
+      # arranca (startup_failure, cero jobs). Node 22 es obligatorio porque
+      # commitlint 21 declara engines.node >=22.12.0 y usa built-ins de esa
+      # version. Este repo ya no tiene package.json, de ahi el --yes de npx.
+      - name: Validar los commits de la PR
+        run: |
+          npx --yes --package @commitlint/cli@21 --package @commitlint/config-conventional@21 -- \
+            commitlint --config=commitlint.config.js \
+              --from=${{ github.event.pull_request.base.sha }} \
+              --to=${{ github.event.pull_request.head.sha }} --verbose
 
-      - name: Validate PR commits with commitlint
-        if: github.event_name == 'pull_request'
-        run: npx commitlint --config=commitlint.config.ts --from=${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
-
-      - name: Get PR title
-        id: pr-title
+      # El titulo de la PR acaba siendo el mensaje del commit de merge, asi que
+      # se valida con las mismas reglas. Va por variable de entorno y no
+      # interpolado en el script para que un titulo con comillas o $() no se
+      # ejecute en el runner.
+      - name: Validar el titulo de la PR
         env:
-          GH_TOKEN: ${{ github.token }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          pr_title=$(gh pr view ${{ github.event.number }} --json title -q ".title")
-          echo "title=$pr_title" >> $GITHUB_OUTPUT
-      - name: Validate commit title
-        run: |
-          echo "${{ steps.pr-title.outputs.title }}" | npx commitlint --config=commitlint.config.ts
+          printf '%s\n' "$PR_TITLE" | npx --yes \
+            --package @commitlint/cli@21 --package @commitlint/config-conventional@21 -- \
+            commitlint --config=commitlint.config.js --verbose
