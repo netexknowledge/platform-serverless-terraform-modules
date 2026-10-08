@@ -9,6 +9,9 @@ resource "aws_api_gateway_rest_api" "api" {
 
   binary_media_types = var.binary_media_types
 
+  security_policy      = coalesce(var.security_policy, local.default_rest_security_policy)
+  endpoint_access_mode = var.endpoint_access_mode
+
   tags = var.tags
 }
 
