@@ -78,10 +78,15 @@ variable "endpoint_access_mode" {
   description = <<-EOT
     Required by AWS alongside any enhanced (non-legacy) security_policy value (confirmed
     against the real API: without it, update-rest-api/create-rest-api fails with
-    "Endpoint access mode is required for the specified security policy"). "BASIC" doesn't
-    restrict anything extra; "STRICT" adds origin/SNI checks AWS recommends once traffic is
-    validated. Only applies when var.type == "REST", same as security_policy.
+    "Endpoint access mode is required for the specified security policy"). "STRICT" adds
+    origin/SNI checks (for EDGE-type APIs, CloudFront's domain-fronting protection) that AWS
+    recommends using once traffic is validated — do not merge/release this until each
+    consumer has reviewed its access logs after adopting the enhanced security_policy on
+    BASIC (previous version of this module) for a reasonable validation window: STRICT can
+    reject legitimate traffic that doesn't match the expected endpoint type/SNI exactly,
+    unlike BASIC which doesn't restrict anything beyond the TLS policy itself. Only applies
+    when var.type == "REST", same as security_policy.
   EOT
   type        = string
-  default     = "BASIC"
+  default     = "STRICT"
 }
