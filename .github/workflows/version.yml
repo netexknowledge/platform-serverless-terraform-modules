@@ -34,6 +34,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      # SA_NETEX_GITHUB_TOKEN venia de GitLab y nunca se creo en GitHub: el
+      # secreto no existe, GH_TOKEN llegaba vacio y toda llamada a gh moria
+      # con "set the GH_TOKEN environment variable" (exit 4). Se usa la App de
+      # la organizacion, que es el patron del resto de workflows: el prefijo
+      # del repo (platform-*) determina APP_ID_PLATFORM.
+      # Hace falta una App y no el GITHUB_TOKEN del runner porque el ruleset
+      # protect-main-branches exige pull request, y el auto-merge de abajo
+      # solo puede saltarselo un actor con bypass.
+      - name: Generar token de la App
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID_PLATFORM }}
+          private-key: ${{ secrets.PRIVATE_KEY_PLATFORM }}
+          owner: netexknowledge
+          repositories: |
+            platform-serverless-terraform-modules
+
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -100,7 +118,7 @@ jobs:
       - name: Push changes
         if: ${{ env.NEW_COMMITS == 'true' }}
         env:
-          GH_TOKEN: ${{ secrets.SA_NETEX_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git push origin HEAD:version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}
           # Solo las tags recien creadas. Con --tags se intentarian empujar
@@ -134,7 +152,7 @@ jobs:
       - name: Auto-merge PR
         if: ${{ env.NEW_COMMITS == 'true' }}
         env:
-          GH_TOKEN: ${{ secrets.SA_NETEX_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh pr merge ${{ env.PR_CREATED }} --merge --admin --delete-branch --subject "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}" --body "Publised branch version/${{ github.event.number }}-${{ github.event.pull_request.head.sha }}"
 
