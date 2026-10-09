@@ -1,6 +1,14 @@
 # Changelog of aws-apigateway 
 
 
+## [2.1.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-apigateway@2.0.0...aws-apigateway@2.1.0) (2026-10-09)
+
+
+### Features
+
+* **aws-apigateway:** validar los valores de security_policy y access mode ([4608ed6](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/4608ed6a28105f55923a6d67263a35bfb74b661a))
+* **aws-apigateway:** validar los valores de security_policy y endpoint_access_mode ([c59d042](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/c59d04219721bade97043bfc334facedf365308e))
+
 ## [2.0.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-apigateway@1.0.4...aws-apigateway@2.0.0) (2026-10-08)
 
 
