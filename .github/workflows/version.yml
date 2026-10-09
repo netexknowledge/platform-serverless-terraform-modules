@@ -156,16 +156,26 @@ jobs:
             echo "accion=auto" >> "$GITHUB_OUTPUT"
           fi
 
-      # El token es el de la App, que el ruleset protect-main-branches ya tiene
-      # declarada como bypass actor (Integration 994596). No se salta ningun
-      # control: se usa la exencion que la organizacion concedio.
+      # El merge lo hace la App, sin forzar nada: para que funcione, la App
+      # tiene que figurar como bypass actor del ruleset protect-main-branches,
+      # que exige pull request y una aprobacion. Comprobado el 2026-10-09: NO
+      # lo es todavia, y el merge falla con "the base branch policy prohibits
+      # the merge". Hasta que se le conceda, la PR de release hay que mergearla
+      # a mano; el paso lo dice explicitamente en vez de dejar el error crudo
+      # de gh, que no apunta a donde esta el arreglo.
       - name: Publicar la release (solo patch y minor)
         if: steps.decidir.outputs.accion == 'auto'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          gh pr merge "${{ steps.decidir.outputs.pr }}" \
-            --repo "${{ github.repository }}" --merge --delete-branch
+          set -uo pipefail
+          pr="${{ steps.decidir.outputs.pr }}"
+          if gh pr merge "$pr" --repo "${{ github.repository }}" --merge --delete-branch; then
+            echo "Release publicada automaticamente (patch/minor)."
+            exit 0
+          fi
+          echo "::error::No se ha podido mergear la PR de release #$pr. La App que usa este workflow no figura como bypass actor del ruleset protect-main-branches, que exige pull request y una aprobacion. Arreglo: anadir la App a los bypass actors de ese ruleset (Settings > Rules). Mientras tanto, la PR #$pr es correcta y se puede mergear a mano."
+          exit 1
 
       - name: Avisar de que el major espera a una persona
         if: steps.decidir.outputs.accion == 'manual'
@@ -185,10 +195,20 @@ jobs:
     runs-on: ubuntu-latest
     if: failure()
     steps:
+      # TEAMS_WEBHOOK_URL no existe en este repo ni entre los secretos de
+      # organizacion que tiene disponibles, asi que este job llevaba fallando
+      # desde siempre con "curl: (3) URL rejected". Un aviso de fallo que a su
+      # vez falla no avisa de nada y ensucia cada run en rojo con un segundo
+      # error que no es el de verdad. Si algun dia se configura el secreto,
+      # esto empieza a funcionar solo.
       - name: Enviar notificación a Teams
         env:
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
         run: |
+          if [ -z "${TEAMS_WEBHOOK_URL:-}" ]; then
+            echo "::warning::TEAMS_WEBHOOK_URL no esta configurado en este repo: no se envia la notificacion. El fallo real esta en el job anterior."
+            exit 0
+          fi
           RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           MESSAGE_PAYLOAD=$(cat <<-EOF
