@@ -72,6 +72,16 @@ variable "security_policy" {
   EOT
   type        = string
   default     = null
+
+  # Comprobacion deliberadamente laxa: se valida el prefijo, no una lista de
+  # politicas. AWS publica politicas nuevas cada pocos meses y enumerarlas aqui
+  # convertiria cada una en un cambio del modulo. Asi se cazan las erratas de
+  # capitalizacion o de formato, que es el fallo habitual, sin bloquear una
+  # politica valida que todavia no exista.
+  validation {
+    condition     = var.security_policy == null || can(regex("^(SecurityPolicy_|TLS_)", var.security_policy))
+    error_message = "security_policy debe empezar por SecurityPolicy_ (politicas mejoradas) o TLS_ (heredadas), o ser null para que el modulo elija la adecuada segun el tipo de endpoint."
+  }
 }
 
 variable "endpoint_access_mode" {
@@ -84,4 +94,12 @@ variable "endpoint_access_mode" {
   EOT
   type        = string
   default     = "BASIC"
+
+  # Aqui si procede enumerar: AWS solo admite estos dos valores y no es una
+  # lista que crezca. Sin esto, una errata se descubre en el apply, con el
+  # error opaco de la API en vez de en el plan.
+  validation {
+    condition     = contains(["BASIC", "STRICT"], var.endpoint_access_mode)
+    error_message = "endpoint_access_mode debe ser BASIC o STRICT."
+  }
 }
