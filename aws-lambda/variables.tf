@@ -83,7 +83,27 @@ locals {
   # version no pueda dejar a las lambdas sin permisos en silencio.
   create_unqualified_alias_allowed_triggers = try(var.parameters.create_unqualified_alias_allowed_triggers, true)
   cloudwatch_logs_log_group_class           = try(var.parameters.cloudwatch_logs_log_group_class, null)
-  cloudwatch_logs_retention_in_days         = try(var.parameters.cloudwatch_logs_retention_in_days, null)
+
+  # NIST 800-53 r5, control AU-11 (retencion de registros de auditoria): los
+  # logs tienen que conservarse un minimo definido. En Netex son 365 dias.
+  #
+  # Se aplica como SUELO y no como valor fijo: un proyecto puede pedir mas
+  # retencion, o 0, que en CloudWatch significa no expirar nunca y por tanto
+  # tambien cumple. Lo que no puede es pedir menos; si lo hace, se eleva a 365
+  # en silencio en vez de fallar, porque el objetivo es que no haya forma de
+  # quedarse por debajo del minimo ni por descuido ni a proposito.
+  #
+  # Este default existia en la linea heredada de GitLab y se perdio al migrar:
+  # main nunca lo tuvo, asi que desde que las tags flotantes pasaron a servir
+  # el contenido de main (2026-10-07) los modulos devolvian null. Detectado al
+  # revisar los planes del salto de provider: 61 log groups en 8 repos tenian
+  # un "retention_in_days = 365 -> 0" pendiente de aplicarse.
+  retencion_pedida = try(var.parameters.cloudwatch_logs_retention_in_days, null)
+  cloudwatch_logs_retention_in_days = (
+    local.retencion_pedida == null ? 365 :
+    local.retencion_pedida == 0 ? 0 :
+    max(local.retencion_pedida, 365)
+  )
 }
 
 variable "tags" {
