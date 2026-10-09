@@ -1,6 +1,17 @@
 # Changelog of aws-lambda 
 
 
+## [2.0.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.3.0...aws-lambda@2.0.0) (2026-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **aws-lambda:** imponer 365 dias de retencion minima en los logs
+
+### Bug Fixes
+
+* **aws-lambda:** imponer 365 dias de retencion minima en los logs ([9ab5ee1](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/9ab5ee1dd400cd7d2acf17085005091be0a7759a))
+
 ## [1.3.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.2...aws-lambda@1.3.0) (2026-10-09)
 
 
