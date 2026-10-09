@@ -1,5 +1,5 @@
 {
-  "aws-apigateway": "2.0.0",
+  "aws-apigateway": "2.1.0",
   "aws-apigateway-authorizer": "1.0.6",
   "aws-apigateway-deployment": "1.0.13",
   "aws-apigateway-resource": "1.0.2",
