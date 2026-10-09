@@ -119,8 +119,14 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
+          # Se busca por rama y no por etiqueta: "gh pr list --label" usa el
+          # indice de busqueda de GitHub, que es eventualmente consistente, y la
+          # PR de release se acaba de crear en el paso anterior. Visto el
+          # 2026-10-09: la PR #26 se creo a las 08:16:17 y esta consulta, a las
+          # 08:16:23, no la encontro. El nombre de rama lo fija release-please
+          # y es deterministico.
           pr=$(gh pr list --repo "${{ github.repository }}" \
-                 --state open --label "autorelease: pending" \
+                 --state open --head "release-please--branches--${{ github.ref_name }}" \
                  --json number --jq '.[0].number // empty')
           if [ -z "$pr" ]; then
             echo "No hay PR de release pendiente."
