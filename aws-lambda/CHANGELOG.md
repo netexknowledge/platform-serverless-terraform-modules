@@ -1,6 +1,14 @@
 # Changelog of aws-lambda 
 
 
+## [1.3.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.2...aws-lambda@1.3.0) (2026-10-09)
+
+
+### Features
+
+* **modules:** permitir el provider aws 6.x sin forzarlo ([86724f4](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/86724f4c27ef58102c390e865f66263cd4d0752b))
+* **modules:** permitir el provider aws 6.x sin forzarlo ([f7c6448](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/f7c6448fbce714fe118fa287277f30e3f161e7ae))
+
 ## [1.2.2](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.2.1...aws-lambda@1.2.2) (2026-10-08)
 
 
