@@ -1,6 +1,19 @@
 # Changelog of aws-glue-connection 
 
 
+## [1.1.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-glue-connection@1.0.1...aws-glue-connection@1.1.0) (2026-10-09)
+
+
+### Features
+
+* **modules:** permitir el provider aws 6.x sin forzarlo ([86724f4](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/86724f4c27ef58102c390e865f66263cd4d0752b))
+* **modules:** permitir el provider aws 6.x sin forzarlo ([f7c6448](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/f7c6448fbce714fe118fa287277f30e3f161e7ae))
+
+
+### Bug Fixes
+
+* **glue:** usar key en vez de id al referenciar objetos de S3 ([63e7ea5](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/63e7ea525d9a0300958c26fc29ac648476bfa552))
+
 ## [1.0.0](https://git.netexlearning.com/exposed/serverless-terraform-modules/compare/aws-glue-connection@0.0.5...aws-glue-connection@1.0.0) (2025-03-21)
 
 
