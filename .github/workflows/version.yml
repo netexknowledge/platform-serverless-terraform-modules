@@ -156,13 +156,21 @@ jobs:
             echo "accion=auto" >> "$GITHUB_OUTPUT"
           fi
 
-      # El merge lo hace la App, sin forzar nada: para que funcione, la App
-      # tiene que figurar como bypass actor del ruleset protect-main-branches,
-      # que exige pull request y una aprobacion. Comprobado el 2026-10-09: NO
-      # lo es todavia, y el merge falla con "the base branch policy prohibits
-      # the merge". Hasta que se le conceda, la PR de release hay que mergearla
-      # a mano; el paso lo dice explicitamente en vez de dejar el error crudo
-      # de gh, que no apunta a donde esta el arreglo.
+      # Se llama al endpoint REST de merge en vez de a "gh pr merge" a
+      # proposito. gh comprueba mergeStateStatus por su cuenta antes de llamar
+      # a la API y, si lo ve en BLOCKED, aborta en el cliente sin intentarlo
+      # siquiera:
+      #
+      #   X Pull request #23 is not mergeable: the base branch policy
+      #     prohibits the merge.
+      #
+      # El detalle es que mergeStateStatus refleja las REGLAS de la rama, no si
+      # el actor que llama esta exento de ellas. La App de este workflow si
+      # figura como bypass actor del ruleset protect-main-branches, asi que el
+      # servidor si la dejaria mergear; quien lo impedia era gh. Llamando al
+      # endpoint directamente, decide el servidor, que es quien conoce las
+      # exenciones. Comprobado en la PR #23: mergeable=true (no hay conflictos)
+      # con mergeable_state=blocked (lo dicen las reglas).
       - name: Publicar la release (solo patch y minor)
         if: steps.decidir.outputs.accion == 'auto'
         env:
@@ -170,11 +178,19 @@ jobs:
         run: |
           set -uo pipefail
           pr="${{ steps.decidir.outputs.pr }}"
-          if gh pr merge "$pr" --repo "${{ github.repository }}" --merge --delete-branch; then
+          salida=$(gh api -X PUT "/repos/${{ github.repository }}/pulls/$pr/merge" \
+                     -f merge_method=merge 2>&1) && estado=0 || estado=$?
+          if [ "$estado" -eq 0 ]; then
             echo "Release publicada automaticamente (patch/minor)."
+            rama=$(gh pr view "$pr" --repo "${{ github.repository }}" \
+                     --json headRefName --jq .headRefName 2>/dev/null || true)
+            if [ -n "${rama:-}" ]; then
+              gh api -X DELETE "/repos/${{ github.repository }}/git/refs/heads/$rama" >/dev/null 2>&1 || true
+            fi
             exit 0
           fi
-          echo "::error::No se ha podido mergear la PR de release #$pr. La App que usa este workflow no figura como bypass actor del ruleset protect-main-branches, que exige pull request y una aprobacion. Arreglo: anadir la App a los bypass actors de ese ruleset (Settings > Rules). Mientras tanto, la PR #$pr es correcta y se puede mergear a mano."
+          echo "$salida"
+          echo "::error::No se ha podido mergear la PR de release #$pr. Si la respuesta de arriba es un 405, la App de este workflow no esta exenta del ruleset protect-main-branches: hay que anadirla a sus bypass actors (Settings > Rules). Si es un 403, lo que le falta es permiso de contents:write en la instalacion. En cualquier caso la PR #$pr es correcta y se puede mergear a mano."
           exit 1
 
       - name: Avisar de que el major espera a una persona
