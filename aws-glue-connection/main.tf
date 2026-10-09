@@ -13,8 +13,8 @@ locals {
     SECRET_ID            = var.secret_name != "" ? var.secret_name : null
     USERNAME             = var.username != "" ? var.username : null
     PASSWORD             = var.password != "" ? var.password : null
-    CONNECTOR_URL        = var.connector_file_path != null ? aws_s3_object.glue_driver_path[0].id : var.connector_url != "" ? var.connector_url : null # "s3://netex-bre-poc/tmp/mysql-connector-j-8.1.0.jar"
-    CONNECTOR_CLASS_NAME = var.connector_class_name != "" ? var.connector_class_name : null                                                            # "com.mysql.cj.jdbc.Driver"
+    CONNECTOR_URL        = var.connector_file_path != null ? aws_s3_object.glue_driver_path[0].key : var.connector_url != "" ? var.connector_url : null # "s3://netex-bre-poc/tmp/mysql-connector-j-8.1.0.jar"
+    CONNECTOR_CLASS_NAME = var.connector_class_name != "" ? var.connector_class_name : null                                                             # "com.mysql.cj.jdbc.Driver"
     JDBC_ENFORCE_SSL     = var.jdbc_enforce_ssl != "" ? var.jdbc_enforce_ssl : null
   })
 

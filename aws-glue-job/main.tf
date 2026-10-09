@@ -42,7 +42,7 @@ resource "aws_glue_job" "job" {
     name            = "glueetl"
     python_version  = null #"3.9"
     runtime         = null #"Ray2.4"
-    script_location = var.script_file_path != null ? var.s3_create_bucket_glue == false ? "s3://${var.s3_bucket_glue_name}/${aws_s3_object.glue_bucket_path[0].id}" : "s3://${aws_s3_bucket.glue_bucket[0].id}/${aws_s3_object.glue_bucket_path[0].id}" : var.custom_script_location_object_key
+    script_location = var.script_file_path != null ? var.s3_create_bucket_glue == false ? "s3://${var.s3_bucket_glue_name}/${aws_s3_object.glue_bucket_path[0].key}" : "s3://${aws_s3_bucket.glue_bucket[0].id}/${aws_s3_object.glue_bucket_path[0].key}" : var.custom_script_location_object_key
   }
 
   default_arguments = local.connection_job_arguments
