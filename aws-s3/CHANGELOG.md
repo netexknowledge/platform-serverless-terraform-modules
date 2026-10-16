@@ -1,6 +1,13 @@
 # Changelog of aws-s3 
 
 
+## [1.1.1](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-s3@1.1.0...aws-s3@1.1.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* **aws-s3:** add force_destroy and prevent_destroy variables ([16b8a7f](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/16b8a7f85dfce0d4160a820ce345c3e249354a79))
+
 ## [1.1.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-s3@1.0.5...aws-s3@1.1.0) (2026-10-09)
 
 
