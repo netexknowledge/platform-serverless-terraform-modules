@@ -1,6 +1,13 @@
 # Changelog of aws-lambda 
 
 
+## [2.0.1](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@2.0.0...aws-lambda@2.0.1) (2026-10-16)
+
+
+### Bug Fixes
+
+* **aws-lambda:** add force_destroy and prevent_destroy variables ([6043cf7](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/6043cf7786419f715c2b12240747814572d81981))
+
 ## [2.0.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@1.3.0...aws-lambda@2.0.0) (2026-10-09)
 
 
