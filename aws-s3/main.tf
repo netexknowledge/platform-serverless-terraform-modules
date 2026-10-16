@@ -2,19 +2,29 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = format("netex-%s", local.resource_name)
 
-  # TODO: this not support: https://github.com/hashicorp/terraform/issues/22544
-  # lifecycle {
-  #   prevent_destroy = var.prevent_destroy
-  # }
+  # Sin esto, terraform no puede borrar un bucket que tenga algo dentro: AWS
+  # responde BucketNotEmpty y el destroy muere a medias, dejando el stack en un
+  # estado intermedio. Y como el versionado esta siempre activo mas abajo, "algo
+  # dentro" incluye versiones antiguas y delete markers, no solo objetos
+  # visibles.
+  #
+  # Por defecto false a proposito: que haga falta pedirlo de forma explicita es
+  # lo unico que separa un "vacie el bloque del tfvars" de un borrado de datos.
+  force_destroy = var.force_destroy
 
-  # TODO: This option is not working, because prevent_destroy not support non static value
-  # dynamic "lifecycle" {
-  #   for_each = var.prevent_destroy ? [1] : []
+  # prevent_destroy de lifecycle NO sirve aqui: solo admite literales, no puede
+  # leer una variable (hashicorp/terraform#22544, abierto desde 2019). Durante
+  # anos este modulo tuvo esa intencion escrita en dos bloques comentados y una
+  # variable prevent_destroy que no hacia absolutamente nada, mientras cinco
+  # repos de estado la ponian a true creyendose protegidos. La proteccion real se
+  # aplica ahora en la politica del bucket, mas abajo.
 
-  #   content {
-  #     prevent_destroy = var.prevent_destroy
-  #   }
-  # }
+  lifecycle {
+    precondition {
+      condition     = !(var.force_destroy && var.prevent_destroy)
+      error_message = "force_destroy y prevent_destroy se contradicen: uno borra el bucket con contenido y el otro prohibe borrarlo. Elige uno."
+    }
+  }
 
   tags = merge(
     { Name = format("netex-%s", local.resource_name) },
@@ -53,7 +63,7 @@ resource "aws_s3_bucket_policy" "bucket" {
 
   policy = jsonencode({
     "Version" : "2012-10-17",
-    "Statement" : [
+    "Statement" : concat([
       {
         "Sid" : "AllowSSLRequestsOnly",
         "Action" : "s3:*",
@@ -69,7 +79,23 @@ resource "aws_s3_bucket_policy" "bucket" {
         },
         "Principal" : "*"
       }
-    ]
+      ],
+      # Esta es la proteccion de verdad, la que lifecycle no puede dar: un Deny
+      # explicito sobre s3:DeleteBucket. Aplica a todo el mundo, incluida la
+      # cuenta, asi que para borrar el bucket hay que pasar antes prevent_destroy
+      # a false y aplicar: dos pasos deliberados, igual que el
+      # deletion_protection de DynamoDB. No bloquea DeleteBucketPolicy, asi que
+      # quitar la proteccion sigue siendo un apply normal y no deja el bucket
+      # irrecuperable.
+      var.prevent_destroy ? [
+        {
+          "Sid" : "DenyDeleteBucket",
+          "Action" : "s3:DeleteBucket",
+          "Effect" : "Deny",
+          "Resource" : ["${aws_s3_bucket.bucket.arn}"],
+          "Principal" : "*"
+        }
+    ] : [])
   })
 }
 

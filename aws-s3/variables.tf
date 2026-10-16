@@ -47,7 +47,13 @@ variable "versioning" {
 }
 
 variable "prevent_destroy" {
-  description = "Force destroy bucket"
+  description = "Prohibe borrar el bucket: anade un Deny explicito sobre s3:DeleteBucket en la politica del bucket. Para borrarlo hay que ponerlo a false y aplicar primero. No usa lifecycle.prevent_destroy, que solo admite literales."
+  type        = bool
+  default     = false
+}
+
+variable "force_destroy" {
+  description = "Permite a terraform borrar el bucket aunque tenga contenido, incluidas versiones antiguas y delete markers. Sin esto AWS responde BucketNotEmpty y el destroy falla a medias. Dejar en false salvo que se quiera borrar los datos a proposito."
   type        = bool
   default     = false
 }
