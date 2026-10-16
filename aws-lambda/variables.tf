@@ -159,3 +159,9 @@ variable "vpc_subnet_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "source_bucket_force_destroy" {
+  description = "Permite borrar el bucket de fuentes de la lambda aunque conserve zips o versiones antiguas. True por defecto: solo contiene artefactos que terraform regenera. Ponlo a false si en ese bucket se guarda algo mas."
+  type        = bool
+  default     = true
+}

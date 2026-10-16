@@ -12,6 +12,14 @@ resource "aws_s3_bucket" "source_lambda" {
 
   bucket = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result)
 
+  # Por defecto true, al reves que en aws-s3, y es deliberado: aqui dentro solo
+  # hay los zips que sube el propio terraform al empaquetar la lambda, y se
+  # reconstruyen desde el repo en el siguiente apply. Sin esto, vaciar
+  # "lambdas = {}" para dar de baja un proyecto falla con BucketNotEmpty y deja
+  # el borrado a medias, que es justo el procedimiento que queremos que funcione
+  # de una pasada.
+  force_destroy = var.source_bucket_force_destroy
+
   tags = merge(
     { Name = local.s3_bucket != null ? local.s3_bucket : format("netex-%s-%s-%s-lambda-source-%s", var.tags.project, var.tags.environment, var.tags.product, random_string.bucket_suffix.result) },
     var.tags
