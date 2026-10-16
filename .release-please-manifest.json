@@ -11,7 +11,7 @@
   "aws-glue-job": "1.1.0",
   "aws-glue-trigger": "1.1.0",
   "aws-lambda": "2.0.0",
-  "aws-s3": "1.1.0",
+  "aws-s3": "1.1.1",
   "aws-s3-notification": "1.1.0",
   "aws-sns": "1.1.0",
   "aws-sqs": "1.1.0"
