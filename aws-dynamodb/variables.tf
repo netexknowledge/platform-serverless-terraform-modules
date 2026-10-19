@@ -83,3 +83,15 @@ variable "delete_protection" {
   type        = bool
   default     = true
 }
+
+variable "stream_view_type" {
+  description = "Que escribe el stream en cada cambio. Solo se aplica si el stream esta encendido. Con replica_regions se fuerza a NEW_AND_OLD_IMAGES, que es lo que exige una Global Table."
+  type        = string
+  default     = "NEW_AND_OLD_IMAGES"
+}
+
+variable "replica_regions" {
+  description = "Regiones donde replicar la tabla como Global Table v2, p.ej. [\"eu-central-1\"]. La replica conserva el mismo nombre de tabla. Vacio = sin replicacion."
+  type        = list(string)
+  default     = []
+}
