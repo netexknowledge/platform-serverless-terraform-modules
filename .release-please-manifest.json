@@ -3,7 +3,7 @@
   "aws-apigateway-authorizer": "1.1.0",
   "aws-apigateway-deployment": "1.1.0",
   "aws-apigateway-resource": "1.1.0",
-  "aws-dynamodb": "1.1.0",
+  "aws-dynamodb": "1.2.0",
   "aws-glue-catalog": "1.1.0",
   "aws-glue-catalog-table": "1.1.0",
   "aws-glue-connection": "1.1.0",
