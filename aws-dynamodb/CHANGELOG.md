@@ -1,6 +1,14 @@
 # Changelog of aws-dynamodb 
 
 
+## [1.2.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-dynamodb@1.1.0...aws-dynamodb@1.2.0) (2026-10-19)
+
+
+### Features
+
+* **aws-dynamodb:** replicar la tabla en otra region con Global Tables ([f33ea50](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/f33ea5089d14b86369211017e3bd416f4ad96817))
+* **aws-dynamodb:** replicar la tabla en otra region con Global Tables ([c961cc0](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/c961cc06daab37ace387dd75d762652ba551787f))
+
 ## [1.1.0](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-dynamodb@1.0.2...aws-dynamodb@1.1.0) (2026-10-09)
 
 
