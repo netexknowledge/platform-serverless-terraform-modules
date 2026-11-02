@@ -1,6 +1,14 @@
 # Changelog of aws-lambda 
 
 
+## [2.0.3](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@2.0.2...aws-lambda@2.0.3) (2026-11-02)
+
+
+### Bug Fixes
+
+* **aws-lambda:** enable datadog wrapper in pre ([b89301e](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/b89301eb28c5ac3419c997cdf9bd47f38a79e2fb))
+* **aws-lambda:** enable datadog wrapper in pre ([e30f15f](https://github.com/netexknowledge/platform-serverless-terraform-modules/commit/e30f15f1ab3a1b879116a82e57229b5dbd956ef2))
+
 ## [2.0.2](https://github.com/netexknowledge/platform-serverless-terraform-modules/compare/aws-lambda@2.0.1...aws-lambda@2.0.2) (2026-11-02)
 
 
