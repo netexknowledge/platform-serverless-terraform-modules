@@ -74,7 +74,9 @@ locals {
 
   datadog_runtime_family = startswith(local.runtime, "python") ? "python" : startswith(local.runtime, "nodejs") ? "nodejs" : ""
 
-  lambda_handler = var.add_datadog_layer && var.datadog_wrapper_handler ? lookup(local.datadog_wrapper_handlers, local.datadog_runtime_family, local.handler) : local.handler
+  datadog_wrapper_enabled = var.datadog_wrapper_handler || contains(var.datadog_wrapper_handler_environments, lookup(var.tags, "environment", ""))
+
+  lambda_handler = var.add_datadog_layer && local.datadog_wrapper_enabled ? lookup(local.datadog_wrapper_handlers, local.datadog_runtime_family, local.handler) : local.handler
 }
 
 module "lambda_function" {
