@@ -149,6 +149,12 @@ variable "datadog_wrapper_handler" {
   default     = false
 }
 
+variable "datadog_wrapper_handler_environments" {
+  description = "Environments where the Datadog handler wrapper is used without setting datadog_wrapper_handler"
+  type        = list(string)
+  default     = ["des"]
+}
+
 variable "vpc_security_group_ids" {
   description = "Vpc security group id for lambda functions"
   type        = list(string)
