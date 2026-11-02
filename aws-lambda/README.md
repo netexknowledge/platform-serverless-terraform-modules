@@ -45,7 +45,8 @@
 | <a name="input_allowed_triggers"></a> [allowed\_triggers](#input\_allowed\_triggers) | Allowed triggers to add the lambda | `any` | `{}` | no |
 | <a name="input_datadog_wrapper_handler"></a> [datadog\_wrapper\_handler](#input\_datadog\_wrapper\_handler) | Use the Datadog handler wrapper so the tracer instruments the function | `bool` | `false` | no |
 | <a name="input_datadog_wrapper_handler_environments"></a> [datadog\_wrapper\_handler\_environments](#input\_datadog\_wrapper\_handler\_environments) | Environments where the Datadog handler wrapper is used without setting datadog\_wrapper\_handler | `list(string)` | <pre>[
-  "des"
+  "des",
+  "pre"
 ]</pre> | no |
 | <a name="input_lambdas_permissions"></a> [lambdas\_permissions](#input\_lambdas\_permissions) | Permissions to add to the lambda | `any` | `{}` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | Lamba parameters to be passed to the module. The function\_name should be converted to <tags.product>-<tags.environment>-<tags.project>-<value\_of\_function\_name> | `any` | <pre>{<br/>  "allowed_triggers": {},<br/>  "build_in_docker": false,<br/>  "create_sam_metadata": false,<br/>  "docker_image": "",<br/>  "function_name": "",<br/>  "handler": "",<br/>  "publish": false,<br/>  "runtime": "",<br/>  "source_path": null,<br/>  "timeout": 3<br/>}</pre> | no |

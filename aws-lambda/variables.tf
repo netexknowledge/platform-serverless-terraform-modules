@@ -152,7 +152,7 @@ variable "datadog_wrapper_handler" {
 variable "datadog_wrapper_handler_environments" {
   description = "Environments where the Datadog handler wrapper is used without setting datadog_wrapper_handler"
   type        = list(string)
-  default     = ["des"]
+  default     = ["des", "pre"]
 }
 
 variable "vpc_security_group_ids" {
